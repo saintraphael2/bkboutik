@@ -19,6 +19,8 @@ use App\Models\Tableau_armortissement;
 use Illuminate\Http\Request;
 use Flash;
 use DB;
+use Illuminate\Validation\ValidationException;
+use PHPUnit\Framework\Exception;
 
 class ContratController extends AppBaseController
 {
@@ -67,7 +69,11 @@ class ContratController extends AppBaseController
         $conducteurs = $this->conducteurRepository->all();
         $typepieces = $this->typepieceRepository->all();
         $typecontrats = $this->typeContratRepository->all();
-        $motos = $this->motoRepository->all(['disponible'=>1]);
+        $motos = Moto::where([
+            'disponible' => 1
+        ])->orderby('immatriculation')->get();
+        //$motos = $this->motoRepository->all(['disponible'=>1]);
+        //$motos = $this->motoRepository->all();
         //dd($conducteur);
         return view('contrats.create')->with([
             'conducteur' => $conducteur,
@@ -86,13 +92,17 @@ class ContratController extends AppBaseController
         $request->request->add(['solde' => $request->input('montant_total')]);
         $input = $request->all();
         
+        $moto = $this->motoRepository->find($request->moto);
+        if(!$moto->disponible){
+            // Retour négatif si la moto n'est pas disponible
+            throw new Exception("Moto non disponible");
+            //throw new ValidationException()
+        }
+        
         if(!$request->control){
             $contrat = $this->contratRepository->create($input);
-
-            $moto = $this->motoRepository->find($request->moto);
-            $moto->update([
-                'disponible' => 0,
-            ]);
+            
+            $moto->update(['disponible' => 0]);
             
             $this->createTableauArmortissement($contrat->id);
         }
@@ -173,7 +183,7 @@ class ContratController extends AppBaseController
         }
 
         $contrat = $this->contratRepository->update($request->all(), $id);
-        $tableauArmortissement=Tableau_armortissement::where('contrat',$id)->delete();
+        Tableau_armortissement::where('contrat',$id)->delete();
         $this->createTableauArmortissement($contrat->id);
         Flash::success('Contrat mis à jour avec succès.');
 
