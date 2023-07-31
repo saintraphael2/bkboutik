@@ -175,13 +175,19 @@ class ContratController extends AppBaseController
     {
         $request->request->add(['solde' => $request->input('montant_total')]);
         $contrat = $this->contratRepository->find($id);
-       
+
         if (empty($contrat)) {
             Flash::error('Contrat not found');
 
             return redirect(route('contrats.index'));
         }
-
+        $moto = $this->motoRepository->find($request->moto);
+        if($moto && $moto->id != $contrat->moto && !$moto->disponible){
+            // Retour négatif si la moto n'est pas disponible
+            Flash::error("Moto non disponible");
+            return redirect(route('contrats.index'));
+        }
+        
         $contrat = $this->contratRepository->update($request->all(), $id);
         Tableau_armortissement::where('contrat',$id)->delete();
         $this->createTableauArmortissement($contrat->id);
