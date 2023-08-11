@@ -21,6 +21,7 @@ use Flash;
 use DB;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\Exception;
+use Auth;
 
 class ContratController extends AppBaseController
 {
@@ -90,6 +91,7 @@ class ContratController extends AppBaseController
     public function store(CreateContratRequest $request)
     {
         $request->request->add(['solde' => $request->input('montant_total')]);
+        $request->request->add(['agent' => Auth::user()->id]);
         $input = $request->all();
         
         $moto = $this->motoRepository->find($request->moto);
@@ -213,7 +215,31 @@ class ContratController extends AppBaseController
 
         $this->contratRepository->delete($id);
 
-        Flash::success('Contrat supprimé(e) avec succès. ');
+        Flash::success('Contrat supprimé avec succès. ');
+
+        return redirect(route('contrats.index'));
+    }
+
+    public function state($id)
+    {
+        $contrat = $this->contratRepository->find($id);
+        if (empty($contrat)) {
+            Flash::error('Contrat not found');
+
+            return redirect(route('contrats.index'));
+        }
+        $etat = 1;
+        $message = 'Contrat activé avec succès. ';
+
+        //$request->request->add(['solde' => $request->input('montant_total')]);
+        if($contrat->actif) {
+            $etat = 0;
+            $message = 'Contrat désactivé avec succès. ';
+        }
+
+        $contrat = $this->contratRepository->update(['actif' => $etat], $id);
+
+        Flash::success($message);
 
         return redirect(route('contrats.index'));
     }

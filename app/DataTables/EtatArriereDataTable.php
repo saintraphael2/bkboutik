@@ -54,7 +54,7 @@ class EtatArriereDataTable extends DataTable
      */
     public function query(Contrat $model)
     {
-        $query = $model->newQuery()->with([
+        $query = $model->newQuery()->where('actif',1)->with([
             'typecontrats',
             'motos',
             'conducteurs'

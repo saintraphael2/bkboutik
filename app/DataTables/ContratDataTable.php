@@ -3,11 +3,15 @@
 namespace App\DataTables;
 
 use App\Models\Contrat;
+use PhpOffice\PhpSpreadsheet\Calculation\Logical\Boolean;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Yajra\DataTables\Html\SearchPane;
 
 class ContratDataTable extends DataTable
 {
+    public int $actif = 1;
+
     /**
      * Build DataTable class.
      *
@@ -44,7 +48,7 @@ class ContratDataTable extends DataTable
      */
     public function query(Contrat $model)
     {
-        return $model->newQuery()->with([
+        return $model->newQuery()->where('actif',$this->actif)->with([
             'typecontrats',
             'motos',
             'conducteurs'
@@ -64,8 +68,9 @@ class ContratDataTable extends DataTable
             ->addColumnDef(["className"=>"text-right", "targets"=> [ 4 ] ]) // addColumnDef
             ->minifiedAjax()
             ->addAction(['width' => '120px', 'printable' => false])
+            //->searchPanes(SearchPane::make())
             ->parameters([
-                'dom'       => 'Bfrtip',
+                'dom'       => 'PBfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
                 'language' => [
@@ -74,7 +79,7 @@ class ContratDataTable extends DataTable
                 'buttons'   => [
                     // Enable Buttons as per your need
 //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
-//                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
+                    ['extend' => 'export', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'print', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reset', 'className' => 'btn btn-default btn-sm no-corner',],
 //                    ['extend' => 'reload', 'className' => 'btn btn-default btn-sm no-corner',],
