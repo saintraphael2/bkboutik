@@ -228,17 +228,22 @@ class ContratController extends AppBaseController
 
             return redirect(route('contrats.index'));
         }
-        $etat = 1;
-        $message = 'Contrat activé avec succès. ';
+       
+        if(!$contrat->actif) {
+            Flash::error("Contrat déjà désactivé");
 
-        //$request->request->add(['solde' => $request->input('montant_total')]);
-        if($contrat->actif) {
-            $etat = 0;
-            $message = 'Contrat désactivé avec succès. ';
+            return redirect(route('contrats.index'));
         }
 
-        $contrat = $this->contratRepository->update(['actif' => $etat], $id);
+        //$etat = 1;
+        //$message = 'Contrat activé avec succès. ';
+        $etat = 0;
+        $message = 'Contrat désactivé avec succès.';
 
+        $contrat = $this->contratRepository->update(['actif' => $etat], $id);
+        $moto = $this->motoRepository->find($contrat->moto);
+        $moto->update(['disponible' => 1]);
+        
         Flash::success($message);
 
         return redirect(route('contrats.index'));

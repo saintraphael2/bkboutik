@@ -36,6 +36,7 @@ class HomeController extends Controller
 
         $query = Contrat::join('tableau_armortissement', 'contrat.id', '=', 'tableau_armortissement.contrat')
         ->where([
+            ['contrat.actif', 1],
             ['tableau_armortissement.etat', 'NON PAYE'],
             ['tableau_armortissement.datprev','<', Carbon::now()]
         ])
