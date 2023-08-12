@@ -188,7 +188,8 @@ class ContratController extends AppBaseController
     public function destroy($id)
     {
         $contrat = $this->contratRepository->find($id);
-
+		
+		$tableauArmortissement=Tableau_armortissement::where('contrat',$id)->delete();
         if (empty($contrat)) {
             Flash::error('Contrat not found');
 
