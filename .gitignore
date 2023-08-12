@@ -1,0 +1,13 @@
+/storage/*.key
+/.fleet
+/.idea
+/.vscode
+.env
+.editorconfig
+.phpunit.result.cache
+composer.lock
+Homestead.json
+Homestead.yaml
+auth.json
+npm-debug.log
+yarn-error.log

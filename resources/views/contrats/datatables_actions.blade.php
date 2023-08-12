@@ -13,9 +13,14 @@
     {!! Form::button('<i class="fa fa-trash"></i>', [
         'type' => 'submit',
         'class' => 'btn btn-danger btn-xs',
-        'onclick' => 'return confirm("'.__('Etes- vous sûr?').'")'
+        'onclick' => 'return confirm("'.__('Etes- vous sûr de supprimer ?').'")'
 
     ]) !!}
+    @endif
+    @if($actif)
+    <a href="{{ route('contrats.state', $id) }}" class='btn btn-warning btn-xs' onclick="return confirm('Etes- vous sûr de désactiver ?')">
+        <i class="fa fa-ban"></i>
+    </a>
     @endif
 </div>
 {!! Form::close() !!}

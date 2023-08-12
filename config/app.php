@@ -16,8 +16,8 @@ return [
     */
 
     'name' => env('APP_NAME', 'Laravel'),
-    'address' => env('APP_ADDRESS', "Adresse de l'entreprise"),
-    'contact' => env('APP_CONTACT', "Tel : 228 - XXXXXXXX"),
+    'address' => env('APP_ADDRESS', "Adidogomé Sagbado"),
+    'contact' => env('APP_CONTACT', "Tel : 228 - 92191010 / 92192020"),
 
     /*
     |--------------------------------------------------------------------------

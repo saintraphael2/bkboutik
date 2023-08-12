@@ -33,6 +33,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('cautions', App\Http\Controllers\CautionController::class);
     Route::resource('compagnieassurances', App\Http\Controllers\CompagnieAssuranceController::class);
     Route::resource('conducteurs', App\Http\Controllers\ConducteurController::class);
+    Route::get('contrats/state/{id}',['as' => 'contrats.state' , 'uses' => 'ContratController@state'] );
     Route::resource('contrats', App\Http\Controllers\ContratController::class);
     Route::resource('contratAssurances', App\Http\Controllers\ContratAssuranceController::class);
     Route::resource('motos', App\Http\Controllers\MotoController::class);

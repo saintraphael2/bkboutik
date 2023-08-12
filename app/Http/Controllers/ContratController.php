@@ -19,6 +19,9 @@ use App\Models\Tableau_armortissement;
 use Illuminate\Http\Request;
 use Flash;
 use DB;
+use Illuminate\Validation\ValidationException;
+use PHPUnit\Framework\Exception;
+use Auth;
 
 class ContratController extends AppBaseController
 {
@@ -67,7 +70,11 @@ class ContratController extends AppBaseController
         $conducteurs = $this->conducteurRepository->all();
         $typepieces = $this->typepieceRepository->all();
         $typecontrats = $this->typeContratRepository->all();
-        $motos = $this->motoRepository->all(['disponible'=>1]);
+        $motos = Moto::where([
+            'disponible' => 1
+        ])->orderby('immatriculation')->get();
+        //$motos = $this->motoRepository->all(['disponible'=>1]);
+        //$motos = $this->motoRepository->all();
         //dd($conducteur);
         return view('contrats.create')->with([
             'conducteur' => $conducteur,
@@ -84,15 +91,20 @@ class ContratController extends AppBaseController
     public function store(CreateContratRequest $request)
     {
         $request->request->add(['solde' => $request->input('montant_total')]);
+        $request->request->add(['agent' => Auth::user()->id]);
         $input = $request->all();
+        
+        $moto = $this->motoRepository->find($request->moto);
+        if(!$moto->disponible){
+            // Retour négatif si la moto n'est pas disponible
+            throw new Exception("Moto non disponible");
+            //throw new ValidationException()
+        }
         
         if(!$request->control){
             $contrat = $this->contratRepository->create($input);
-
-            $moto = $this->motoRepository->find($request->moto);
-            $moto->update([
-                'disponible' => 0,
-            ]);
+            
+            $moto->update(['disponible' => 0]);
             
             $this->createTableauArmortissement($contrat->id);
         }
@@ -165,15 +177,21 @@ class ContratController extends AppBaseController
     {
         $request->request->add(['solde' => $request->input('montant_total')]);
         $contrat = $this->contratRepository->find($id);
-       
+
         if (empty($contrat)) {
             Flash::error('Contrat not found');
 
             return redirect(route('contrats.index'));
         }
-
+        $moto = $this->motoRepository->find($request->moto);
+        if($moto && $moto->id != $contrat->moto && !$moto->disponible){
+            // Retour négatif si la moto n'est pas disponible
+            Flash::error("Moto non disponible");
+            return redirect(route('contrats.index'));
+        }
+        
         $contrat = $this->contratRepository->update($request->all(), $id);
-        $tableauArmortissement=Tableau_armortissement::where('contrat',$id)->delete();
+        Tableau_armortissement::where('contrat',$id)->delete();
         $this->createTableauArmortissement($contrat->id);
         Flash::success('Contrat mis à jour avec succès.');
 
@@ -198,7 +216,36 @@ class ContratController extends AppBaseController
 
         $this->contratRepository->delete($id);
 
-        Flash::success('Contrat supprimé(e) avec succès. ');
+        Flash::success('Contrat supprimé avec succès. ');
+
+        return redirect(route('contrats.index'));
+    }
+
+    public function state($id)
+    {
+        $contrat = $this->contratRepository->find($id);
+        if (empty($contrat)) {
+            Flash::error('Contrat not found');
+
+            return redirect(route('contrats.index'));
+        }
+       
+        if(!$contrat->actif) {
+            Flash::error("Contrat déjà désactivé");
+
+            return redirect(route('contrats.index'));
+        }
+
+        //$etat = 1;
+        //$message = 'Contrat activé avec succès. ';
+        $etat = 0;
+        $message = 'Contrat désactivé avec succès.';
+
+        $contrat = $this->contratRepository->update(['actif' => $etat], $id);
+        $moto = $this->motoRepository->find($contrat->moto);
+        $moto->update(['disponible' => 1]);
+        
+        Flash::success($message);
 
         return redirect(route('contrats.index'));
     }

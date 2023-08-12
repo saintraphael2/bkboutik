@@ -23,7 +23,9 @@ class Contrat extends Model
         'observation',
         'montant',
         'solde',
-        'journalier'
+        'journalier',
+        'agent',
+        'actif'
     ];
 
     protected $casts = [
@@ -55,7 +57,9 @@ class Contrat extends Model
         'journalier' => 'nullable|boolean',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        'deleted_at' => 'nullable',
+        'agent' => 'nullable',
+        'actif' => 'nullable|boolean'
     ];
 
     public static function boot()
@@ -107,5 +111,10 @@ class Contrat extends Model
     public function versements(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Versement::class, 'contrat');
+    }
+
+    public function agent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'agent');
     }
 }
