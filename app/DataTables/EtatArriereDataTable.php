@@ -42,6 +42,12 @@ class EtatArriereDataTable extends DataTable
         })*/
         ->editColumn('journalier', function ($request) {
             return ($request->journalier)?"JOURNALIER":"HEBDOMADAIRE";
+        })
+        ->editColumn('moto', function ($row) {
+            return $row->motos['immatriculation'];
+        })
+        ->editColumn('conducteur', function ($row) {
+            return $row->conducteurs['nom'];
         });
         return $dataTable;
     }
@@ -115,18 +121,14 @@ class EtatArriereDataTable extends DataTable
     {
         return [
             'numero'=> ['title' => 'Contrat','name'=>'numero'],
-            'moto' => new \Yajra\DataTables\Html\Column([
+            'moto',
+            /*'moto' => new \Yajra\DataTables\Html\Column([
                 'title' => 'Moto', 
                 'data' => 'motos.immatriculation', //chassis
                 'name' => 'moto'
-            ]),
-            //'conducteur',
-            'conducteur' => new \Yajra\DataTables\Html\Column([
-                'title' => 'Conducteur', 
-                'data' => 'conducteurs.nom',
-                //'data' => 'conducteur.get_full_name',
-                'name' => 'conducteur'
-            ]),
+            ]),*/
+            'conducteur',
+            //'conducteur'=> ['title' => 'Conducteur','name'=>'conducteur','data'=>'conducteurs.nom'],
             'journalier'=> new \Yajra\DataTables\Html\Column([
                 'title' => 'Mode de Paiement', 
                 'data' => 'journalier',
