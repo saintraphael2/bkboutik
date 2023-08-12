@@ -31,8 +31,12 @@ class HomeController extends Controller
         $nbConducteurs = Conducteur::count();
         $nbMotos = Moto::count();
 
-        $nbContrats = Contrat::count();
-        $contrats = Contrat::latest()->take(5)->get();
+        $nbContrats = Contrat::where([
+            ['contrat.actif', 1]
+        ])->count();
+        $contrats = Contrat::where([
+            ['contrat.actif', 1]
+        ])->latest()->take(5)->get();
 
         $query = Contrat::join('tableau_armortissement', 'contrat.id', '=', 'tableau_armortissement.contrat')
         ->where([
