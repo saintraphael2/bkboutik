@@ -115,4 +115,11 @@ class EtatController extends AppBaseController
         ]);
     }
 
+    public function contratDesactives(ContratDataTable $contratDataTable)
+    {    
+        $contratDataTable->actif = 0;
+        return $contratDataTable->render('contrats.index');
+    
+    }
+
 }
