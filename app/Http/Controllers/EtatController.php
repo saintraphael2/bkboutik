@@ -105,7 +105,9 @@ class EtatController extends AppBaseController
             $etatEncaissementDataTable->toDate = $toDate;
 
             $query->whereBetween('date', [$fromDate, $toDate]);
-        }
+        }else{
+			$query->where('date',Carbon::today());
+		}
 
         $caisse = $query->sum('montant');
 

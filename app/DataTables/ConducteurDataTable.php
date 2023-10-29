@@ -35,7 +35,8 @@ class ConducteurDataTable extends DataTable
      */
     public function query(Conducteur $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
+        ->where('contrat.actif', 1);
     }
 
     /**

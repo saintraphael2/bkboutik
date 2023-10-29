@@ -252,7 +252,8 @@
     } */
 
     $('#immatriculation').change(function(){
-        console.log("on change immatriculation :")
+        console.log("on change immatriculation 1:")
+		console.log(@json($motos))
         let availableValues = @json($motos);
         let index = availableValues.findIndex(x => x.immatriculation == $('#immatriculation').val())
         //console.log(immatriculation, availableValues, index, availableValues[index])

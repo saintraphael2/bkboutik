@@ -28,7 +28,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $nbConducteurs = Conducteur::count();
+        $nbConducteurs = Conducteur::join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
+        ->where('contrat.actif', 1)->count();
         $nbMotos = Moto::count();
 
         $nbContrats = Contrat::where([
@@ -53,7 +54,7 @@ class HomeController extends Controller
         //->get();
         
         
-        $nbArrieres = $query->count();
+        $nbArrieres = count($query->get()->toArray());
         $arrieres = $query->latest()->take(5)->get();
 
         return view('home')->with([

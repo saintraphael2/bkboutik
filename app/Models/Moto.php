@@ -42,7 +42,7 @@ class Moto extends Model
 
     public function mycontrat(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
-        return $this->hasMany(\App\Models\Contrat::class, 'moto');
+        return $this->hasMany(\App\Models\Contrat::class, 'moto')->where('actif', 1);
     }
 
     public function contrats(): \Illuminate\Database\Eloquent\Relations\HasMany
