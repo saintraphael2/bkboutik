@@ -37,6 +37,9 @@ class ContratDataTable extends DataTable
         })
         ->editColumn('journalier', function ($request) {
             return ($request->journalier)?"JOURNALIER":"HEBDOMADAIRE";
+        })->filterColumn('moto', function($query, $keyword) {
+            $sql = "moto in (select id from moto where immatriculation  like ?)";
+            $query->whereRaw($sql, ["%{$keyword}%"]);
         });
     }
 
