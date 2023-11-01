@@ -90,7 +90,9 @@ class EtatController extends AppBaseController
     {
         $caissiers = User::get();
         $query = Versement::orderby('id','desc');
-
+		//var_dump($etatEncaissementDataTable->search);
+		//echo urldecode("http://192.168.1.124/bkzed/public/etats/encaissements?draw=1&columns%5B0%5D%5Bdata%5D=numero_recu&columns%5B1%5D%5Bdata%5D=contrat&columns%5B2%5D%5Bdata%5D=moto&columns%5B3%5D%5Bdata%5D=date&columns%5B4%5D%5Bdata%5D=caissier&columns%5B5%5D%5Bdata%5D=montant&columns%5B6%5D%5Bdata%5D=action&columns%5B6%5D%5Bsearchable%5D=false&columns%5B6%5D%5Borderable%5D=false&order%5B0%5D%5Bcolumn%5D=0&order%5B0%5D%5Bdir%5D=desc&start=0&length=10&search%5Bvalue%5D=DU&_=1698870768427");
+		//exit;
         if($request->caissier){
             $etatEncaissementDataTable->caissier = $request->caissier;
             $query->where('caissier', $request->caissier);

@@ -15,6 +15,7 @@ class EtatEncaissementDataTable extends DataTable
     public $caissier;
     public $fromDate;
     public $toDate;
+	public $search;
 
 
     /**
@@ -26,7 +27,7 @@ class EtatEncaissementDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-       
+		$search="4444";
         //return $dataTable->addColumn('action', 'versements.datatables_actions')
         return $dataTable->editColumn('contrat', function ($request) {
             return $request->contrats->numero;
@@ -34,6 +35,9 @@ class EtatEncaissementDataTable extends DataTable
         
         ->editColumn('caissier', function ($request) {
             return ($request->myCaissier) ? $request->myCaissier->name : "---";
+        })
+		 ->editColumn('moto', function ($request) {
+            return $request->contrats->motos['immatriculation'];
         })
         ->editColumn('montant', function ($request) {
             return number_format($request->montant, 0," ", " ");
@@ -46,6 +50,9 @@ class EtatEncaissementDataTable extends DataTable
         })
         ->editColumn('date', function ($request) {
             return $request->date->format('d-m-Y');
+        })->filterColumn('moto', function($query, $keyword) {
+            $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
+            $query->whereRaw($sql, ["%{$keyword}%"]);
         });
     }
 
@@ -76,7 +83,9 @@ class EtatEncaissementDataTable extends DataTable
                 $query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
             }*/
             $query->whereBetween('date', [$this->fromDate, $this->toDate]);
-        }
+        }else{
+			$query->where('date',Carbon::today());
+		}
 
         return $query;
     }
@@ -121,6 +130,7 @@ class EtatEncaissementDataTable extends DataTable
         return [
             'numero_recu'=> ['title' => 'Numéro reçu','name'=>'numero_recu'],
             'contrat',
+            'moto',
             'date',
             'caissier',
             'montant',
