@@ -10,6 +10,7 @@ class UsersRepository extends BaseRepository
     protected $fieldSearchable = [
         'name',
         'email',
+        'comptable',
         'email_verified_at',
         'password',
         'remember_token'

@@ -796,7 +796,6 @@ class ComposerStaticInitcc86ca0b862e84a76b1741909f0068c8
         'App\\Models\\Typepiece' => __DIR__ . '/../..' . '/app/Models/Typepiece.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/app/Models/User.php',
         'App\\Models\\User_liens' => __DIR__ . '/../..' . '/app/Models/User_liens.php',
-        'App\\Models\\Users' => __DIR__ . '/../..' . '/app/Models/Users.php',
         'App\\Models\\Versement' => __DIR__ . '/../..' . '/app/Models/Versement.php',
         'App\\Models\\Vidange' => __DIR__ . '/../..' . '/app/Models/Vidange.php',
         'App\\Providers\\AppServiceProvider' => __DIR__ . '/../..' . '/app/Providers/AppServiceProvider.php',

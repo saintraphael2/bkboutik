@@ -15,7 +15,7 @@ class EtatEncaissementDataTable extends DataTable
     public $caissier;
     public $fromDate;
     public $toDate;
-	public $search;
+	public $comptable;
 
 
     /**
@@ -27,7 +27,7 @@ class EtatEncaissementDataTable extends DataTable
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
-		$search="4444";
+		
         
         //return $dataTable->addColumn('action', 'versements.datatables_actions')
         return $dataTable->editColumn('contrat', function ($request) {
@@ -53,6 +53,9 @@ class EtatEncaissementDataTable extends DataTable
             return $request->date->format('d-m-Y');
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
+            if($this->comptable==null){
+                $query=$query->whereRaw($sql, ["%{$keyword}%"])->where('date','>=',Carbon::now()->addDays(-10));
+            }else
             $query=$query->whereRaw($sql, ["%{$keyword}%"]);
         })
         ->withQuery('total', function($filteredQuery) {
@@ -80,6 +83,7 @@ class EtatEncaissementDataTable extends DataTable
         if($this->caissier){
             $query->where('caissier', $this->caissier);
         }
+       
 
         if($this->fromDate && $this->toDate){
             /*if(Carbon::parse($this->fromDate).equalTo(Carbon::parse($this->toDate))){
@@ -92,6 +96,9 @@ class EtatEncaissementDataTable extends DataTable
 			$query->where('date',Carbon::today());
 		}
 
+        if($this->comptable==null){
+            $query->where('date','>=',Carbon::now()->addDays(-10));
+        }
         return $query;
     }
 
