@@ -16,7 +16,7 @@ class ConducteurDataTable extends DataTable
      */
     public function dataTable($query)
     {
-        $dataTable = new EloquentDataTable($query);
+        $dataTable = new EloquentDataTable($query); 
 
         return $dataTable->addColumn('action', 'conducteurs.datatables_actions')
         ->editColumn('type_piece', function ($request) {
@@ -36,7 +36,16 @@ class ConducteurDataTable extends DataTable
     public function query(Conducteur $model)
     {
         return $model->newQuery()->join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
-        ->where('contrat.actif', 1);
+        ->where('contrat.actif', 1)->select('conducteur.id', 'nom',
+            'prenom',
+            'telephone',
+            'quartier',
+            'date_naissance',
+            'photo',
+            'caution',
+            'type_piece',
+            'numero_piece');
+        
     }
 
     /**

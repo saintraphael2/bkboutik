@@ -28,6 +28,7 @@ class EtatEncaissementDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 		$search="4444";
+        
         //return $dataTable->addColumn('action', 'versements.datatables_actions')
         return $dataTable->editColumn('contrat', function ($request) {
             return $request->contrats->numero;
@@ -52,8 +53,12 @@ class EtatEncaissementDataTable extends DataTable
             return $request->date->format('d-m-Y');
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
-            $query->whereRaw($sql, ["%{$keyword}%"]);
-        });
+            $query=$query->whereRaw($sql, ["%{$keyword}%"]);
+        })
+        ->withQuery('total', function($filteredQuery) {
+            return $filteredQuery->sum('montant');
+        })
+        ;
     }
 
     /**

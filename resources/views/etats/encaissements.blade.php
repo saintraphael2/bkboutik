@@ -55,13 +55,13 @@
 
         <div class="clearfix"></div>
 
-        <div class="info-box bg-gradient-warning">
+       <!-- <div class="info-box bg-gradient-warning">
             <span class="info-box-icon"><i class="fa fa-sack-dollar"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Montant de la caisse</span>
                 <span class="info-box-number">{{ $caisse ?? "---"}} XOF</span>
             </div>
-        </div>
+        </div>-->
         <div class="card">
             @include('etats.encaissements_table')
         </div>
@@ -114,6 +114,15 @@
             let redirect_url = "{{ route('etats.encaissements') }}"
             console.log("redirect Url : ", redirect_url)
             showSuccess(redirect_url, null, null)
+        });
+
+        $(function() {
+            var table = $('#dataTableBuilder').DataTable();
+            var json = table.rows().data();
+            $('#dataTableBuilder').on( 'draw.dt', function () {
+                console.log(table.ajax.json().total)
+                $(".dataTables_info").append('.   Montant Total : <b>' +new Intl.NumberFormat().format(table.ajax.json().total)+ ' CFA </b>');
+            } );
         });
 </script>
 @endpush
