@@ -9,7 +9,10 @@ class users extends Model
     public $table = 'users';
 
     public $fillable = [
-        
+        'name',
+        'comptable',
+        'email',
+        'password',
     ];
 
     protected $casts = [

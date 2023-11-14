@@ -54,8 +54,8 @@ class EtatEncaissementDataTable extends DataTable
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
             if($this->comptable==null){
-                $query=$query->whereRaw($sql, ["%{$keyword}%"])->where('date','>=',Carbon::now()->addDays(-10));
-            }else
+                $query=$query->whereRaw($sql, ["%{$keyword}%"])->where('date','>=',Carbon::now()->addDays(-15));
+            }
             $query=$query->whereRaw($sql, ["%{$keyword}%"]);
         })
         ->withQuery('total', function($filteredQuery) {
@@ -92,13 +92,19 @@ class EtatEncaissementDataTable extends DataTable
                 $query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
             }*/
             $query->whereBetween('date', [$this->fromDate, $this->toDate]);
+			
+			if($this->comptable==null){
+				$query->where('date','>=',Carbon::now()->addDays(-15));
+			}
         }else{
-			$query->where('date',Carbon::today());
+			if($this->comptable==null){
+				$query->where('date',Carbon::today());
+			}
 		}
 
-        if($this->comptable==null){
-            $query->where('date','>=',Carbon::now()->addDays(-10));
-        }
+		
+			
+        
         return $query;
     }
 

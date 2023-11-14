@@ -1,6 +1,4 @@
-@extends('layouts.app')
-
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <section class="content-header">
         <div class="container-fluid">
@@ -20,49 +18,49 @@
                 <div class="small-box bg-gradient-info">
                     <div class="inner">
                         
-                        @if ( Auth::user()->comptable==1  )
-                        <h3>{{ $nbConducteurs ?? "---" }}</h3>
-                    @else
+                        <?php if( Auth::user()->comptable==1  ): ?>
+                        <h3><?php echo e($nbConducteurs ?? "---"); ?></h3>
+                    <?php else: ?>
                     <h3>--</h3>
-                    @endif
+                    <?php endif; ?>
                         <p>Conducteurs</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-user-plus"></i>
                     </div>
-                    @if ( Auth::user()->comptable==1  )
-                        <a href="{{ route('conducteurs.index') }}" class="small-box-footer">
+                    <?php if( Auth::user()->comptable==1  ): ?>
+                        <a href="<?php echo e(route('conducteurs.index')); ?>" class="small-box-footer">
                             Voir plus <i class="fas fa-arrow-circle-right"></i>
                         </a>
-                    @else
+                    <?php else: ?>
                     <a href="#" class="small-box-footer">
                             Voir plus <i class="fas fa-arrow-circle-right"></i>
                         </a>
-                        @endif
+                        <?php endif; ?>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-gradient-success">
                     <div class="inner">
-                    @if ( Auth::user()->comptable==1  )
-                        <h3>{{ $nbMotos ?? "---" }}</h3>
-                    @else
+                    <?php if( Auth::user()->comptable==1  ): ?>
+                        <h3><?php echo e($nbMotos ?? "---"); ?></h3>
+                    <?php else: ?>
                     <h3>--</h3>
-                    @endif
+                    <?php endif; ?>
                         <p>Motos</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-motorcycle"></i>
                     </div>
-                    @if ( Auth::user()->comptable==1  )
-                        <a href="{{ route('motos.index') }}" class="small-box-footer">
+                    <?php if( Auth::user()->comptable==1  ): ?>
+                        <a href="<?php echo e(route('motos.index')); ?>" class="small-box-footer">
                             Voir plus <i class="fas fa-arrow-circle-right"></i>
                         </a>
-                    @else
+                    <?php else: ?>
                     <a href="#" class="small-box-footer">
                             Voir plus <i class="fas fa-arrow-circle-right"></i>
                         </a>
-                    @endif
+                    <?php endif; ?>
                     
                 </div>
             </div>
@@ -70,11 +68,11 @@
                 <div class="small-box bg-gradient-warning">
                     <div class="inner">
                    
-                    @if ( Auth::user()->comptable==1  )
-                    <h3>{{ $nbContrats ?? "---" }}</h3>
-                    @else
+                    <?php if( Auth::user()->comptable==1  ): ?>
+                    <h3><?php echo e($nbContrats ?? "---"); ?></h3>
+                    <?php else: ?>
                     <h3>--</h3>
-                    @endif
+                    <?php endif; ?>
                         
                         
                         <p>Contrats</p>
@@ -82,27 +80,27 @@
                     <div class="icon">
                         <i class="fas fa-file-signature"></i>
                     </div>
-                    @if ( Auth::user()->comptable==1  )
-                    <a href="{{ route('contrats.index') }}" class="small-box-footer">
+                    <?php if( Auth::user()->comptable==1  ): ?>
+                    <a href="<?php echo e(route('contrats.index')); ?>" class="small-box-footer">
                         Voir plus <i class="fas fa-arrow-circle-right"></i>
                     </a>
-                    @else
+                    <?php else: ?>
                     <a href="#" class="small-box-footer">
                             Voir plus <i class="fas fa-arrow-circle-right"></i>
                         </a>
-                    @endif
+                    <?php endif; ?>
                 </div>
             </div>
             <div class="col-lg-3 col-6">
                 <div class="small-box bg-gradient-danger">
                     <div class="inner">
-                        <h3>{{ $nbArrieres ?? "---" }}</h3>
+                        <h3><?php echo e($nbArrieres ?? "---"); ?></h3>
                         <p>Nombre d'arriérés</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-list-check"></i>
                     </div>
-                    <a href="{{ route('etats.arrieres') }}" class="small-box-footer">
+                    <a href="<?php echo e(route('etats.arrieres')); ?>" class="small-box-footer">
                         Voir plus <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
@@ -129,21 +127,23 @@
                                 </tr>
                             </thead>
                             <tbody  style="font-size:small">
-                                @if($contrats)
-                                    @foreach($contrats as $key => $contrat)
+                                <?php if($contrats): ?>
+                                    <?php $__currentLoopData = $contrats; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $contrat): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
-                                            <td>{{ $key+1 }}.</td>
-                                            <td>{{ $contrat->numero }}</td>
+                                            <td><?php echo e($key+1); ?>.</td>
+                                            <td><?php echo e($contrat->numero); ?></td>
                                             <td>
-                                                {{ $contrat->motos->immatriculation }}
+                                                <?php echo e($contrat->motos->immatriculation); ?>
+
                                             </td>
                                             <td class="text-right">
-                                                {{ number_format($contrat->montant_total, 0," ", " ") }}
+                                                <?php echo e(number_format($contrat->montant_total, 0," ", " ")); ?>
+
                                             </td>
-                                            <td>{{ $contrat->created_at->format('d-m-Y H:i') }}</td>
+                                            <td><?php echo e($contrat->created_at->format('d-m-Y H:i')); ?></td>
                                         </tr>
-                                    @endforeach
-                                @endif
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -167,26 +167,30 @@
                                 </tr>
                             </thead>
                             <tbody style="font-size:small">
-                                @if($arrieres)
-                                    @foreach($arrieres as $key => $arriere)
+                                <?php if($arrieres): ?>
+                                    <?php $__currentLoopData = $arrieres; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $arriere): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <tr>
-                                            <td>{{ $key+1 }}.</td>
+                                            <td><?php echo e($key+1); ?>.</td>
                                             <td>
-                                                {{ $arriere->conducteurs->nom }} {{ $arriere->conducteurs->prenom }}
+                                                <?php echo e($arriere->conducteurs->nom); ?> <?php echo e($arriere->conducteurs->prenom); ?>
+
                                             </td>
                                             <td>
-                                                {{ $arriere->motos->immatriculation }}
+                                                <?php echo e($arriere->motos->immatriculation); ?>
+
                                             </td>
                                             <td>
-                                                {{ ($arriere->journalier) ? "JOURNALIER" : "HEBDOMADAIRE" }}
+                                                <?php echo e(($arriere->journalier) ? "JOURNALIER" : "HEBDOMADAIRE"); ?>
+
                                             </td>
                                             <td class="text-right">
-                                                {{ number_format($arriere->arrieres, 0," ", " ") }}
+                                                <?php echo e(number_format($arriere->arrieres, 0," ", " ")); ?>
+
                                             </td>
-                                            <td class="text-right">{{ $arriere->retard }}</td>
+                                            <td class="text-right"><?php echo e($arriere->retard); ?></td>
                                         </tr>
-                                    @endforeach
-                                @endif
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php endif; ?>
                             </tbody>
                         </table>
                     </div>
@@ -194,4 +198,6 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH C:\inetpub\wwwroot\bkzed\resources\views/home.blade.php ENDPATH**/ ?>

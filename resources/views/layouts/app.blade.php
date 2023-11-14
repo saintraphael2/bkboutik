@@ -108,7 +108,7 @@
                              class="img-circle elevation-2"
                              alt="User Image">
                         <p>
-                            {{ Auth::user()->name }}
+                            {{ Auth::user()->name }} 
                             <small>Member since {{ Auth::user()->created_at->format('M. Y') }}</small>
                         </p>
                     </li>

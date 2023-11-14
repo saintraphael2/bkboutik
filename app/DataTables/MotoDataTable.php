@@ -14,6 +14,7 @@ class MotoDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
+    public $comptable;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
@@ -38,7 +39,11 @@ class MotoDataTable extends DataTable
      */
     public function query(Moto $model)
     {
-        return $model->newQuery();
+        if($this->comptable==1)
+            $query= $model->newQuery();
+        else
+            $query= $model->newQuery()->where("disponible",1);
+        return $query;
     }
 
     /**

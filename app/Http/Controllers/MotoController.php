@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\MotoRepository;
 use Illuminate\Http\Request;
 use Flash;
+use Auth;
 
 class MotoController extends AppBaseController
 {
@@ -27,6 +28,7 @@ class MotoController extends AppBaseController
      */
     public function index(MotoDataTable $motoDataTable)
     {
+        $motoDataTable->comptable=Auth::user()->comptable;
     return $motoDataTable->render('motos.index');
     }
 
