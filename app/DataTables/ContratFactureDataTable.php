@@ -14,6 +14,7 @@ class ContratFactureDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
+	 public $comptable;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
@@ -33,6 +34,9 @@ class ContratFactureDataTable extends DataTable
         })
         ->editColumn('journalier', function ($request) {
             return ($request->journalier)?"JOURNALIER":"HEBDOMADAIRE";
+        })->filterColumn('moto', function($query, $keyword) {
+            $sql = "moto in (select id from moto where immatriculation  like ?)";
+            $query->whereRaw($sql, ["%{$keyword}%"]);
         });
     }
 
@@ -44,7 +48,7 @@ class ContratFactureDataTable extends DataTable
      */
     public function query(Contrat $model)
     {
-        return $model->newQuery()->whereIn('id',function($query){
+         $query=$model->newQuery()->whereIn('id',function($query){
             $query->select('contrat')->from('versement');
          })->with([
             'typecontrats',
@@ -52,6 +56,11 @@ class ContratFactureDataTable extends DataTable
             'conducteurs'
             
         ])->orderby('id','desc');
+		
+		 if($this->comptable==null){
+                $query=$query->offset(0)->limit(10);
+            }
+        return $query; 
     }
 
     /**
@@ -124,6 +133,7 @@ class ContratFactureDataTable extends DataTable
                 //'data' => 'conducteur.get_full_name',
                 'name' => 'journalier'
             ]),
+			
             //'montant_total'=>['render'=>'function(){return "<div style="text-align:right;">"+data+"<\div>"}'],
             //'montant_total'=>['render'=>'function(){return "<td class="text-right">"+data+"<\td>";}'],
             //'montant_total'=>['render'=>'function(){return '<td class='text-right'>'.data.'<\td>'; }"],

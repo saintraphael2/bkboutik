@@ -39,10 +39,17 @@ class MotoDataTable extends DataTable
      */
     public function query(Moto $model)
     {
-        if($this->comptable==1)
-            $query= $model->newQuery();
-        else
-            $query= $model->newQuery()->where("disponible",1);
+		//var_dump($this->comptable);exit;
+        //if($this->comptable==1){
+            $query= $model->newQuery()->orderby('id','desc');
+       // }else
+			if($this->comptable==null){
+			$query= $model->newQuery()->where("disponible",1);
+           // $query= $query->offset(0)->limit(10);
+            //$query= $model->newQuery()->skip(10)->take(10);
+			
+		}
+            //$query= $model->newQuery()->where("disponible",1);
         return $query;
     }
 

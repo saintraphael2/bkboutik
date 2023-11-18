@@ -9,8 +9,8 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="<?php echo e(route('motos.index')); ?>">
-                                                   Listes des motos
+                       href="<?php echo e(route('versements.index')); ?>">
+                                                   Facturation
                                             </a>
                 </div>
             </div>

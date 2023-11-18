@@ -15,6 +15,7 @@ class VersementDataTable extends DataTable
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public int $idContrat;
+	public $comptable;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
@@ -46,10 +47,13 @@ class VersementDataTable extends DataTable
      */
     public function query(Versement $model)
     {
-        
-        return $model->newQuery()->where('contrat',$this->idContrat)->with([
+		$query = $model->newQuery()->where('contrat',$this->idContrat)->with([
             'contrats'
-        ]); 
+        ]);
+        /*if($this->comptable==null){
+                $query=$query->offset(0)->limit(10);
+            }*/
+        return $query; 
     }
 
     /**

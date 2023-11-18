@@ -47,7 +47,7 @@ class VersementController extends AppBaseController
      * Display a listing of the Versement.
      */
     public function index(ContratFactureDataTable $contratFactureDataTable) {
-       
+       $contratFactureDataTable->comptable=Auth::user()->comptable;
         return $contratFactureDataTable->render('versements.index');
     }
     public function listeVersement ($idContrat, $idVersement)
