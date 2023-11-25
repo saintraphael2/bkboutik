@@ -234,7 +234,10 @@
     let montantRestant = 0
     let arrieres = 0
     let amortissementsArray = []
-
+    let echeanceArray = []
+    let position_ligne=-1
+    let position_ligne_p=-1
+    let id_ligne_p=-1
     //console.log("initialisation", <?php echo json_encode($configStepsLimit, 15, 512) ?>, <?php echo json_encode($currentStep, 15, 512) ?>, <?php echo json_encode($contrat->motos->immatriculation, 15, 512) ?>)
     //showSuccess(null, "Opération réussie", null)
     //setImmatriculationAutocompletion()
@@ -244,9 +247,10 @@
     setCurrentStep(<?php echo json_encode($currentStep, 15, 512) ?>)
     setRedirectUrl('<?php echo e(route('versements.index')); ?>')
     configStepsLimit(<?php echo json_encode($configStepsLimit, 15, 512) ?>)
+    setEcheanceArray(<?php echo json_encode($listeecheance, 15, 512) ?>)
     setProgression(currentStep-1)
     showStep(currentStep)
-                        
+    console.log("amortissement_"+echeanceArray[0].id);                
     /* function setImmatriculationAutocompletion(){
         console.log("setImmatriculationAutocompletion", <?php echo json_encode($motos, 15, 512) ?>)
         let availableValues = <?php echo json_encode($motos, 15, 512) ?>;
@@ -287,6 +291,12 @@
     function setContratId(value) {
         contratId = value
     }
+    function setEcheanceArray(value) {
+        echeanceArray= value
+    }
+    function setPosition(value) {
+        position= value
+    }
 
     function setImmatriculation(value){
         let immatriculation = $('#immatriculation').val()
@@ -313,16 +323,30 @@
 
     function validateAmortissement(id, montant, solde) {
         //let $this = $(this).find('input:checked')
+        
+        getPosition(id)
+        
         let data = {
             id : parseInt(id),
             montant : parseInt(montant),
             solde : parseInt(solde),
         }
         let index = amortissementsArray.findIndex(x => x.id === data.id)
-        
-        console.log("validateAmortissement", data, index)
-
-        //if (index > -1){
+       
+       // console.log(data.id,"select", id," *******",position_ligne," AAA",position_ligne_p," BBBB",id_ligne_p,"fffff")
+       // console.log("validateAmortissement", data, index)
+        if(position_ligne>0 && index < 0&& amortissementsArray.findIndex(x => x.id === id_ligne_p)<0){
+            console.clear();
+            console.log(amortissementsArray)
+            console.log(id_ligne_p+"ggggggg"+amortissementsArray.findIndex(x => x.id === id_ligne_p) );
+            /*if(!$("#amortissement_"+id_ligne_p).is(':checked')){
+                $("#amortissement_"+id).prop("checked", false);
+                return false;
+            }*/
+            alert("Merci de selectionner dans l'ordre chronologique les échéances");
+            $("#amortissement_"+id).prop("checked", false);
+        }else{
+             //if (index > -1){
         if (index < 0){
             console.log("Checkbox checked!")
             amortissementsArray.push(data)
@@ -338,6 +362,8 @@
 
         }
         console.log("amortissements choisis : ", amortissementsArray, montantTotal)
+        }
+       
     }
 
 
@@ -430,7 +456,20 @@
         }
     //}
 }
+function getPosition(value){
+    for(i=0;i<echeanceArray.length;i++){
+        position_ligne=i;
+        position_ligne_p=position_ligne-1;
+        if(position_ligne_p>-1){
+            id_ligne_p=echeanceArray[position_ligne_p].id
+        }
+        if(echeanceArray[i].id==value){
+            
+            break;
+        }
 
+    }
+}
 /////////////////// TRASH //////////////////////////////////
 
 //createDataTable("<?php echo e(route('users.index')); ?>")

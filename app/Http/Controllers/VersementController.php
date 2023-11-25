@@ -89,7 +89,7 @@ class VersementController extends AppBaseController
             ['contrat', $contrat->id],
             ['etat', "NON PAYE"]
             
-        ])->orderby('id','asc')->offset(0)->limit(10)->get();
+        ])->orderby('datprev','asc')->offset(0)->limit(10)->get();
         $viewParameters = [
             'configStepsLimit' => $configStepsLimit,
             'currentStep' => $currentStep,
