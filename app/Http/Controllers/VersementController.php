@@ -85,13 +85,17 @@ class VersementController extends AppBaseController
             ['datprev', '<=', Carbon::now()]
         ])->sum('montant');
         //dd($arrieres);
-        
+        $listeecheance=Tableau_armortissement::select('id')->where([
+            ['contrat', $contrat->id],
+            ['etat', "NON PAYE"]
+            
+        ])->orderby('id','asc')->offset(0)->limit(10)->get();
         $viewParameters = [
             'configStepsLimit' => $configStepsLimit,
             'currentStep' => $currentStep,
             'contrat' => $contrat,
             'arrieres' => $arrieres,
-            //'motos' => $motos,
+            'listeecheance' => $listeecheance,
             'motos' => $motos->load('mycontrat')
         ];
 

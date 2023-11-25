@@ -54,7 +54,13 @@ class Tableau_armortissementDataTable extends DataTable
             $parameters['etat'] = "NON PAYE";
         }
 
-        return $model->newQuery()->where($parameters);
+        $query=$model->newQuery()->where($parameters)->orderby('id','asc');
+        if($this->payment){
+            $query= $query->offset(0)->limit(10);
+        }
+        
+        //return $model->newQuery()->where($parameters);
+        return $query;
     }
 
 

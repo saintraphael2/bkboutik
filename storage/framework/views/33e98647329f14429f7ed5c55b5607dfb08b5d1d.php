@@ -1,14 +1,14 @@
-@extends('layouts.app')
 
-@push('page_css')
+
+<?php $__env->startPush('page_css'); ?>
 <style>
 .arrieres>input:first-child+label::before {
     border: 1px solid #dc3545 !important;
 }
 </style>
-@endpush
+<?php $__env->stopPush(); ?>
 
-@section('content')
+<?php $__env->startSection('content'); ?>
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -23,7 +23,7 @@
 
     <div class="content px-3">
 
-        @include('adminlte-templates::common.errors')
+        <?php echo $__env->make('adminlte-templates::common.errors', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
 
         <!-- progressbar -->
         <ul id="progressbar">
@@ -45,22 +45,25 @@
                 </div>
                 <div class="card-body">
                     <form id="form-step-1" action="#" method="POST">
-                        {{ csrf_field() }}
+                        <?php echo e(csrf_field()); ?>
+
                         <div class="row">
                             <!-- Immatriculation Field -->
                             <div class="form-group col-sm-3">
-                                {!! Form::label('immatriculation', 'Immatriculation (TG-1234-AB):') !!}
-                                {!! Form::text('immatriculation', null, ['class' => 'form-control basicAutoSelect', 'required', 'maxlength' => 100, 'maxlength' => 100, 'list' => "list-immatriculation"]) !!}
+                                <?php echo Form::label('immatriculation', 'Immatriculation (TG-1234-AB):'); ?>
+
+                                <?php echo Form::text('immatriculation', null, ['class' => 'form-control basicAutoSelect', 'required', 'maxlength' => 100, 'maxlength' => 100, 'list' => "list-immatriculation"]); ?>
+
                                 <datalist id="list-immatriculation">
-                                @foreach ($motos as $moto)
-                                        <option>{{ $moto->immatriculation }}</option>
-                                        <!-- <option value="{{ $moto->contrats->first()->id ?? 0 }}">{{ $moto->immatriculation }}</option> -->
-                                    @endforeach
+                                <?php $__currentLoopData = $motos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $moto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option><?php echo e($moto->immatriculation); ?></option>
+                                        <!-- <option value="<?php echo e($moto->contrats->first()->id ?? 0); ?>"><?php echo e($moto->immatriculation); ?></option> -->
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </datalist>
                                 <!-- <select class="form-control basicAutoSelect" name="immatriculation" id="immatriculation" required=required placeholder="type to search..." autocomplete="off">
-                                    @foreach ($motos as $moto)
-                                        <option value="{{ $moto->contrats->first()->id ?? 0 }}">{{ $moto->immatriculation }}</option>
-                                    @endforeach
+                                    <?php $__currentLoopData = $motos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $moto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($moto->contrats->first()->id ?? 0); ?>"><?php echo e($moto->immatriculation); ?></option>
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select> -->
                                 <span class="text-danger font-size-xsmall error_type_piece_conducteur"></span>
                             </div>
@@ -69,7 +72,7 @@
                 </div>
                 <div class="d-block text-right card-footer">
                     <div class="col-xl-12 col-12">
-                        <a href="{{ route('versements.index') }}" class="btn btn-default pull-right cancel-step">
+                        <a href="<?php echo e(route('versements.index')); ?>" class="btn btn-default pull-right cancel-step">
                             <i class="fa fa-circle-xmark"></i>
                             Annuler
                         </a>
@@ -86,17 +89,18 @@
                     Amortissement :
                 </div>
                 <div class="card-body">
-                    @include('contrats.show_fields_second')
+                    <?php echo $__env->make('contrats.show_fields_second', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     <br>
                 
                     <form id="form-step-2" action="#" method="POST">
-                        {{ csrf_field() }}
-                        @include('tableau_armortissements.table')
+                        <?php echo e(csrf_field()); ?>
+
+                        <?php echo $__env->make('tableau_armortissements.table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
                     </form>
                 </div>
                 <div class="d-block text-right card-footer">
                     <div class="col-xl-12 col-12">
-                        <a href="{{ route('versements.index') }}" class="btn btn-default pull-right cancel-step">
+                        <a href="<?php echo e(route('versements.index')); ?>" class="btn btn-default pull-right cancel-step">
                             <i class="fa fa-circle-xmark"></i>
                             Annuler
                         </a>
@@ -126,20 +130,21 @@
                                     <h4>VERSEMENT N° VRSM-....... </h4>
                                 </td>
 								<td colspan="2" style="text-align:right">
-									<img src="{{ asset('images/logo_bk_zed.png') }}" width="100px" heigth="50px">
+									<img src="<?php echo e(asset('images/logo_bk_zed.png')); ?>" width="100px" heigth="50px">
 								</td>
                             </tr>
                             <tr>
                                 <td colspan="3" class="border-unset" style="width: 600px;">
-                                    <h5>{{ config('app.name') }}</h5>
-                                    {{ config('app.address') }} <br>
-                                    {{ config('app.contact') }}
+                                    <h5><?php echo e(config('app.name')); ?></h5>
+                                    <?php echo e(config('app.address')); ?> <br>
+                                    <?php echo e(config('app.contact')); ?>
+
                                 </td>
                                 <td class="border-unset">
                                     <h5>Client :</h5>
-                                    {{ $contrat->conducteurs['nom']}} {{$contrat->conducteurs['prenom'] }} <br>
-                                    Addresse : {{ $contrat->conducteurs['quartier']}} <br>
-                                    Tel : {{ $contrat->conducteurs['telephone']}} <br>
+                                    <?php echo e($contrat->conducteurs['nom']); ?> <?php echo e($contrat->conducteurs['prenom']); ?> <br>
+                                    Addresse : <?php echo e($contrat->conducteurs['quartier']); ?> <br>
+                                    Tel : <?php echo e($contrat->conducteurs['telephone']); ?> <br>
                                 </td>
                             </tr>
                             <tr>
@@ -155,7 +160,7 @@
                             </tr>
                             <tr>
                                 <td>1</td>
-                                <td class="border-right">Paiement du contrat N° {{ $contrat->numero }}</td>
+                                <td class="border-right">Paiement du contrat N° <?php echo e($contrat->numero); ?></td>
                                 <td class="text-right"><span class="montant_total"></span></td>
                             </tr>
                             <tr><td>&nbsp</td><td class="border-right"></td><td></td></tr>
@@ -177,16 +182,17 @@
                                 Arrêter le présent versement à la somme de <span class="montant_total_lettre" style="font-weight: bold;">xxxx</span> francs CFA.
                             </i>
                             <br><br>
-                            Fait à Lomé, le {{ date("j-m-Y H:i") }}
+                            Fait à Lomé, le <?php echo e(date("j-m-Y H:i")); ?>
+
                             <br><br><br>
-                            {{ Auth::user()->name }}<br>
+                            <?php echo e(Auth::user()->name); ?><br>
                             Le caissier
                         </p>
                     </div>
                 </div>
                 <div class="d-block text-right card-footer">
                     <div class="col-xl-12 col-12">
-                        <a href="{{ route('versements.index') }}" class="btn btn-default pull-right cancel-step">
+                        <a href="<?php echo e(route('versements.index')); ?>" class="btn btn-default pull-right cancel-step">
                             <i class="fa fa-circle-xmark"></i>
                             Annuler
                         </a>
@@ -203,11 +209,11 @@
             </div>
         </div>
     </div>
-@endsection
+<?php $__env->stopSection(); ?>
 
 
 
-@push('page_scripts')
+<?php $__env->startPush('page_scripts'); ?>
 <script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', e => {
@@ -228,26 +234,22 @@
     let montantRestant = 0
     let arrieres = 0
     let amortissementsArray = []
-    let echeanceArray = []
-    let position_ligne=-1
-    let position_ligne_p=-1
-    let id_ligne_p=-1
-    //console.log("initialisation", @json($configStepsLimit), @json($currentStep), @json($contrat->motos->immatriculation))
+
+    //console.log("initialisation", <?php echo json_encode($configStepsLimit, 15, 512) ?>, <?php echo json_encode($currentStep, 15, 512) ?>, <?php echo json_encode($contrat->motos->immatriculation, 15, 512) ?>)
     //showSuccess(null, "Opération réussie", null)
     //setImmatriculationAutocompletion()
-    setContratId(@json($contrat->id))
-    setArrieres(@json($arrieres))
-    setImmatriculation(@json($contrat->motos->immatriculation))
-    setCurrentStep(@json($currentStep))
-    setRedirectUrl('{{route('versements.index')}}')
-    configStepsLimit(@json($configStepsLimit))
-    setEcheanceArray(@json($listeecheance))
+    setContratId(<?php echo json_encode($contrat->id, 15, 512) ?>)
+    setArrieres(<?php echo json_encode($arrieres, 15, 512) ?>)
+    setImmatriculation(<?php echo json_encode($contrat->motos->immatriculation, 15, 512) ?>)
+    setCurrentStep(<?php echo json_encode($currentStep, 15, 512) ?>)
+    setRedirectUrl('<?php echo e(route('versements.index')); ?>')
+    configStepsLimit(<?php echo json_encode($configStepsLimit, 15, 512) ?>)
     setProgression(currentStep-1)
     showStep(currentStep)
-    console.log("amortissement_"+echeanceArray[0].id);                
+                        
     /* function setImmatriculationAutocompletion(){
-        console.log("setImmatriculationAutocompletion", @json($motos))
-        let availableValues = @json($motos);
+        console.log("setImmatriculationAutocompletion", <?php echo json_encode($motos, 15, 512) ?>)
+        let availableValues = <?php echo json_encode($motos, 15, 512) ?>;
         console.log(availableValues)
          $('#immatriculation').autocomplete({
             source: availableValues,
@@ -257,8 +259,8 @@
 
     $('#immatriculation').change(function(){
         console.log("on change immatriculation 1:")
-		console.log(@json($motos))
-        let availableValues = @json($motos);
+		console.log(<?php echo json_encode($motos, 15, 512) ?>)
+        let availableValues = <?php echo json_encode($motos, 15, 512) ?>;
         let index = availableValues.findIndex(x => x.immatriculation == $('#immatriculation').val())
         //console.log(immatriculation, availableValues, index, availableValues[index])
         if(availableValues[index]){
@@ -270,7 +272,7 @@
     /* function getContratByImmatriculation(){
         console.log("getContratByImmatriculation")
         let immatriculation = $('#immatriculation').val()
-        let availableValues = @json($motos);
+        let availableValues = <?php echo json_encode($motos, 15, 512) ?>;
         let index = availableValues.findIndex(x => x.immatriculation == $('#immatriculation').val())
         console.log(immatriculation, availableValues, index, availableValues[index].mycontrat[0].id)
         if(availableValues[index]){
@@ -284,12 +286,6 @@
 
     function setContratId(value) {
         contratId = value
-    }
-    function setEcheanceArray(value) {
-        echeanceArray= value
-    }
-    function setPosition(value) {
-        position= value
     }
 
     function setImmatriculation(value){
@@ -308,7 +304,7 @@
         
         console.log("resultat de la recherche du tableau : ", montantRestant, amortissementsArray, arrieres)
 
-        //montantRestant = @json($contrat->montant_total) - montantTotal
+        //montantRestant = <?php echo json_encode($contrat->montant_total, 15, 512) ?> - montantTotal
         $('.montant_total').html(numberFormatter.format(montantTotal))
         //$('.montant_restant').html(numberFormatter.format(montantRestant))
         $('.montant_restant').html(numberFormatter.format((arrieres > 0 ) ? arrieres : 0))
@@ -317,30 +313,16 @@
 
     function validateAmortissement(id, montant, solde) {
         //let $this = $(this).find('input:checked')
-        
-        getPosition(id)
-        
         let data = {
             id : parseInt(id),
             montant : parseInt(montant),
             solde : parseInt(solde),
         }
         let index = amortissementsArray.findIndex(x => x.id === data.id)
-       
-       // console.log(data.id,"select", id," *******",position_ligne," AAA",position_ligne_p," BBBB",id_ligne_p,"fffff")
-       // console.log("validateAmortissement", data, index)
-        if(position_ligne>0 && index < 0&& amortissementsArray.findIndex(x => x.id === id_ligne_p)<0){
-            console.clear();
-            console.log(amortissementsArray)
-            console.log(id_ligne_p+"ggggggg"+amortissementsArray.findIndex(x => x.id === id_ligne_p) );
-            /*if(!$("#amortissement_"+id_ligne_p).is(':checked')){
-                $("#amortissement_"+id).prop("checked", false);
-                return false;
-            }*/
-            alert("Merci de selectionner dans l'ordre chronologique les échéances");
-            $("#amortissement_"+id).prop("checked", false);
-        }else{
-             //if (index > -1){
+        
+        console.log("validateAmortissement", data, index)
+
+        //if (index > -1){
         if (index < 0){
             console.log("Checkbox checked!")
             amortissementsArray.push(data)
@@ -356,8 +338,6 @@
 
         }
         console.log("amortissements choisis : ", amortissementsArray, montantTotal)
-        }
-       
     }
 
 
@@ -382,8 +362,8 @@
                     contrat: $('#immatriculation').val(),
                 }
                 console.log(parameters)*/
-                //let redirect_url = "{{ route('versements.create', ['contrat' => 8, 'configStepsLimit' => 3, 'currentStep' => 2]) }}"
-                let redirect_url = "{{ route('versements.create') }}?contrat="+contratId+"&configStepsLimit="+last+"&currentStep="+(currentStep+1)
+                //let redirect_url = "<?php echo e(route('versements.create', ['contrat' => 8, 'configStepsLimit' => 3, 'currentStep' => 2])); ?>"
+                let redirect_url = "<?php echo e(route('versements.create')); ?>?contrat="+contratId+"&configStepsLimit="+last+"&currentStep="+(currentStep+1)
                 console.log("redirect Url : ", redirect_url)
                 progression[step-1] = true
                 showSuccess(redirect_url, null, null)
@@ -426,14 +406,14 @@
             //enabledLastStepButton()
             $.ajax({
                 type : "POST",
-                url  : '{{route('versements.store')}}',
+                url  : '<?php echo e(route('versements.store')); ?>',
                 data : parameters['versements'],
                 dataType : 'json',
                 headers : getHeaders(),
                 success : function(data){
                     console.log("request response", data)
-                    console.log("redirect url", "{{route('home')}}/listeVersement/"+data.contrat+"/"+data.id)
-                    window.location.href = "{{route('home')}}/listeVersement/"+data.contrat+"/"+data.id;
+                    console.log("redirect url", "<?php echo e(route('home')); ?>/listeVersement/"+data.contrat+"/"+data.id)
+                    window.location.href = "<?php echo e(route('home')); ?>/listeVersement/"+data.contrat+"/"+data.id;
                     /*progression[step-1] = true
                     showSuccess(null, null, null)
                     //nextStep()
@@ -450,24 +430,11 @@
         }
     //}
 }
-function getPosition(value){
-    for(i=0;i<echeanceArray.length;i++){
-        position_ligne=i;
-        position_ligne_p=position_ligne-1;
-        if(position_ligne_p>-1){
-            id_ligne_p=echeanceArray[position_ligne_p].id
-        }
-        if(echeanceArray[i].id==value){
-            
-            break;
-        }
 
-    }
-}
 /////////////////// TRASH //////////////////////////////////
 
-//createDataTable("{{ route('users.index') }}")
-  //createDataTable("{{ route('tableau_armortissements.index', ['contrat' => 1, 'ajax' => 1]) }}")
+//createDataTable("<?php echo e(route('users.index')); ?>")
+  //createDataTable("<?php echo e(route('tableau_armortissements.index', ['contrat' => 1, 'ajax' => 1])); ?>")
 
 /*for (let elt of amortissementsArray) {
                 console.log(elt)
@@ -519,7 +486,7 @@ function getPosition(value){
         //return $.ajax({
         /*$.ajax({
             type : "GET",
-            url  : "{{ route('tableau_armortissements.index', ['contrat' => 8, 'ajax' => 1]) }}",
+            url  : "<?php echo e(route('tableau_armortissements.index', ['contrat' => 8, 'ajax' => 1])); ?>",
             //data : parameters['conducteur'],
             dataType : 'json',
             headers : getHeaders(),
@@ -537,4 +504,5 @@ function getPosition(value){
         })*/
 
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laravel_projet\projet\bkzed\resources\views/versements/create.blade.php ENDPATH**/ ?>
