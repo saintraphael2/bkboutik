@@ -144,7 +144,16 @@
         <strong>Copyright &copy; BK Zed</a>.</strong> Tous droits resévés
     </footer>
 </div>
-                 
+<div id="dialog_conducteur" style="display: none;">
+        <div>
+            <iframe id="frame" width="1000" height="800">
+
+            <div class="row">
+                    
+                </div>
+            </iframe>
+        </div>
+    </div>               
 
 
 <script src="{{ asset('/vendor/moment.js/js/moment.min.js') }}"  ></script>
@@ -183,7 +192,27 @@
 <script>
     // CommonJS
     //const Swal = require('sweetalert2')
+    function visualiser_conduteur(title,id){
+       
+       console.log(id);
+       chemin="{{ route('conducteurs.show','id') }}";
+       chemin=chemin.replace("id", id);
+       console.log(chemin);
+      
+      $("#dialog_conducteur").dialog({
+           height: 600,
+        width: 1000,
+        modal: true,
+        title:title,
+        position: { my: 'top', at: 'top+150' },
+      }
+         
+      );
     
+        $("#frame").attr("src",chemin);   
+    
+          
+ }
 </script>
 
 @stack('third_party_scripts')

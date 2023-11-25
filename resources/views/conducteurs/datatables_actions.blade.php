@@ -8,7 +8,7 @@
     <a href="{{ route('conducteurs.edit', $id) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a>
-    <a href="javascript:void(0);"  onclick="visualiser('Carte','{{$id}}')"  class='btn btn-default btn-xs' title="Visualiser">
+    <a href="javascript:void(0);"  onclick="visualiser_conduteur('Carte','{{$id}}')"  class='btn btn-default btn-xs' title="Visualiser">
         <i class="fa fa-eye"></i>
     </a>
     {!! Form::button('<i class="fa fa-trash"></i>', [

@@ -27,36 +27,8 @@
             @include('conducteurs.table')
         </div>
     </div>
-    <div id="dialog" style="display: none;">
-        <div>
-            <iframe id="frame" width="1000" height="800">
-
-            <div class="row">
-                    
-                </div>
-            </iframe>
-        </div>
-    </div>
+   
 @endsection
 <script>
-    function visualiser(title,id){
-       
-        console.log(id);
-        chemin="{{ route('conducteurs.show','id') }}";
-        chemin=chemin.replace("id", id);
-        console.log(chemin);
-       
-       $("#dialog").dialog({
-            height: 800,
-         width: 1000,
-         modal: true,
-         title:title,
-       }
-          
-       );
-     
-         $("#frame").attr("src",chemin);   
-     
-           
-  }
+    
 </script>

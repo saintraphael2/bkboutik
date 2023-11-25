@@ -20,7 +20,7 @@ class EtatArriereDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        //$dataTable->addColumn('action', 'etats.arrieres_datatables_actions')
+        $dataTable->addColumn('action', 'etats.arrieres_datatables_actions');
         $dataTable->editColumn('montant_total', function ($request) {
             return number_format($request->montant_total, 0," ", " ");
         })
@@ -48,6 +48,9 @@ class EtatArriereDataTable extends DataTable
         })
         ->editColumn('conducteur', function ($row) {
             return $row->conducteurs['nom'];
+        })
+        ->editColumn('tel_contact', function ($row) {
+            return $row->conducteurs['telephone'];
         });
         return $dataTable;
     }
@@ -128,6 +131,7 @@ class EtatArriereDataTable extends DataTable
                 'name' => 'moto'
             ]),*/
             'conducteur',
+            'tel_contact',
             //'conducteur'=> ['title' => 'Conducteur','name'=>'conducteur','data'=>'conducteurs.nom'],
             'journalier'=> new \Yajra\DataTables\Html\Column([
                 'title' => 'Mode de Paiement', 
