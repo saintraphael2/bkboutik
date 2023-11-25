@@ -1,9 +1,9 @@
 <?php echo Form::open(['route' => ['motos.destroy', $id], 'method' => 'delete']); ?>
 
 <div class='btn-group'>
-    <a href="<?php echo e(route('motos.show', $id)); ?>" class='btn btn-default btn-xs' title="Vidange">
+    <!--a href="<?php echo e(route('motos.show', $id)); ?>" class='btn btn-default btn-xs' title="Vidange">
         <i class="fa fa-cog"></i>
-    </a>
+    </a-->
     <a href="<?php echo e(route('contratsAssurance',['IdMoto'=>$id])); ?>" class='btn btn-default btn-xs' title="Assurance">
     <i class="fa-solid fa-file-contract"></i>
     </a>

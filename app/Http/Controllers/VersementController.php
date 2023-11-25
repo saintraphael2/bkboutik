@@ -120,14 +120,15 @@ class VersementController extends AppBaseController
             
            
             $versement = $this->versementRepository->create($input);
+			//var_dump($versement);exit;
             $versement->caissier=Auth::user()->id;
             $versement->save();
             $contrat=Contrat::find($versement->contrat);
             $contrat->solde=$versement->reste_payer;
             $contrat->save();
-            /*$versement->contrats->update([
+            $versement->contrats->update([
                 'solde' => $versement->reste_payer
-            ]);*/
+            ]);
           //  var_dump($versement->contrats);//exit;
             foreach($request->amortissements as $amortissement){
                 $tableauArmortissement = $this->tableauArmortissementRepository->find($amortissement['id']);
@@ -153,7 +154,7 @@ class VersementController extends AppBaseController
        // Flash::success('Versement enregistré(e) avec succès.');
 
        //return redirect(route('versements.index'));
-       return redirect(route('listeVersement',['IdContrat'=>$versement->contrat,'IdVersement'=>$versement->id] ));
+      // return redirect(route('listeVersement',['IdContrat'=>$versement->contrat,'IdVersement'=>$versement->id] ));
     }
 
     public function cheminVersement(Request $request)
