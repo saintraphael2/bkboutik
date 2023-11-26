@@ -32,7 +32,7 @@
     </div>
     <div id="dialog" style="display: none;">
         <div>
-            <iframe id="frame" width="800" height="800"></iframe>
+            <iframe id="framerecu" width="800" height="800"></iframe>
         </div>
     </div>
     <?php if(Request::segment(3)!=0): ?> 
@@ -63,7 +63,7 @@
           
        );
      
-         $("#frame").attr("src",url);   
+         $("#framerecu").attr("src",url);   
                 }
            }
         });
@@ -87,7 +87,7 @@
           
        );
      
-         $("#frame").attr("src",chemin);   
+         $("#framerecu").attr("src",chemin);   
      
            
   }

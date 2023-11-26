@@ -9,7 +9,7 @@
     <a href="<?php echo e(route('conducteurs.edit', $id)); ?>" class='btn btn-default btn-xs'>
         <i class="fa fa-edit"></i>
     </a>
-    <a href="javascript:void(0);"  onclick="visualiser('Carte','<?php echo e($id); ?>')"  class='btn btn-default btn-xs' title="Visualiser">
+    <a href="javascript:void(0);"  onclick="visualiser_conduteur('Carte','<?php echo e($id); ?>')"  class='btn btn-default btn-xs' title="Visualiser">
         <i class="fa fa-eye"></i>
     </a>
     <?php echo Form::button('<i class="fa fa-trash"></i>', [
