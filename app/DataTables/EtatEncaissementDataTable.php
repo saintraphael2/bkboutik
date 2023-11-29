@@ -49,8 +49,8 @@ class EtatEncaissementDataTable extends DataTable
         ->editColumn('reste_payer', function ($request) {
             return number_format($request->reste_payer, 0," ", " ");
         })
-        ->editColumn('date', function ($request) {
-            return $request->date->format('d-m-Y H:i:s');
+        ->editColumn('created_at', function ($request) {
+            return $request->created_at->format('d-m-Y H:i:s');
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
             if($this->comptable==null){
@@ -149,7 +149,7 @@ class EtatEncaissementDataTable extends DataTable
             'numero_recu'=> ['title' => 'Numéro reçu','name'=>'numero_recu'],
             'contrat',
             'moto',
-            'date',
+            'created_at',
             'caissier',
             'montant',
             //'arriere'=> ['title' => 'Arriérés','name'=>'arriere'],
