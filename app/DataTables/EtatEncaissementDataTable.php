@@ -149,7 +149,7 @@ class EtatEncaissementDataTable extends DataTable
             'numero_recu'=> ['title' => 'Numéro reçu','name'=>'numero_recu'],
             'contrat',
             'moto',
-            'created_at',
+            'created_at'=> ['title' => 'Date','name'=>'created_at'],
             'caissier',
             'montant',
             //'arriere'=> ['title' => 'Arriérés','name'=>'arriere'],
