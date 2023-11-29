@@ -116,6 +116,7 @@ class VersementController extends AppBaseController
      */
     public function store(CreateVersementRequest $request)
     {
+        set_time_limit(300);
         //$date = date('now');
       //  $request->request->add(['caissier' => Auth::user()->id]);
         $input = $request->all();

@@ -50,7 +50,7 @@ class EtatEncaissementDataTable extends DataTable
             return number_format($request->reste_payer, 0," ", " ");
         })
         ->editColumn('date', function ($request) {
-            return $request->date->format('d-m-Y');
+            return $request->date->format('d-m-Y H:i:s');
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
             if($this->comptable==null){
