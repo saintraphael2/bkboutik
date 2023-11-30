@@ -57,7 +57,14 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="border-right">Paiement du contrat N° <?php echo e($contrat->numero); ?></td>
+                        <td class="border-right">Paiement du contrat N° <?php echo e($contrat->numero); ?>
+
+						(
+                                <?php $__currentLoopData = $amortissement; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $echeance): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php echo e($echeance->datprev->format('d/m/Y')); ?> - 
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            )
+						</td>
                         <td class="text-right"><span class="montant_total"><?php echo e($versement->montant ?? "---"); ?></span></td>
                     </tr>
                     <tr><td></td><td class="border-right"></td><td></td></tr>

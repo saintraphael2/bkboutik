@@ -55,7 +55,13 @@
                     </tr>
                     <tr>
                         <td>1</td>
-                        <td class="border-right">Paiement du contrat N° {{ $contrat->numero }}</td>
+                        <td class="border-right">Paiement du contrat N° {{ $contrat->numero }}
+						(
+                                @foreach($amortissement as $echeance)
+                                {{$echeance->datprev->format('d/m/Y')}} - 
+                                @endforeach
+                            )
+						</td>
                         <td class="text-right"><span class="montant_total">{{ $versement->montant ?? "---" }}</span></td>
                     </tr>
                     <tr><td></td><td class="border-right"></td><td></td></tr>
