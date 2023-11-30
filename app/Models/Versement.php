@@ -78,4 +78,8 @@ class Versement extends Model
     {
         return $this->hasMany(\App\Models\TableauArmortissement::class, 'versement');
     }
+    public function VersementDetail(): \Illuminate\Database\Eloquent\Relations\HasMany
+    {
+        return $this->hasMany(\App\Models\VersementDetail::class, 'versement');
+    }
 }

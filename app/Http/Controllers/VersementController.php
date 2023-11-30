@@ -18,6 +18,7 @@ use Flash;
 use App\Models\Contrat;
 use App\Models\Versement;
 use App\Models\Tableau_armortissement;
+use App\Models\VersementDetail;
 use Auth;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -144,6 +145,11 @@ class VersementController extends AppBaseController
                         'datreglement' => $versement->date
                     ]);
                 }
+                $versementDetail=new VersementDetail();
+                $versementDetail->versement=$versement->id;
+                $versementDetail->amortissement=$amortissement['id'];
+                $versementDetail->save();
+
             }
            
             $this->printPDF($versement->id);

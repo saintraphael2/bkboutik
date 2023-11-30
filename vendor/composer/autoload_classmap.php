@@ -107,6 +107,7 @@ return array(
     'App\\Models\\User' => $baseDir . '/app/Models/User.php',
     'App\\Models\\User_liens' => $baseDir . '/app/Models/User_liens.php',
     'App\\Models\\Versement' => $baseDir . '/app/Models/Versement.php',
+    'App\\Models\\VersementDetail' => $baseDir . '/app/Models/VersementDetail.php',
     'App\\Models\\Vidange' => $baseDir . '/app/Models/Vidange.php',
     'App\\Providers\\AppServiceProvider' => $baseDir . '/app/Providers/AppServiceProvider.php',
     'App\\Providers\\AuthServiceProvider' => $baseDir . '/app/Providers/AuthServiceProvider.php',
