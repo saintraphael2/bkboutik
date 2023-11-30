@@ -255,7 +255,7 @@ class VersementController extends AppBaseController
 		//dd(phpinfo());
         $versement=$this->versementRepository->find($idversement);
 		$contrat=Contrat::find($versement->contrat);
-
+       
 		$numberFormatter = new NumberFormatter("fr", NumberFormatter::SPELLOUT);
        
         $data=[
@@ -270,12 +270,14 @@ class VersementController extends AppBaseController
         
        $versement=$this->versementRepository->find($idversement);
        $contrat=Contrat::find($versement->contrat);
-
+       $amortissement=Tableau_armortissement::select('datprev')
+       ->join('versement_detail', 'versement_detail.amortissement', '=', 'tableau_armortissement.id')
+       ->where('versement_detail.versement',$idversement)->orderby('datprev','asc')->get(); 
        
         $data=[
-            'title' => 'Reçu BKZ','versement'=>$versement,'contrat'=>$contrat
+            'title' => 'Reçu BKZ','versement'=>$versement,'contrat'=>$contrat,'amortissement'=>$amortissement
         ];
-               
+         
         $pdfRecu = PDF::loadView('versements.recu', $data)->setPaper('a4', 'landscape')->setWarnings(false);  
         
         $root="storage/recus/".$contrat->numero."/";
