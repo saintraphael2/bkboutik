@@ -24,6 +24,9 @@ class ConducteurDataTable extends DataTable
         })
         ->editColumn('date_naissance', function ($request) {
             return $request->date_naissance->format('d-m-Y');
+        })
+        ->editColumn('moto', function ($request) {
+            return $request->contrats[0]->motos->immatriculation;
         });
     }
 
@@ -44,7 +47,12 @@ class ConducteurDataTable extends DataTable
             'photo',
             'caution',
             'type_piece',
-            'numero_piece');
+            'numero_piece','contrat.moto')->with([
+               'contrats',
+                'contrats.motos',
+                
+                
+            ]);
         
     }
 
@@ -91,7 +99,7 @@ class ConducteurDataTable extends DataTable
             'quartier',
             'date_naissance',
             //'photo',
-            //'caution',
+            'moto',
             'type_piece',
             'numero_piece'
         ];

@@ -27,16 +27,7 @@
             <?php echo $__env->make('conducteurs.table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>
-    <div id="dialog" style="display: none;">
-        <div>
-            <iframe id="frame" width="1000" height="800">
-
-            <div class="row">
-                    
-                </div>
-            </iframe>
-        </div>
-    </div>
+   
 <?php $__env->stopSection(); ?>
 <script>
     
