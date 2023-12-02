@@ -5,11 +5,11 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1>Contrats</h1>
+                    <h1>Motos</h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-primary float-right"
-                       href="<?php echo e(route('contrats.create')); ?>">
+                       href="<?php echo e(route('motos.create')); ?>">
                         Nouveau
                     </a>
                 </div>
@@ -23,11 +23,11 @@
 
         <div class="clearfix"></div>
 
-        <div class="card" style="overflow-x: auto; white-space: nowrap;">
-            <?php echo $__env->make('contrats.table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
+        <div class="card">
+            <?php echo $__env->make('motos.table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>
 
 <?php $__env->stopSection(); ?>
 
-<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laravel_projet\projet\bkzed\resources\views/contrats/index.blade.php ENDPATH**/ ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laravel_projet\projet\bkzed\resources\views/motos/index.blade.php ENDPATH**/ ?>
