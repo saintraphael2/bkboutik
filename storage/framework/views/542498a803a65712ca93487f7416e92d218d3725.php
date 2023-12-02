@@ -1,6 +1,6 @@
-@extends('layouts.app')
 
-@section('content')
+
+<?php $__env->startSection('content'); ?>
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -14,7 +14,7 @@
 
     <div class="content px-3">
 
-        @include('flash::message')
+        <?php echo $__env->make('flash::message', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         <ul id="form-alert" class="" style="list-style-type: none">
             <!-- <li>The mise circulation field is required.</li> -->
         </ul>
@@ -22,27 +22,32 @@
         <div class="row input-daterange">
             <!-- Caissier Field -->
             <div class="form-group col-sm-3">
-                {!! Form::label('caissier', 'Caissier :') !!}
+                <?php echo Form::label('caissier', 'Caissier :'); ?>
+
                 <select class="select2 form-control" name="caissier" id="caissier">
                     <option value="0">Tous les caissiers</option>
-                    @foreach ($caissiers as $caissier)
-                        <option value="{{ $caissier->id }}">{{ $caissier->name }}</option>
-                    @endforeach
+                    <?php $__currentLoopData = $caissiers; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $caissier): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                        <option value="<?php echo e($caissier->id); ?>"><?php echo e($caissier->name); ?></option>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                 </select>
                 <span class="text-danger font-size-xsmall error_caissier"></span>
             </div>
 
             <!-- Date Signature Field -->
             <div class="form-group col-sm-3">
-                {!! Form::label('date_debut', 'Date début (jj-mm-aaaa) :') !!}
-                {!! Form::text('date_debut', null, ['class' => 'form-control','id'=>'date_debut']) !!}
+                <?php echo Form::label('date_debut', 'Date début (jj-mm-aaaa) :'); ?>
+
+                <?php echo Form::text('date_debut', null, ['class' => 'form-control','id'=>'date_debut']); ?>
+
                 <span class="text-danger font-size-xsmall error_date_debut"></span>
             </div>
 
             <!-- Date Debut Field -->
             <div class="form-group col-sm-3">
-                {!! Form::label('date_fin', 'Date fin (jj-mm-aaaa) :') !!}
-                {!! Form::text('date_fin', null, ['class' => 'form-control','id'=>'date_fin']) !!}
+                <?php echo Form::label('date_fin', 'Date fin (jj-mm-aaaa) :'); ?>
+
+                <?php echo Form::text('date_fin', null, ['class' => 'form-control','id'=>'date_fin']); ?>
+
                 <span class="text-danger font-size-xsmall error_date_fin"></span>
             </div>
 
@@ -59,17 +64,17 @@
             <span class="info-box-icon"><i class="fa fa-sack-dollar"></i></span>
             <div class="info-box-content">
                 <span class="info-box-text">Montant de la caisse</span>
-                <span class="info-box-number">{{ $caisse ?? "---"}} XOF</span>
+                <span class="info-box-number"><?php echo e($caisse ?? "---"); ?> XOF</span>
             </div>
         </div>-->
         <div class="card" style="overflow-x: auto; white-space: nowrap;">
-            @include('etats.encaissements_table')
+            <?php echo $__env->make('etats.encaissements_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>
    
-@endsection
+<?php $__env->stopSection(); ?>
 
-@push('page_scripts')
+<?php $__env->startPush('page_scripts'); ?>
 <script>
 
     $('#date_debut').datepicker()
@@ -85,7 +90,7 @@
             let fromDate = $('#date_debut').val()
             let toDate = $('#date_fin').val()
             let caissier = $('#caissier').val()
-            let redirect_url = "{{ route('etats.encaissements') }}"
+            let redirect_url = "<?php echo e(route('etats.encaissements')); ?>"
 
             if(caissier != 0){
                 redirect_url += "?caissier="+caissier
@@ -111,7 +116,7 @@
             //$('#date_debut').val('')
             //$('#date_fin').val('')
 
-            let redirect_url = "{{ route('etats.encaissements') }}"
+            let redirect_url = "<?php echo e(route('etats.encaissements')); ?>"
             console.log("redirect Url : ", redirect_url)
             showSuccess(redirect_url, null, null)
         });
@@ -125,4 +130,5 @@
             } );
         });
 </script>
-@endpush
+<?php $__env->stopPush(); ?>
+<?php echo $__env->make('layouts.app', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\laravel_projet\projet\bkzed\resources\views/etats/encaissements.blade.php ENDPATH**/ ?>

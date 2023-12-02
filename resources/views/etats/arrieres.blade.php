@@ -18,7 +18,7 @@
 
         <div class="clearfix"></div>
 
-        <div class="card">
+        <div class="card" style="overflow-x: auto; white-space: nowrap;">
             @include('etats.arrieres_table')
         </div>
     </div>

@@ -18,7 +18,7 @@
 
         <div class="clearfix"></div>
 
-        <div class="card">
+        <div class="card" style="overflow-x: auto; white-space: nowrap;">
             <?php echo $__env->make('etats.arrieres_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>

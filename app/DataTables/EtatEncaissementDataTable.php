@@ -76,10 +76,11 @@ class EtatEncaissementDataTable extends DataTable
         /*return $model->newQuery()->where('contrat',$this->idContrat)->with([
             'contrats'
         ]);*/
-        $query = $model->newQuery()->with([
+        $query = $model->select('versement.*')->newQuery()->with([
             'contrats'
         ]);
-
+        $query ->selectRaw('( SELECT GROUP_CONCAT( (DATE_FORMAT(datprev, \'%d/%m/%Y\')) SEPARATOR \',\') FROM tableau_armortissement inner Join versement_detail on versement_detail.amortissement=tableau_armortissement.id  WHERE versement_detail.versement=versement.id ) as echeances');
+         
         if($this->caissier){
             $query->where('caissier', $this->caissier);
         }
@@ -150,6 +151,7 @@ class EtatEncaissementDataTable extends DataTable
             'contrat',
             'moto',
             'created_at'=> ['title' => 'Date','name'=>'created_at'],
+           'echeances'=> ['title' => 'Echeances Payées','name'=>'echeances'],
             'caissier',
             'montant',
             //'arriere'=> ['title' => 'Arriérés','name'=>'arriere'],
