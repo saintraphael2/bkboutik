@@ -78,6 +78,7 @@
     function visualiser(title,contrat,versement){
         //chemin="/documents/Recus/"+contrat+'/'+versement+'.pdf'
         chemin="{{route('home')}}/storage/recus/"+contrat+'/'+versement+'.pdf'
+        //chemin="{{ public_path() }}/storage/recus/"+contrat+'/'+versement+'.pdf'
         console.log(chemin);
        
        $("#dialog").dialog({

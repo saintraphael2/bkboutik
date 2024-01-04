@@ -27,6 +27,12 @@ class ConducteurDataTable extends DataTable
         })
         ->editColumn('moto', function ($request) {
             return $request->contrats[0]->motos->immatriculation;
+        })->filterColumn('moto', function($query, $keyword) {
+            $sql = "moto in (select id from moto where immatriculation  like ?)";
+            if($this->comptable==null){
+                $query=$query->whereRaw($sql, ["%{$keyword}%"])->where('date','>=',Carbon::now()->addDays(-15));
+            }
+            $query=$query->whereRaw($sql, ["%{$keyword}%"]);
         });
     }
 
@@ -50,8 +56,6 @@ class ConducteurDataTable extends DataTable
             'numero_piece','contrat.moto')->with([
                'contrats',
                 'contrats.motos',
-                
-                
             ]);
         
     }
@@ -99,7 +103,7 @@ class ConducteurDataTable extends DataTable
             'quartier',
             'date_naissance',
             //'photo',
-            'moto',
+            'moto'=> ['title' => 'Moto','name'=>'created_at'],
             'type_piece',
             'numero_piece'
         ];

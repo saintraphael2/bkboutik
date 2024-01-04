@@ -151,7 +151,7 @@ class EtatEncaissementDataTable extends DataTable
             'contrat',
             'moto',
             'created_at'=> ['title' => 'Date','name'=>'created_at'],
-           'echeances'=> ['title' => 'Echeances Payées','name'=>'echeances'],
+           'echeances'=> ['title' => 'Echeances Payées','name'=>'created_at'],
             'caissier',
             'montant',
             //'arriere'=> ['title' => 'Arriérés','name'=>'arriere'],

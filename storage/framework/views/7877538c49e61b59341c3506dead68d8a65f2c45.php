@@ -67,7 +67,7 @@
                 <span class="info-box-number"><?php echo e($caisse ?? "---"); ?> XOF</span>
             </div>
         </div>-->
-        <div class="card">
+        <div class="card" style="overflow-x: auto; white-space: nowrap;">
             <?php echo $__env->make('etats.encaissements_table', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?>
         </div>
     </div>

@@ -76,6 +76,7 @@
     function visualiser(title,contrat,versement){
         //chemin="/documents/Recus/"+contrat+'/'+versement+'.pdf'
         chemin="<?php echo e(route('home')); ?>/storage/recus/"+contrat+'/'+versement+'.pdf'
+        //chemin="<?php echo e(public_path()); ?>/storage/recus/"+contrat+'/'+versement+'.pdf'
         console.log(chemin);
        
        $("#dialog").dialog({
