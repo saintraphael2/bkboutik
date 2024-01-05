@@ -38,7 +38,7 @@ class MotoController extends AppBaseController
      */
     public function create()
     {
-        return view('motos.create');
+        return view('motos.create')->with('disabled','');
     }
 
     /**
@@ -100,7 +100,7 @@ class MotoController extends AppBaseController
             return redirect(route('motos.index'));
         }
 
-        return view('motos.edit')->with('moto', $moto);
+        return view('motos.edit')->with('moto', $moto)->with('disabled','disabled');
     }
 
     /**

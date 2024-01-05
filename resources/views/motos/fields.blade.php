@@ -28,7 +28,7 @@
 <div class="form-group col-sm-2">
     <div class="form-check">
         {!! Form::hidden('disponible', 0, ['class' => 'form-check-input']) !!}
-        {!! Form::checkbox('disponible', '1', null, ['class' => 'form-check-input', 'checked' => 'checked']) !!}
+        {!! Form::checkbox('disponible', '1', null, ['class' => 'form-check-input', 'checked' => 'checked',$disabled]) !!}
         {!! Form::label('disponible', 'Disponible', ['class' => 'form-check-label']) !!}
     </div>
 </div>
