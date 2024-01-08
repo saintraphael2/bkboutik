@@ -115,6 +115,7 @@ class ContratController extends AppBaseController
            // $tabAmm->save();
         
        }
+       $date_fin=null;
         foreach($tableaux as $tableau){
             if($compteur == 0){
                 $dt = $this->calculDatePrelevement($dt);
@@ -126,9 +127,12 @@ class ContratController extends AppBaseController
            $tabAmm=Tableau_armortissement::find($tableau->id);
            $tabAmm->datprev=$dt;
            $tabAmm->save();
-           
+           $date_fin=$dt;
             $compteur++;
         }
+        $contrat=Contrat::find($id);
+        $contrat->date_fin=$date_fin;
+        $contrat->save();
        // return redirect(route('majtam',$id));
         return redirect(route('etats.arrieres'));
     } 
