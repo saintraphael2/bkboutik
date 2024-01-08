@@ -79,7 +79,8 @@ class EtatController extends AppBaseController
         ;
 
         dd($query->get());*/
-
+           
+            $etatArriereDataTable->comptable=(Auth::user()->comptable==null)?0:1;
         return $etatArriereDataTable->render('etats.arrieres');
     }
 

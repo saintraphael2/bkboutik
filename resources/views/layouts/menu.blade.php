@@ -76,6 +76,12 @@
     </a>
 </li>
 
+<li class="nav-item" style="display:{{ visible ( 'motif_arrieres',$listeUrl ) }}">
+    <a href="{{ route('motif_arrieres.index') }}" class="nav-link {{ Request::is('motif_arrieres*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Motif Arrieres</p>
+    </a>
+</li>
 
 
 <!-- <li class="nav-item">

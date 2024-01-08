@@ -14,15 +14,17 @@ use App\Repositories\MotoRepository;
 use App\Repositories\Tableau_armortissementRepository;
 use App\Models\TypeContrat;
 use App\Models\Moto;
+use App\Models\Contrat;
 use App\Models\Conducteur;
 use App\Models\Tableau_armortissement;
+use App\Models\Motif_arriere;
 use Illuminate\Http\Request;
 use Flash;
 use DB;
 use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\Exception;
 use Auth;
-
+use Illuminate\Support\Carbon;
 class ContratController extends AppBaseController
 {
     /** @var ContratRepository $contratRepository*/
@@ -59,10 +61,87 @@ class ContratController extends AppBaseController
         //$this->createTableauArmortissement(7);
         return $contratDataTable->render('contrats.index');
     }
-
-
+    public function majtam ($idContrat)
+    {
+       
+        $contrat=Contrat::find($idContrat);
+        $dateprevnonpaye=Tableau_armortissement::where('contrat',$idContrat)->where('etat','NON PAYE')->where('tableau_armortissement.datprev','<', Carbon::now())->select(DB::raw('MIN(tableau_armortissement.datprev)  as datprev'))->get();
+        $montantarriere=Tableau_armortissement::where('contrat',$idContrat)->where('etat','NON PAYE')->where('tableau_armortissement.datprev','<', Carbon::now())->select(DB::raw('SUM(tableau_armortissement.montant) as arrieres'))->get();
+        $retards=Tableau_armortissement::where('contrat',$idContrat)->where('etat','NON PAYE')->where('tableau_armortissement.datprev','<', Carbon::now())->select(DB::raw('COUNT(etat) as retard'))->get();
+        
+        return view('contrats.majtam')->with([
+            'contrat' => $contrat,
+            'dateprevnonpaye'=> $dateprevnonpaye,
+            'montantarriere'=>$montantarriere,
+            'retards'=>$retards
+        ]);
+    }
+    public function motar ($idContrat)
+    {
+       
+        $contrat=Contrat::find($idContrat);
+        $dateprevnonpaye=Tableau_armortissement::where('contrat',$idContrat)->where('etat','NON PAYE')->where('tableau_armortissement.datprev','<', Carbon::now())->select(DB::raw('MIN(tableau_armortissement.datprev)  as datprev'))->get();
+        $montantarriere=Tableau_armortissement::where('contrat',$idContrat)->where('etat','NON PAYE')->where('tableau_armortissement.datprev','<', Carbon::now())->select(DB::raw('SUM(tableau_armortissement.montant) as arrieres'))->get();
+        $retards=Tableau_armortissement::where('contrat',$idContrat)->where('etat','NON PAYE')->where('tableau_armortissement.datprev','<', Carbon::now())->select(DB::raw('COUNT(etat) as retard'))->get();
+        $motifs=Motif_arriere::pluck('libelle','id');
+        return view('contrats.motar')->with([
+            'contrat' => $contrat,
+            'dateprevnonpaye'=> $dateprevnonpaye,
+            'montantarriere'=>$montantarriere,
+            'retards'=>$retards,
+            'motifs'=>$motifs
+        ]);
+    }
+    public function edittam($id, Request $request){
+        $tabnewdate=explode('-',$request->newdate);
+        $realdate=$tabnewdate[2].'-'.$tabnewdate[1].'-'.$tabnewdate[0];
+        $compteur=0;
+        $dt = Carbon::create($tabnewdate[2], $tabnewdate[1], $tabnewdate[0], 0);
+       
+       
+        $tableaux=Tableau_armortissement::where('contrat',$id)->where('etat','NON PAYE')->select(['id','datprev'])->orderby('datprev','asc')->get();
+       
+       
+       foreach($tableaux as $tableau){
+            $tabAmm=Tableau_armortissement::find($tableau->id);
+            //echo $tabAmm->datprev."-------".$tabAmm->datprev->addYears(10)->addDays(2).'<br>';
+            if($tabAmm->datprev->month==02 && $tabAmm->datprev->day==29){
+                $newday=$tabAmm->datprev->addYears(20);
+            }else{
+                $newday=$tabAmm->datprev->addYears(10);
+            }
+            $tabAmm->update(['datprev'=>$newday]);
+            //$tabAmm->datprev=$tabAmm->datprev->addYears(10);
+           // $tabAmm->save();
+        
+       }
+        foreach($tableaux as $tableau){
+            if($compteur == 0){
+                $dt = $this->calculDatePrelevement($dt);
+            } else {
+                $dt = $this->calculDatePrelevement($dt->addDay());
+            }
+          
+           
+           $tabAmm=Tableau_armortissement::find($tableau->id);
+           $tabAmm->datprev=$dt;
+           $tabAmm->save();
+           
+            $compteur++;
+        }
+       // return redirect(route('majtam',$id));
+        return redirect(route('etats.arrieres'));
+    } 
+    public function editmotif($id, Request $request){
+      // dd($request->motif_arriere);
+        $contrat=Contrat::find($id);
+        $contrat->motif_arriere=$request->motif_arriere;
+        $contrat->save();
+        //$contrat->update(['motif_arriere'=>$request->motif_arriere]);
+        return redirect(route('etats.arrieres'));
+    } 
     /**
-     * Show the form for creating a new Contrat.
+     * Show the form for creating a new Contrat.yyyy
      */
     public function create(Request $request)
     {

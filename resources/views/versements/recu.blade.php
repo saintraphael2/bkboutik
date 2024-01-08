@@ -36,7 +36,7 @@
                             {{ config('app.contact') }}
                         </td>
                         <td class="border-unset">
-                            <h5>Client :</h5>
+                            <h5>Client : {{ $contrat->motos['immatriculation']}}</h5>
                             {{ $contrat->conducteurs['nom']}} {{$contrat->conducteurs['prenom'] }} <br>
                             Addresse : {{ $contrat->conducteurs['quartier']}} <br>
                             Tel : {{ $contrat->conducteurs['telephone']}} <br>

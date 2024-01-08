@@ -76,6 +76,12 @@
     </a>
 </li>
 
+<li class="nav-item" style="display:<?php echo e(visible ( 'motif_arrieres',$listeUrl )); ?>">
+    <a href="<?php echo e(route('motif_arrieres.index')); ?>" class="nav-link <?php echo e(Request::is('motif_arrieres*') ? 'active' : ''); ?>">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Motif Arrieres</p>
+    </a>
+</li>
 
 
 <!-- <li class="nav-item">
@@ -128,4 +134,5 @@
             </a>
         </li>
     </ul>
-</li><?php /**PATH D:\laravel_projet\bkzedsarl\resources\views/layouts/menu.blade.php ENDPATH**/ ?>
+</li>
+<?php /**PATH D:\laravel_projet\bkzedsarl\resources\views/layouts/menu.blade.php ENDPATH**/ ?>

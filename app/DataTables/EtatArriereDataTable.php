@@ -16,6 +16,7 @@ class EtatArriereDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
+    public $comptable;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
@@ -33,9 +34,9 @@ class EtatArriereDataTable extends DataTable
         ->editColumn('retard', function ($request) {
             return number_format($request->retard, 0," ", " ");
         })
-        /*
-        ->editColumn('date_signature', function ($request) {
-            return $request->date_signature->format('d-m-Y');
+        
+       /* ->editColumn('motif_arriere', function ($row) {
+            return ($row->motifArriere!=null )?$row->motifArriere['libelle']:'-';
         })
         ->editColumn('date_fin', function ($request) {
             return $request->date_fin->format('d-m-Y');
@@ -77,7 +78,10 @@ class EtatArriereDataTable extends DataTable
         ])
         ->select(
             'contrat.*', 
+           
+            DB::raw($this->comptable.' as comptable'),
             DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
+            DB::raw('DATE_FORMAT(MIN(tableau_armortissement.datprev) , "%d/%m/%Y") as datprev'),
             DB::raw('COUNT(etat) as retard')
         )
         ->groupBy('contrat.id');
@@ -132,7 +136,7 @@ class EtatArriereDataTable extends DataTable
             ]),*/
             'conducteur',
             'tel_contact',
-            //'conducteur'=> ['title' => 'Conducteur','name'=>'conducteur','data'=>'conducteurs.nom'],
+            'datprev'=> ['title' => '1ere écheance non payée','name'=>'conducteur'],
             'journalier'=> new \Yajra\DataTables\Html\Column([
                 'title' => 'Mode de Paiement', 
                 'data' => 'journalier',
@@ -141,6 +145,7 @@ class EtatArriereDataTable extends DataTable
             ]),
             'montant_total',
             'solde',
+            //'motif_arriere'=> ['title' => 'Motif Arriérés','name'=>'motif_arriere'],
             'arrieres'=> ['title' => 'Arriérés','name'=>'arrieres'],
             'retard'=> ['title' => 'Retards (jrs)','name'=>'retard']
         ];

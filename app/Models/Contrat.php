@@ -55,6 +55,7 @@ class Contrat extends Model
         'montant' => 'nullable',
         'solde' => 'nullable',
         'journalier' => 'nullable|boolean',
+		'motif_arriere' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable',
@@ -116,5 +117,9 @@ class Contrat extends Model
     public function agent(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\User::class, 'agent');
+    }
+	public function motifArriere(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Motif_arriere::class, 'motif_arriere');
     }
 }

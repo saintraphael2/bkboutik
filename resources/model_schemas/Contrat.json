@@ -39,7 +39,7 @@
         "name": "moto",
         "dbType": "integer,false",
         "htmlType": "number",
-        "validations": "required",
+        "validations": "nullable",
         "searchable": true,
         "fillable": true,
         "primary": false,
@@ -192,6 +192,42 @@
         "inView": true
     },
     {
+        "name": "agent",
+        "dbType": "bigInteger,false,true",
+        "htmlType": "number",
+        "validations": "nullable",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "actif",
+        "dbType": "boolean",
+        "htmlType": "checkbox",
+        "validations": "nullable|boolean",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "motif_arriere",
+        "dbType": "integer,false",
+        "htmlType": "number",
+        "validations": "nullable",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
         "name": "created_at",
         "dbType": "datetime",
         "htmlType": "date",
@@ -234,6 +270,10 @@
     {
         "type": "relation",
         "relation": "mt1,Moto,moto"
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,MotifArriere,motif_arriere"
     },
     {
         "type": "relation",

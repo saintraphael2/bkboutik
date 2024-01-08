@@ -48,10 +48,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('contratsAssurance/{IdMoto}',['as' => 'contratsAssurance' , 'uses' => 'MotoController@listeAssurance'] );
     Route::get('listeVersement/{IdContrat}/{IdVersement}',['as' => 'listeVersement' , 'uses' => 'VersementController@listeVersement'] );
     Route::get('cheminVersement',['as' => 'cheminVersement' , 'uses' => 'VersementController@cheminVersement'] );
-
+    Route::get('majtam/{IdContrat}',['as' => 'majtam' , 'uses' => 'ContratController@majtam'] );
+    Route::get('motar/{IdContrat}',['as' => 'motar' , 'uses' => 'ContratController@motar'] );
     Route::get('etats/arrieres', ['as' => 'etats.arrieres' , 'uses' => 'EtatController@arrieres']);
     Route::get('etats/encaissements', ['as' => 'etats.encaissements' , 'uses' => 'EtatController@encaissements']);
-
+    Route::post('edittam/{IdContrat}',['as' => 'edittam' , 'uses' => 'ContratController@edittam'] );
+    Route::post('editmotif/{IdContrat}',['as' => 'editmotif' , 'uses' => 'ContratController@editmotif'] );
    // Route::post('password.update', App\Http\Controllers\Auth\ResetPasswordController::class)->name('password.update');
 
 });
+Route::resource('motif_arrieres', App\Http\Controllers\Motif_arriereController::class);
