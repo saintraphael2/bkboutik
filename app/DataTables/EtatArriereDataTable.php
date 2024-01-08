@@ -52,6 +52,12 @@ class EtatArriereDataTable extends DataTable
         })
         ->editColumn('tel_contact', function ($row) {
             return $row->conducteurs['telephone'];
+        })->filterColumn('moto', function($query, $keyword) {
+            $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
+            if($this->comptable==null){
+                $query=$query->whereRaw($sql, ["%{$keyword}%"])->where('date','>=',Carbon::now()->addDays(-15));
+            }
+            $query=$query->whereRaw($sql, ["%{$keyword}%"]);
         });
         return $dataTable;
     }
@@ -135,7 +141,7 @@ class EtatArriereDataTable extends DataTable
                 'name' => 'moto'
             ]),*/
             'conducteur',
-            'tel_contact',
+            'tel_contact'=> ['title' => 'Contact','name'=>'conducteur'],
             'datprev'=> ['title' => '1ere écheance non payée','name'=>'conducteur'],
             'journalier'=> new \Yajra\DataTables\Html\Column([
                 'title' => 'Mode de Paiement', 
@@ -146,8 +152,8 @@ class EtatArriereDataTable extends DataTable
             'montant_total',
             'solde',
             //'motif_arriere'=> ['title' => 'Motif Arriérés','name'=>'motif_arriere'],
-            'arrieres'=> ['title' => 'Arriérés','name'=>'arrieres'],
-            'retard'=> ['title' => 'Retards (jrs)','name'=>'retard']
+            'arrieres'=> ['title' => 'Arriérés','name'=>'conducteur'],
+            'retard'=> ['title' => 'Retards (jrs)','name'=>'conducteur']
         ];
     }
 
