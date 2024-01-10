@@ -35,10 +35,10 @@ class EtatArriereDataTable extends DataTable
             return number_format($request->retard, 0," ", " ");
         })
         
-       /* ->editColumn('motif_arriere', function ($row) {
+       ->editColumn('motif_arriere', function ($row) {
             return ($row->motifArriere!=null )?$row->motifArriere['libelle']:'-';
         })
-        ->editColumn('date_fin', function ($request) {
+        /* ->editColumn('date_fin', function ($request) {
             return $request->date_fin->format('d-m-Y');
         })*/
         ->editColumn('journalier', function ($request) {
@@ -151,7 +151,7 @@ class EtatArriereDataTable extends DataTable
             ]),
             'montant_total',
             'solde',
-            //'motif_arriere'=> ['title' => 'Motif Arriérés','name'=>'motif_arriere'],
+            'motif_arriere'=> ['title' => 'Motif Arriérés','name'=>'motif_arriere'],
             'arrieres'=> ['title' => 'Arriérés','name'=>'conducteur'],
             'retard'=> ['title' => 'Retards (jrs)','name'=>'conducteur']
         ];
