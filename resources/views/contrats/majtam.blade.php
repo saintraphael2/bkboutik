@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                       href="{{ route('motif_arrieres.index') }}">
+                       href="{{ route('etats.arrieres') }}">
                                                     Arriérés
                                             </a>
                 </div>

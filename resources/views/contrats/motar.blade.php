@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
-                    href="{{ route('motif_arrieres.index') }}">
+                    href="{{ route('etats.arrieres') }}">
                                                     Arriérés
                                             </a>
                 </div>
@@ -29,7 +29,7 @@
                 <div class="row">
                 
                     <fieldset style="border:navy solid 1px; padding:10px; width:100%">
-                    <legend>Mise à jour écheance</legend>
+                    <legend>Mise à jour du motif</legend>
                     {!! Form::model($contrat, ['route' => ['editmotif', $contrat->id], 'method' => 'post']) !!}
                        
                         <div class="row">
