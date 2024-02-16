@@ -23,6 +23,9 @@ class ContratDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'contrats.datatables_actions')
+        ->editColumn('frequence_paiement', function ($request) {
+            return ($request->frequence_paiement == 1) ? "JOURNALIER" : (($request->frequence_paiement == 2) ? "HEBDOMADAIRE" : (($request->frequence_paiement == 3) ? "SEMESTRIEL" : ""));
+        })
         ->editColumn('montant_total', function ($request) {
             return number_format($request->montant_total, 0," ", " ");
         })
@@ -54,7 +57,8 @@ class ContratDataTable extends DataTable
         return $model->newQuery()->where('actif',$this->actif)->with([
             'typecontrats',
             'motos',
-            'conducteurs'
+            'conducteurs',
+            'offre'
             
         ])->orderby('id','desc');
     }
@@ -124,12 +128,18 @@ class ContratDataTable extends DataTable
             //'montant',
             'montant_total',
             'solde',
-            'journalier'=> new \Yajra\DataTables\Html\Column([
+            'offre' => new \Yajra\DataTables\Html\Column([
+                'title' => 'Offre', 
+                'data' => 'offre.nom', //chassis
+                'name' => 'offre'
+            ]),
+            'frequence_paiement',
+            /*'journalier'=> new \Yajra\DataTables\Html\Column([
                 'title' => 'Mode de Paiement', 
                 'data' => 'journalier',
                 //'data' => 'conducteur.get_full_name',
                 'name' => 'journalier'
-            ]),
+            ]),*/
             //'montant_total'=>['render'=>'function(){return "<div style="text-align:right;">"+data+"<\div>"}'],
             //'montant_total'=>['render'=>'function(){return "<td class="text-right">"+data+"<\td>";}'],
             //'montant_total'=>['render'=>'function(){return '<td class='text-right'>'.data.'<\td>'; }"],

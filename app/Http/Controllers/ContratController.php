@@ -11,7 +11,9 @@ use App\Repositories\ConducteurRepository;
 use App\Repositories\TypepieceRepository;
 use App\Repositories\TypeContratRepository;
 use App\Repositories\MotoRepository;
+use App\Repositories\OffreRepository;
 use App\Repositories\Tableau_armortissementRepository;
+use App\Models\Offre;
 use App\Models\TypeContrat;
 use App\Models\Moto;
 use App\Models\Contrat;
@@ -25,6 +27,7 @@ use Illuminate\Validation\ValidationException;
 use PHPUnit\Framework\Exception;
 use Auth;
 use Illuminate\Support\Carbon;
+
 class ContratController extends AppBaseController
 {
     /** @var ContratRepository $contratRepository*/
@@ -33,6 +36,7 @@ class ContratController extends AppBaseController
     private $conducteurRepository;
     private $typeContratRepository;
     private $motoRepository;
+    private $offreRepository;
     private $tableauArmortissementRepository;
 
 
@@ -41,6 +45,7 @@ class ContratController extends AppBaseController
     TypepieceRepository $typepieceRepo,
     TypeContratRepository $typeContratRepo,
     MotoRepository $motoRepo,
+    OffreRepository $offreRepo,
     Tableau_armortissementRepository $tableauArmortissementRepo)
     {
         $this->contratRepository = $contratRepo;
@@ -49,6 +54,7 @@ class ContratController extends AppBaseController
         $this->typeContratRepository = $typeContratRepo;
         $this->motoRepository = $motoRepo;
         $this->tableauArmortissementRepository = $tableauArmortissementRepo;
+        $this->offreRepository = $offreRepo;
 
     }
 
@@ -153,6 +159,8 @@ class ContratController extends AppBaseController
         $conducteurs = $this->conducteurRepository->all();
         $typepieces = $this->typepieceRepository->all();
         $typecontrats = $this->typeContratRepository->all();
+        $offres = $this->offreRepository->all();
+
         $motos = Moto::where([
             'disponible' => 1
         ])->orderby('immatriculation')->get();
@@ -164,6 +172,7 @@ class ContratController extends AppBaseController
             'conducteurs' => $conducteurs,
             'typepieces' => $typepieces,
             'typecontrats' => $typecontrats,
+            'offres' => $offres,
             'motos' => $motos
         ]);
     }
@@ -175,7 +184,7 @@ class ContratController extends AppBaseController
     {
         $request->request->add(['solde' => $request->input('montant_total')]);
         $request->request->add(['agent' => Auth::user()->id]);
-        $input = $request->all();
+        //$input = $request->all();
         
         $moto = $this->motoRepository->find($request->moto);
         if(!$moto->disponible){
@@ -185,6 +194,9 @@ class ContratController extends AppBaseController
         }
         
         if(!$request->control){
+            //$input = $request->all();
+            $input = $request->except(['ajax','control']);
+            //$input->remove(['ajax','control']); //unset
             $contrat = $this->contratRepository->create($input);
             
             $moto->update(['disponible' => 0]);

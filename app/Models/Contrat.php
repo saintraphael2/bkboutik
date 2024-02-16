@@ -8,6 +8,7 @@ class Contrat extends Model
 {
     public $table = 'contrat';
 
+    /*
     public $fillable = [
         'typecontrat',
         'numero',
@@ -26,7 +27,15 @@ class Contrat extends Model
         'journalier',
         'agent',
         'actif'
-    ];
+    ];*/
+
+    /**
+     * The attributes that aren't mass assignable.
+     *
+     * @var array
+     */
+    protected $guarded = [];
+
 
     protected $casts = [
         'numero' => 'string',
@@ -54,6 +63,8 @@ class Contrat extends Model
         'observation' => 'required|string|max:16777215',
         'montant' => 'nullable',
         'solde' => 'nullable',
+        'offre' => 'required|integer|exists:offres,id',
+        'frequence_paiement' => 'required|integer',
         'journalier' => 'nullable|boolean',
 		'motif_arriere' => 'nullable',
         'created_at' => 'nullable',
@@ -121,5 +132,10 @@ class Contrat extends Model
 	public function motifArriere(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Motif_arriere::class, 'motif_arriere');
+    }
+
+    public function offre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Offre::class, 'offre');
     }
 }

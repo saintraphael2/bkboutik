@@ -27,6 +27,30 @@
     <span class="text-danger font-size-xsmall error_moto"></span>
 </div>
 
+<!-- Offre Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('offre', 'Offre:') !!}
+    <select class="select2 form-control" name="offre" id="offre", required=required>
+        <option>Veuillez choisir l'offre</option>
+        @foreach ($offres as $offre)
+            <option value="{{ $offre->id }}">{{ $offre->nom }}</option>
+        @endforeach
+    </select>
+    <span class="text-danger font-size-xsmall error_offre"></span>
+</div>
+
+<!-- Offre Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('frequence_paiement', 'Fréquence de paiement:') !!}
+    <select class="select2 form-control" name="frequence_paiement" id="frequence_paiement", required=required>
+        <option>Veuillez choisir une fréquence de paiement</option>    
+        <option value="1">Journalier</option>
+        <option value="2">Hebdomadaire</option>
+        <option value="3">Semestrielle</option>
+    </select>
+    <span class="text-danger font-size-xsmall error_frequence_paiement"></span>
+</div>
+
 <!-- Conducteur Field -->
 <!-- <div class="form-group col-sm-3">
     {!! Form::label('conducteur', 'Conducteur:') !!}
@@ -34,7 +58,7 @@
 </div> -->
 
 <!-- journalier Field -->
-<div class="form-group col-sm-2" style="margin-top: 2rem;">
+<!-- <div class="form-group col-sm-2" style="margin-top: 2rem;">
     <div class="icheck-success d-inline">
         <input type="checkbox" id="journalier" name="journalier" class="journalier" checked>
         <label for="journalier">
@@ -42,11 +66,11 @@
         </label>
     </div>
     <span class="text-danger font-size-xsmall error_journalier"></span>
-</div>
+</div> -->
 
 
 <!-- Bdeposit Field -->
-<div class="form-group col-sm-2" style="margin-top: 2rem;">
+<div class="form-group col-sm-4" style="margin-top: 2rem;">
     <!-- <div class="form-check">
         {!! Form::hidden('bdeposit', 0, ['class' => 'bdeposit form-check-input']) !!}
         {!! Form::checkbox('bdeposit', '1', null, ['class' => 'bdeposit form-check-input']) !!}
@@ -89,7 +113,7 @@
     <span class="text-danger font-size-xsmall error_montant_total"></span>
 </div>
 
-<!-- <div class="form-group col-sm-4"></div> -->
+<div class="form-group col-sm-4"></div>
 
 <!-- Date Signature Field -->
 <div class="form-group col-sm-3">
