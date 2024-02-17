@@ -41,7 +41,7 @@
             <!-- Form step 1 -->
             <div class="form-step">
                 <div class="card-header">
-                    Information sur le conducteur :
+                    Information sur la moto :
                 </div>
                 <div class="card-body">
                     <form id="form-step-1" action="#" method="POST">
@@ -284,6 +284,7 @@
 
     function setContratId(value) {
         contratId = value
+        //console.log("setContratId Function : ", contratId)
     }
     function setEcheanceArray(value) {
         echeanceArray= value

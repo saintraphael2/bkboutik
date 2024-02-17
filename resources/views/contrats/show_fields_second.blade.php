@@ -3,16 +3,17 @@
                 
     <div class="row">
 
-        <!-- Typecontrat Field -->
-        <div class="col-sm-2">
-            {!! Form::label('typecontrat', 'Type contrat:') !!}
-            <p>{{ $contrat->typecontrats['libelle'] }}</p>
-        </div>
 
         <!-- Numero Field -->
         <div class="col-sm-2">
             {!! Form::label('numero', 'Numero:') !!}
             <p>{{ $contrat->numero }}</p>
+        </div>
+
+        <!-- Typecontrat Field -->
+        <div class="col-sm-2">
+            {!! Form::label('typecontrat', 'Type contrat:') !!}
+            <p>{{ $contrat->typecontrats['libelle'] }}</p>
         </div>
 
         <!-- Moto Field -->
@@ -27,6 +28,12 @@
             <p>{{ $contrat->conducteurs['nom']}}    {{$contrat->conducteurs['prenom'] }}</p>
         </div>
 
+        <!-- Conducteur Field -->
+        <div class="col-sm-4">
+            {!! Form::label('offre', 'Offre:') !!}
+            <p> {{ ($contrat->offre) ? $contrat->offres->nom : "---" }} </p>
+        </div>
+
 
         <!-- Bdeposit Field -->
         <!-- <div class="col-sm-2">
@@ -36,7 +43,7 @@
 
         <!-- Deposit Field -->
         <div class="col-sm-2">
-            {!! Form::label('deposit', 'Deposit:') !!}
+            {!! Form::label('deposit', 'Frais de dossier:') !!}
             <p>{{ ($contrat->deposit) ? number_format($contrat->deposit, 0," ", " ") : "---" }}</p>
         </div>
 
@@ -51,10 +58,14 @@
             <p>{{ number_format($contrat->solde, 0," ", " ") }}</p>
         </div>
 
-        <!-- Montant Total Field -->
+        <!-- Montant Total Field 
         <div class="col-sm-2">
             {!! Form::label('journalier', 'Mode de Paiement:') !!}
             <p>{{ ($contrat->journalier)?"JOURNALIER":"HEBDOMADAIRE" }}</p>
+        </div> -->
+        <div class="col-sm-6">
+            {!! Form::label('frequence_paiement', 'Fréquence de Paiement:') !!}
+            <p>{{ ($contrat->frequence_paiement == 1 ) ? "Journalier" : (($contrat->frequence_paiement == 2 ) ? "Hebdomadaire" : (($contrat->frequence_paiement == 3 ) ? "Semestrielle" : "---")) }}</p>
         </div>
         <!-- Date Signature Field -->
         <div class="col-sm-2">

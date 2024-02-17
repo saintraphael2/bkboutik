@@ -72,6 +72,7 @@ class VersementController extends AppBaseController
         
         $motos = $this->motoRepository->all(['disponible'=>0]);
         $contrat = $this->contratRepository->find($contrat);
+        //dd($contrat);
 
         $tableauArmortissementDataTable =new Tableau_armortissementDataTable();
         $tableauArmortissementDataTable->idContrat = $contrat->id;

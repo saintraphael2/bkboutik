@@ -12,6 +12,8 @@ class ContratRepository extends BaseRepository
         'numero',
         'moto',
         'conducteur',
+        'offre',
+        'frequence_paiement',
         'bdeposit',
         'deposit',
         'montant_total',
