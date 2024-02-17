@@ -27,18 +27,52 @@
     {!! Form::select('conducteur', $conducteurs, $conducteur, ['class' => 'form-control']) !!}
 </div>
 
+
+
+<!-- Offre Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('offre', 'Offre:') !!}
+    <select class="select2 form-control" name="offre" id="offre", required=required>
+        <option>Veuillez choisir l'offre</option>
+        @foreach ($offres as $offre)
+            @if($contrat->offre && $contrat->offre == $offre->id)
+                <option value="{{ $offre->id }}" selected>{{ $offre->nom }}</option>
+            @else
+                <option value="{{ $offre->id }}">{{ $offre->nom }}</option>
+            @endif
+        @endforeach
+    </select>
+    <span class="text-danger font-size-xsmall error_offre"></span>
+</div>
+
+<!-- Offre Field -->
+<div class="form-group col-sm-4">
+    {!! Form::label('frequence_paiement', 'Fréquence de paiement:') !!}
+    <select class="select2 form-control" name="frequence_paiement" id="frequence_paiement", required=required>
+        <option>Veuillez choisir une fréquence de paiement</option>
+        @foreach ($frequences as $frequence)
+            @if($contrat->frequence_paiement && $contrat->frequence_paiement == $frequence->id)
+                <option value="{{ $frequence->id }}" selected>{{ $frequence->nom }}</option>
+            @else
+                <option value="{{ $frequence->id }}">{{ $frequence->nom }}</option>
+            @endif
+        @endforeach
+    </select>
+    <span class="text-danger font-size-xsmall error_frequence_paiement"></span>
+</div>
+
 <!-- Bdeposit Field -->
-<div class="form-group col-sm-2">
+<div class="form-group col-sm-4">
     <div class="form-check">
         {!! Form::hidden('bdeposit', 0, ['class' => 'form-check-input']) !!}
         {!! Form::checkbox('bdeposit', '1', null, ['class' => 'form-check-input','id'=>'bdeposit']) !!}
-        {!! Form::label('bdeposit', 'Bdeposit', ['class' => 'form-check-label']) !!}
+        {!! Form::label('bdeposit', 'Confirmer les frais de dossier (Optionnel)', ['class' => 'form-check-label']) !!}
     </div>
 </div>
 
 <!-- Deposit Field -->
 <div class="form-group col-sm-2">
-    {!! Form::label('deposit', 'Deposit:') !!}
+    {!! Form::label('deposit', 'Frais de dossier:') !!}
     {!! Form::number('deposit', null, ['class' => 'form-control', 'required','id'=>'deposit']) !!}
 </div>
 <!-- Deposit Field -->
@@ -62,7 +96,7 @@
 </div>
 
 <!-- Date Signature Field -->
-<div class="form-group col-sm-2">
+<div class="form-group col-sm-3">
     {!! Form::label('date_signature', 'Date Signature:') !!}
     {!! Form::text('date_signature', $date_signature_fr, ['class' => 'form-control','id'=>'date_signature']) !!}
 </div>
@@ -74,7 +108,7 @@
 @endpush
 
 <!-- Date Debut Field -->
-<div class="form-group col-sm-2">
+<div class="form-group col-sm-3">
     {!! Form::label('date_debut', 'Date de Début:') !!}
     {!! Form::text('date_debut', $date_debut_fr, ['class' => 'form-control','id'=>'date_debut']) !!}
 </div>
@@ -86,7 +120,7 @@
 @endpush
 
 <!-- Date Fin Field -->
-<div class="form-group col-sm-2">
+<div class="form-group col-sm-3">
     {!! Form::label('date_fin', 'Date Fin Contrat:') !!}
     {!! Form::text('date_fin', $date_fin_fr, ['class' => 'form-control','id'=>'date_fin']) !!}
 </div>
@@ -98,7 +132,7 @@
 @endpush
 
 <!-- Datprm Field -->
-<div class="form-group col-sm-2">
+<div class="form-group col-sm-3">
     {!! Form::label('datprm', 'Date du Premier Paiement:') !!}
     {!! Form::text('datprm', $datprm_fr, ['class' => 'form-control','id'=>'datprm']) !!}
 </div>
@@ -109,13 +143,13 @@
     </script>
 @endpush
 <!-- journalier Field -->
-<div class="form-group col-sm-2">
+<!-- <div class="form-group col-sm-2">
     <div class="form-check">
         {!! Form::hidden('journalier', 0, ['class' => 'form-check-input']) !!}
         {!! Form::checkbox('journalier', '1', null, ['class' => 'form-check-input','id'=>'journalier']) !!}
         {!! Form::label('journalier', 'journalier', ['class' => 'form-check-label']) !!}
     </div>
-</div>
+</div> -->
 <!-- journalier Field -->
 <!-- <div class="form-group col-sm-2" style="margin-top: 2rem;">
     <div class="icheck-success d-inline">

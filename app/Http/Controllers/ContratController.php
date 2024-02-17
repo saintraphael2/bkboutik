@@ -241,6 +241,7 @@ class ContratController extends AppBaseController
         $contrat = $this->contratRepository->find($id);
         $typecontrats=TypeContrat::orderby('libelle')->pluck('libelle','id');
         $motos=Moto::orderby('immatriculation')->pluck('immatriculation','id');
+        $offres = $this->offreRepository->all();
         $conducteurs=Conducteur::select(
             DB::raw("CONCAT(nom,' ',prenom) AS nom"),'id')->orderby('nom')->pluck('nom','id');
         if (empty($contrat)) {
@@ -249,12 +250,21 @@ class ContratController extends AppBaseController
             return redirect(route('contrats.index'));
         }
 
+        $frequences = [
+            (object) ['id' => 1, 'nom' => "Journalier"],
+            (object) ['id' => 2, 'nom' => "Hebdomadaire"],
+            (object) ['id' => 3, 'nom' => "Semestrielle"]
+            
+        ];
         return view('contrats.edit')->with([
             'contrat'=> $contrat,
             'typecontrats'=>$typecontrats,
             'typecontrat'=>$contrat->typecontrat,
             'motos'=>$motos,
             'moto'=>$contrat->moto,
+            //'offre'=>$contrat->offre,
+            'offres' => $offres,
+            'frequences' => $frequences,
             'conducteurs'=>$conducteurs,
             'conducteur'=>$contrat->conducteur,
             'date_debut_fr'=>date("d-m-Y", strtotime($contrat->date_debut)),
