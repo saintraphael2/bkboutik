@@ -134,7 +134,7 @@ class Contrat extends Model
         return $this->belongsTo(\App\Models\Motif_arriere::class, 'motif_arriere');
     }
 
-    public function offre(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function offres(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Offre::class, 'offre');
     }

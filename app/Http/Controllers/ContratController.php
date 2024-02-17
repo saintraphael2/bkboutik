@@ -367,6 +367,7 @@ class ContratController extends AppBaseController
         $jrs =   (20000 - $contrat->deposit)/500 ;
         $datePrelevement = ($contrat->datprm) ? $contrat->datprm : $contrat->date_debut;
         $solde = $contrat->montant_total+(20000 - $contrat->deposit);
+        $offre = $contrat->offres;
 
         $parameters = [];
 
@@ -380,7 +381,7 @@ class ContratController extends AppBaseController
             }
             
             //$montant = $this->calculMontant($solde, $occurence, $contrat->bdeposit, $jrs);
-            $montant = $this->calculMontant($solde, $occurence, $jrs);
+            $montant = $this->calculMontant($solde, $occurence, $jrs, $offre);
             $cummul += $montant;
             $solde -= $montant;
             $parameters[$occurence] = [
@@ -402,9 +403,17 @@ class ContratController extends AppBaseController
 
 
     //public function calculMontant($solde, $occurence, $bdeposit, $jrs){
-    public function calculMontant($solde, $occurence, $jrs){
+    public function calculMontant($solde, $occurence, $jrs, $offre){
         //$montant = (!$bdeposit && $occurence < $jrs) ? 2700 : 2200;
-        $montant = ($occurence < $jrs) ? 2700 : 2200;
+        //$montant = ($occurence < $jrs) ? 2700 : 2200;
+
+        //$montant = 2200;
+        $montant = $offre->tarif_journalier;
+
+        if($occurence < $jrs) {
+            $montant += 500;
+        }
+    
         return ($solde <= $montant) ? $solde : $montant;
     }
 

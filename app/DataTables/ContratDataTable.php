@@ -23,6 +23,11 @@ class ContratDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable->addColumn('action', 'contrats.datatables_actions')
+        ->editColumn('offre', function ($request) {
+            if($request->offre){
+                return $request->offres->nom;
+            }
+        })
         ->editColumn('frequence_paiement', function ($request) {
             return ($request->frequence_paiement == 1) ? "JOURNALIER" : (($request->frequence_paiement == 2) ? "HEBDOMADAIRE" : (($request->frequence_paiement == 3) ? "SEMESTRIEL" : ""));
         })
@@ -58,7 +63,7 @@ class ContratDataTable extends DataTable
             'typecontrats',
             'motos',
             'conducteurs',
-            'offre'
+            'offres'
             
         ])->orderby('id','desc');
     }
@@ -128,11 +133,12 @@ class ContratDataTable extends DataTable
             //'montant',
             'montant_total',
             'solde',
-            'offre' => new \Yajra\DataTables\Html\Column([
+            'offre',
+            /*'offre' => new \Yajra\DataTables\Html\Column([
                 'title' => 'Offre', 
-                'data' => 'offre.nom', //chassis
+                'data' => 'offres.nom', //chassis
                 'name' => 'offre'
-            ]),
+            ]),*/
             'frequence_paiement',
             /*'journalier'=> new \Yajra\DataTables\Html\Column([
                 'title' => 'Mode de Paiement', 
