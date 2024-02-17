@@ -16,9 +16,9 @@
                     </tr>
                     <tr>
                         <td colspan="3" class="border-unset" style="width: 600px;">
-                            <h5>{{ config('app.name') }}</h5>
-                            Adresse de l'entreprise <br>
-                            Tel : 228 - XXXXXXXX
+                        <h5>{{ $parametre->nom_societe }}</h5>
+                            {{ $parametre->adresse_societe }} <br>
+                            {{ $parametre->contact_societe }}
                         </td>
                         <td class="border-unset">
                             <h5>Client :</h5>

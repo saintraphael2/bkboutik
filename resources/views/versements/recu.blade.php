@@ -31,9 +31,9 @@
                     </tr>
                     <tr>
                         <td colspan="3" class="border-unset" style="width: 600px;">
-                            <h5>{{ config('app.name') }}</h5>
-                            {{ config('app.address') }} <br>
-                            {{ config('app.contact') }}
+                            <h5>{{ $parametre->nom_societe }}</h5>
+                            {{ $parametre->adresse_societe }} <br>
+                            {{ $parametre->contact_societe }}
                         </td>
                         <td class="border-unset">
                             <h5>Client : {{ $contrat->motos['immatriculation']}}</h5>

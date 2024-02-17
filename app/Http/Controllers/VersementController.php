@@ -11,6 +11,7 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\VersementRepository;
 use App\Repositories\ContratRepository;
 use App\Repositories\MotoRepository;
+use App\Repositories\ParametreRepository;
 use App\Repositories\Tableau_armortissementRepository;
 use Illuminate\Http\Request;
 use Barryvdh\DomPDF\Facade\Pdf;
@@ -31,16 +32,19 @@ class VersementController extends AppBaseController
     private $tableauArmortissementRepository;
     private $contratRepository;
     private $motoRepository;
+    private $parametreRepository;
 
     public function __construct(
         VersementRepository $versementRepo,
         Tableau_armortissementRepository $tableauArmortissementRepo,
         ContratRepository $contratRepo,
+        ParametreRepository $parametreRepo,
         MotoRepository $motoRepo)
     {
         $this->versementRepository = $versementRepo;
         $this->contratRepository = $contratRepo;
         $this->motoRepository = $motoRepo;
+        $this->parametreRepository = $parametreRepo;
         $this->tableauArmortissementRepository = $tableauArmortissementRepo;
     }
 
@@ -72,6 +76,7 @@ class VersementController extends AppBaseController
         
         $motos = $this->motoRepository->all(['disponible'=>0]);
         $contrat = $this->contratRepository->find($contrat);
+        $parametre = $this->parametreRepository->find(1);
         //dd($contrat);
 
         $tableauArmortissementDataTable =new Tableau_armortissementDataTable();
@@ -93,6 +98,7 @@ class VersementController extends AppBaseController
             
         ])->orderby('datprev','asc')->offset(0)->limit(10)->get();
         $viewParameters = [
+            'parametre' => $parametre,
             'configStepsLimit' => $configStepsLimit,
             'currentStep' => $currentStep,
             'contrat' => $contrat,
@@ -255,12 +261,17 @@ class VersementController extends AppBaseController
 
 		//dd(phpinfo());
         $versement=$this->versementRepository->find($idversement);
+        $parametre=$this->parametreRepository->find(1);
 		$contrat=Contrat::find($versement->contrat);
        
 		$numberFormatter = new NumberFormatter("fr", NumberFormatter::SPELLOUT);
        
         $data=[
-            'title' => 'Reçu BKZ','versement'=>$versement,'contrat'=>$contrat, 'montant_total_lettre'=> $numberFormatter->format($versement->montant), 
+            'title' => 'Reçu BKZ',
+            'versement'=>$versement,
+            'contrat'=>$contrat, 
+            'parametre'=>$parametre, 
+            'montant_total_lettre'=> $numberFormatter->format($versement->montant), 
         ];
                
 		return view('versements.recu')->with($data);
@@ -270,13 +281,18 @@ class VersementController extends AppBaseController
     public function printPDF($idversement){
         
        $versement=$this->versementRepository->find($idversement);
+       $parametre=$this->parametreRepository->find(1);
        $contrat=Contrat::find($versement->contrat);
        $amortissement=Tableau_armortissement::select('datprev')
        ->join('versement_detail', 'versement_detail.amortissement', '=', 'tableau_armortissement.id')
        ->where('versement_detail.versement',$idversement)->orderby('datprev','asc')->get(); 
        
         $data=[
-            'title' => 'Reçu BKZ','versement'=>$versement,'contrat'=>$contrat,'amortissement'=>$amortissement
+            'title' => 'Reçu BKZ',
+            'versement'=>$versement,
+            'parametre'=>$parametre, 
+            'contrat'=>$contrat,
+            'amortissement'=>$amortissement
         ];
          
         $pdfRecu = PDF::loadView('versements.recu', $data)->setPaper('a4', 'landscape')->setWarnings(false);  
