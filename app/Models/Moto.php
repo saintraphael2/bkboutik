@@ -32,7 +32,7 @@ class Moto extends Model
         'immatriculation' => 'required|regex:/^TG-[0-9]{4}-[A-Z]{2}$/',
         'chassis' => 'required|string|max:100',
         'mise_circulation' => 'required|string|max:10',
-        'disponible' => 'required|boolean',
+        //'disponible' => 'required|boolean',
         'prochaine_vidange' => 'nullable',
         'date_enregistrement' => 'nullable',
         'created_at' => 'nullable',
