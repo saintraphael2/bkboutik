@@ -46,6 +46,7 @@ class MotoController extends AppBaseController
      */
     public function store(CreateMotoRequest $request)
     {
+		$request->request->add(['disponible' => 1]);
         $input = $request->all();
 
         $moto = $this->motoRepository->create($input);
