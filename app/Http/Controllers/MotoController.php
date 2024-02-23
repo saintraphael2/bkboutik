@@ -12,6 +12,7 @@ use App\Repositories\MotoRepository;
 use Illuminate\Http\Request;
 use Flash;
 use Auth;
+use App\Models\Contrat;
 
 class MotoController extends AppBaseController
 {
@@ -28,10 +29,34 @@ class MotoController extends AppBaseController
      */
     public function index(MotoDataTable $motoDataTable)
     {
+        $comptable=Auth::user()->comptable;
         $motoDataTable->comptable=Auth::user()->comptable;
-    return $motoDataTable->render('motos.index');
+    return $motoDataTable->render('motos.index',compact('comptable'));
     }
 
+    public function disponibleMotor(Request $request){
+        $moto = $this->motoRepository->find($request->id);
+        $contrats=$moto->contrats;
+        $disponible=$moto->disponible;
+        $sous_contrat_actif=false;
+        if(count($contrats)>0){
+            foreach($contrats as $contrat){
+                if($contrat->actif==1){
+                    $sous_contrat_actif=true;
+                    break;
+                }
+            }
+        }
+
+        if(!$sous_contrat_actif){
+            $moto->disponible=($disponible==0)?1:0;
+            $moto->save();
+            Flash::success('La disponibilité est mise à jour avec succès.');
+        }else{
+            Flash::error('La moto est liée à un contrat actif');
+        }
+        return redirect(route('motos.index'));
+    }
 
     /**
      * Show the form for creating a new Moto.
@@ -46,7 +71,7 @@ class MotoController extends AppBaseController
      */
     public function store(CreateMotoRequest $request)
     {
-		$request->request->add(['disponible' => 1]);
+        $request->request->add(['disponible' => 1]);
         $input = $request->all();
 
         $moto = $this->motoRepository->create($input);
@@ -87,7 +112,20 @@ class MotoController extends AppBaseController
         return $contratAssuranceDataTable->render('motos.assurance',compact('moto','id'));
         //return view('motos.show')->with('moto', $moto);
     }
+    public function editdisponible($id,$disponible)
+    {
+        $moto = $this->motoRepository->find($id);
+        $contrat=
+        $contratAssuranceDataTable =new ContratAssuranceDataTable ();
+        $contratAssuranceDataTable->idMoto=$id;
+        if (empty($moto)) {
+            Flash::error('Moto not found');
 
+            return redirect(route('motos.index'));
+        }
+        return $contratAssuranceDataTable->render('motos.assurance',compact('moto','id'));
+        //return view('motos.show')->with('moto', $moto);
+    }
     /**
      * Show the form for editing the specified Moto.
      */
@@ -101,7 +139,7 @@ class MotoController extends AppBaseController
             return redirect(route('motos.index'));
         }
 
-        return view('motos.edit')->with('moto', $moto)->with('disabled','disabled');
+        return view('motos.edit')->with('moto', $moto)->with('disabled','readonly');
     }
 
     /**

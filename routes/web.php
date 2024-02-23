@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('tableau_armortissements', App\Http\Controllers\Tableau_armortissementController::class);
     Route::resource('users', App\Http\Controllers\UsersController::class);
     Route::get('addVidande/{IdMoto}',['as' => 'addVidande' , 'uses' => 'VidangeController@create'] );
+    Route::get('disponibleMotor',['as' => 'disponibleMotor' , 'uses' => 'MotoController@disponibleMotor'] );
     Route::resource('liens', App\Http\Controllers\LiensController::class);
     Route::resource('user_liens', App\Http\Controllers\User_liensController::class);
     Route::get('addAssurance/{IdMoto}',['as' => 'addAssurance' , 'uses' => 'ContratAssuranceController@create'] );

@@ -28,6 +28,10 @@ class MotoDataTable extends DataTable
         {
            $date_enregistrement = date("d-m-Y", strtotime($row->date_enregistrement));
            return $date_enregistrement;
+        })->filterColumn('contrat', function($query, $keyword) {
+            $sql = "id in (select moto from contrat where numero  like ?)";
+          
+            $query=$query->whereRaw($sql, ["%{$keyword}%"]);
         });
     }
 
@@ -41,7 +45,7 @@ class MotoDataTable extends DataTable
     {
 		//var_dump($this->comptable);exit;
         //if($this->comptable==1){
-            $query= $model->newQuery()->orderby('id','desc');
+            $query= $model->select('moto.*')->newQuery()->orderby('id','desc');
        // }else
 			if($this->comptable==null){
 			$query= $model->newQuery()->where("disponible",1);
@@ -49,6 +53,8 @@ class MotoDataTable extends DataTable
             //$query= $model->newQuery()->skip(10)->take(10);
 			
 		}
+        $query ->selectRaw('( SELECT CONCAT( numero, \'[\', case when actif=1 then \'Actif\' else \'Désactivé\' end,\']\')  
+FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as contrat');
             //$query= $model->newQuery()->where("disponible",1);
         return $query;
     }
@@ -94,7 +100,8 @@ class MotoDataTable extends DataTable
             'chassis',
             'mise_circulation',
             'date_enregistrement',
-            'disponible'
+            'disponible',
+            'contrat'
         ];
     }
 
