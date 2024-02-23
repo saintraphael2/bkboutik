@@ -408,6 +408,8 @@ class ContratController extends AppBaseController
             $this->tableauArmortissementRepository->create($parameters[$occurence]);
             $occurence++;
         }
+        $contrat->date_fin=$datePrelevement;
+        $contrat->save();
         //dd("show parameters", $occurence, $parameters);
     }
 
