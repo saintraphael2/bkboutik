@@ -166,7 +166,7 @@
 <script src="{{ asset('/vendor/select2-develop/dist/js/select2.min.js') }}"
         crossorigin="anonymous"></script>
 <script src="{{asset('/vendor/bootstrap-4.5.3/js/bootstrap.min.js') }}"
-        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        integrity=""
         crossorigin="anonymous"></script><!--1-->
 
 <script type="text/javascript" src="{{asset('/vendor/UIjs/jquery-ui.min.js') }}"></script>
@@ -180,13 +180,12 @@
 
 <script src="{{asset('js/request.js')}}"></script>
 <script src="{{asset('js/form-steps.js')}}"></script>
+<script src="{{asset('js/sweetalert.min.js')}}"></script>
 
 <script src="{{asset('js/numbers/jquerySpellingNumber.js')}}"></script>
 
 <script src="{{asset('bootstrap-fileinput/js/fileinput.min.js')}}"></script>
 <script src="{{asset('bootstrap-fileinput/js/locales/fr.js')}}"></script>
-
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     
 <script>
