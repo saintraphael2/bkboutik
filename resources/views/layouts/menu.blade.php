@@ -133,5 +133,11 @@
                 <p>Encaissements</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('etats.reglements') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Règlements</p>
+            </a>
+        </li>
     </ul>
 </li>

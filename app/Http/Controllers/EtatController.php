@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\EtatArriereDataTable;
+use App\DataTables\EtatReglementDataTable;
 use App\DataTables\Tableau_armortissementDataTable;
 use App\Http\Requests\CreateTableau_armortissementRequest;
 use App\Http\Requests\UpdateTableau_armortissementRequest;
@@ -119,6 +120,36 @@ class EtatController extends AppBaseController
             'caisse' => number_format($caisse, 0," ", " "),
             'caissiers' => $caissiers,
         ]);
+    }
+
+    public function reglements(EtatReglementDataTable $etatReglementDataTable, Request $request) 
+    {
+        $caissiers = User::get();
+        //var_dump(Auth::user()->comptable);exit;
+        $query = Versement::orderby('id','desc');
+        $etatReglementDataTable->comptable=Auth::user()->comptable;
+        if($request->caissier){
+            $etatReglementDataTable->caissier = $request->caissier;
+            $query->where('caissier', $request->caissier);
+        }
+
+        if($request->fromDate && $request->toDate){
+
+            $fromDate = Carbon::parse($request->fromDate);
+            $toDate = Carbon::parse($request->toDate);
+
+            $etatReglementDataTable->fromDate = $fromDate;
+            $etatReglementDataTable->toDate = $toDate;
+
+            $query->whereBetween('date', [$fromDate, $toDate]);
+        }else{
+			$query->where('date',Carbon::today());
+		}
+       
+
+        $caisse = $query->sum('montant');
+
+        return $etatReglementDataTable->render('etats.reglements');
     }
 
     public function contratDesactives(ContratDataTable $contratDataTable)

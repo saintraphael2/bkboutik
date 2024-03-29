@@ -53,6 +53,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('motar/{IdContrat}',['as' => 'motar' , 'uses' => 'ContratController@motar'] );
     Route::get('etats/arrieres', ['as' => 'etats.arrieres' , 'uses' => 'EtatController@arrieres']);
     Route::get('etats/encaissements', ['as' => 'etats.encaissements' , 'uses' => 'EtatController@encaissements']);
+    Route::get('etats/reglements', ['as' => 'etats.reglements' , 'uses' => 'EtatController@reglements']);
     Route::post('edittam/{IdContrat}',['as' => 'edittam' , 'uses' => 'ContratController@edittam'] );
     Route::post('editmotif/{IdContrat}',['as' => 'editmotif' , 'uses' => 'ContratController@editmotif'] );
    // Route::post('password.update', App\Http\Controllers\Auth\ResetPasswordController::class)->name('password.update');
