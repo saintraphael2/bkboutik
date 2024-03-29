@@ -25,7 +25,10 @@ class EtatReglementDataTable extends DataTable
             return $request->contrats->numero;
         })->editColumn('moto', function ($request) {
             return $request->contrats->motos['immatriculation'];
-        })->editColumn('montant', function ($request) {
+        })->editColumn('conducteur', function ($request) {
+            return $request->contrats->conducteurs['nom'];
+        })
+        ->editColumn('montant', function ($request) {
             return ($request->montant > 0) ? number_format($request->montant, 0," ", " ") : "-";
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
@@ -46,7 +49,8 @@ class EtatReglementDataTable extends DataTable
     {
 		$query = $model->select('versement.contrat', DB::raw('SUM(versement.montant) as montant'))->newQuery()->with([
             'contrats'
-        ])->groupby(['contrat']);
+        ])->join('contrat', 'contrat.id', '=', 'versement.contrat')
+        ->where('contrat.actif',1)->groupby(['contrat']);
         /*if($this->comptable==null){
                 $query=$query->offset(0)->limit(10);
             }*/
@@ -92,6 +96,7 @@ class EtatReglementDataTable extends DataTable
         return [
             
             'contrat',
+            'conducteur',
             'moto',
             'montant'=> ['title' => 'Montant Payé','name'=>'montant'],
            
