@@ -25,6 +25,8 @@ class EtatReglementDataTable extends DataTable
             return $request->contrats->numero;
         })->editColumn('moto', function ($request) {
             return $request->contrats->motos['immatriculation'];
+        })->editColumn('montant', function ($request) {
+            return ($request->montant > 0) ? number_format($request->montant, 0," ", " ") : "-";
         })->filterColumn('moto', function($query, $keyword) {
             $sql = "contrat in (select id from contrat where moto in (select id from moto where immatriculation  like ?))";
             if($this->comptable==null){
