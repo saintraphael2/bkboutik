@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\DataTables\MotoPartenairesDataTable;
 use DB;
 use Flash;
+use Illuminate\Support\Carbon;
 
 class PartenairesController extends AppBaseController
 {
@@ -58,6 +59,8 @@ class PartenairesController extends AppBaseController
      */
     public function show($id)
     {
+        
+        
         $partenaires = $this->partenairesRepository->find($id);
         $total_moto =DB::select(' SELECT count(*) as total_moto FROM moto WHERE partenaire='.$id.' ');
         $total_disponible =DB::select(' SELECT count(*) as total_disponible FROM moto WHERE partenaire='.$id.' and disponible=1 ');
@@ -75,9 +78,20 @@ class PartenairesController extends AppBaseController
         
         $motoPartenairesDataTable=new MotoPartenairesDataTable();
         $motoPartenairesDataTable->partenaire=$id;
+        $periode='';
         
+        if(isset($_GET["fromDate"]) && isset($_GET["toDate"])){
+
+            $fromDate = Carbon::parse($_GET["fromDate"]);
+            $toDate = Carbon::parse($_GET["toDate"]);
+            $periode=$_GET["fromDate"] .' à '.$_GET["toDate"];
+            $motoPartenairesDataTable->fromDate = $fromDate;
+            $motoPartenairesDataTable->toDate = $toDate;
+
+           
+        }
         return $motoPartenairesDataTable->render('partenaires.show',compact('partenaires',
-        'total_moto','total_disponible','total_contrat'));
+        'total_moto','total_disponible','total_contrat','periode'));
 
     }
 

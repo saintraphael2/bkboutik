@@ -17,6 +17,8 @@ class MotoPartenairesDataTable extends DataTable
      */
     public $comptable;
     public $partenaire;
+    public $fromDate;
+    public $toDate;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
@@ -68,7 +70,7 @@ class MotoPartenairesDataTable extends DataTable
             $sql = "id in (select moto from contrat where numero  like ?)";
           
             $query=$query->whereRaw($sql, ["%{$keyword}%"]);
-        });
+        }) ;
     }
 
     /**
@@ -84,10 +86,12 @@ class MotoPartenairesDataTable extends DataTable
            // $query= $model->select('moto.*')->newQuery()->orderby('id','desc');
        // }else
 			
-			$query= $model->select('moto.*')->newQuery()->orderby('id','desc')->newQuery()->where("partenaire",$this->partenaire);
+			$query= $model->select('moto.*')->newQuery()->orderby('id','desc')->where("partenaire",$this->partenaire);
            // $query= $query->offset(0)->limit(10);
             //$query= $model->newQuery()->skip(10)->take(10);
-			
+			if($this->fromDate && $this->toDate){
+                $query->join('contrat', 'contrat.moto', '=', 'moto.id')->whereBetween('contrat.date_debut', [$this->fromDate, $this->toDate]);
+            }
 		
         $query ->selectRaw('( SELECT CONCAT( numero, \'[\', case when actif=1 then \'Actif\' else \'Désactivé\' end,\']\')  
 FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as contrat')

@@ -59,7 +59,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('editmotif/{IdContrat}',['as' => 'editmotif' , 'uses' => 'ContratController@editmotif'] );
     Route::post('majPartenaire',['as' => 'majPartenaire' , 'uses' => 'MotoController@majPartenaire'] );
    // Route::post('password.update', App\Http\Controllers\Auth\ResetPasswordController::class)->name('password.update');
-
+   Route::resource('motif_arrieres', App\Http\Controllers\Motif_arriereController::class);
+   Route::resource('partenaires', App\Http\Controllers\PartenairesController::class);
+   Route::get('partenaires/{partenaire}', ['as' => 'partenaires.show' , 'uses' => 'PartenairesController@show']);
 });
-Route::resource('motif_arrieres', App\Http\Controllers\Motif_arriereController::class);
-Route::resource('partenaires', App\Http\Controllers\PartenairesController::class);
