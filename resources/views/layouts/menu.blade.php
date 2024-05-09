@@ -68,7 +68,7 @@
         <p>Motos</p>
     </a>
 </li>
-<li class="nav-item">
+<li class="nav-item" style="display:{{ visible ( 'partenaires',$listeUrl ) }}">
     <a href="{{ route('partenaires.index') }}" class="nav-link {{ Request::is('partenaires*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Partenaires</p>
