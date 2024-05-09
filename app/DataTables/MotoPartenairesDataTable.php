@@ -42,11 +42,29 @@ class MotoPartenairesDataTable extends DataTable
             
             return number_format($row->nombre_impayes, 0," ", " ");
          })
+        ->addColumn('debut_contrat', function($row)
+        {
+           $debut_contrat = date("d-m-Y", strtotime($row->debut_contrat));
+           return $debut_contrat;
+        })
+        ->addColumn('debut_contrat1', function($row)
+        {
+            $debut_contrat1 = Carbon::parse($row->debut_contrat1);
+            $aujourdhui = Carbon::now();
+            return  $debut_contrat1->diffInMonths($aujourdhui);;
+        })
+        ->addColumn('commission', function($row)
+        {
+            $debut_contrat1 = Carbon::parse($row->debut_contrat1);
+            $aujourdhui = Carbon::now();
+            return  number_format($debut_contrat1->diffInMonths($aujourdhui)*2200, 0," ", " ");;
+        })
         ->addColumn('date_enregistrement', function($row)
         {
            $date_enregistrement = date("d-m-Y", strtotime($row->date_enregistrement));
            return $date_enregistrement;
-        })->filterColumn('contrat', function($query, $keyword) {
+        })
+        ->filterColumn('contrat', function($query, $keyword) {
             $sql = "id in (select moto from contrat where numero  like ?)";
           
             $query=$query->whereRaw($sql, ["%{$keyword}%"]);
@@ -73,10 +91,18 @@ class MotoPartenairesDataTable extends DataTable
 		
         $query ->selectRaw('( SELECT CONCAT( numero, \'[\', case when actif=1 then \'Actif\' else \'Désactivé\' end,\']\')  
 FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as contrat')
+->selectRaw('( SELECT date_debut  
+FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as debut_contrat')
+->selectRaw('( SELECT 1 
+FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as commission')
+->selectRaw('( SELECT date_debut  
+FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as debut_contrat1')
 ->selectRaw('( SELECT montant_total FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as montant_total')
 ->selectRaw('( SELECT (select libelle from motif_arriere where id=contrat.motif_arriere) FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as motif_arriere')
 ->selectRaw('( SELECT SUM(t.montant) total_paye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="PAYE" and c.moto=moto.id  ORDER BY c.id DESC LIMIT 1) as total_paye')
-->selectRaw('( SELECT count(t.id) nb_impaye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="NON PAYE" and c.moto=moto.id  and t.datprev<"'. Carbon::now().'" ORDER BY c.id DESC LIMIT 1) as nombre_impayes');
+->selectRaw('( SELECT count(t.id) nb_impaye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="NON PAYE" and c.moto=moto.id  and t.datprev<"'. Carbon::now().'" ORDER BY c.id DESC LIMIT 1) as nombre_impayes')
+//->selectRaw('( SELECT count(t.id) nb_impaye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="PAYE" and c.moto=moto.id  and t.datprev<"'. Carbon::now().'" ORDER BY c.id DESC LIMIT 1) as nombre_impayes')
+;
             //$query= $model->newQuery()->where("disponible",1);
         return $query;
     }
@@ -125,6 +151,7 @@ FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as co
             'date_enregistrement',
             'disponible',
             'contrat',
+            'debut_contrat','debut_contrat1'=>['title'=>"Durée Contrat (mois)"],'commission',
             'montant_total','total_paye','nombre_impayes','motif_arriere'
         ];
     }
