@@ -92,17 +92,17 @@ class MotoPartenairesDataTable extends DataTable
 			if($this->fromDate && $this->toDate){
                 $query->join('contrat', 'contrat.moto', '=', 'moto.id')->whereBetween('contrat.date_debut', [$this->fromDate, $this->toDate]);
                 $query ->selectRaw('( SELECT CONCAT( numero, \'[\', case when actif=1 then \'Actif\' else \'Désactivé\' end,\']\')  
-FROM contrat WHERE contrat.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY contrat.id DESC LIMIT 1) as contrat')
+FROM contrat WHERE contrat.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  ORDER BY contrat.id DESC LIMIT 1) as contrat')
 ->selectRaw('( SELECT date_debut  
-FROM contrat WHERE contrat.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY contrat.id DESC LIMIT 1) as debut_contrat')
+FROM contrat WHERE contrat.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  ORDER BY contrat.id DESC LIMIT 1) as debut_contrat')
 ->selectRaw('( SELECT 1 
-FROM contrat WHERE contrat.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY contrat.id DESC LIMIT 1) as commission')
+FROM contrat WHERE contrat.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  ORDER BY contrat.id DESC LIMIT 1) as commission')
 ->selectRaw('( SELECT date_debut  
-FROM contrat WHERE contrat.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY contrat.id DESC LIMIT 1) as debut_contrat1')
-->selectRaw('( SELECT montant_total FROM contrat WHERE contrat.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY contrat.id DESC LIMIT 1) as montant_total')
-->selectRaw('( SELECT (select libelle from motif_arriere where id=contrat.motif_arriere) FROM contrat WHERE contrat.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY contrat.id DESC LIMIT 1) as motif_arriere')
-->selectRaw('( SELECT SUM(t.montant) total_paye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="PAYE" and c.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  ORDER BY c.id DESC LIMIT 1) as total_paye')
-->selectRaw('( SELECT count(t.id) nb_impaye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="NON PAYE" and c.moto=moto.id and date_debut between '.$this->fromDate.' and '.$this->toDate.'  and t.datprev<"'. Carbon::now().'" ORDER BY c.id DESC LIMIT 1) as nombre_impayes')
+FROM contrat WHERE contrat.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'" ORDER BY contrat.id DESC LIMIT 1) as debut_contrat1')
+->selectRaw('( SELECT montant_total FROM contrat WHERE contrat.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  ORDER BY contrat.id DESC LIMIT 1) as montant_total')
+->selectRaw('( SELECT (select libelle from motif_arriere where id=contrat.motif_arriere) FROM contrat WHERE contrat.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  ORDER BY contrat.id DESC LIMIT 1) as motif_arriere')
+->selectRaw('( SELECT SUM(t.montant) total_paye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="PAYE" and c.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  ORDER BY c.id DESC LIMIT 1) as total_paye')
+->selectRaw('( SELECT count(t.id) nb_impaye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="NON PAYE" and c.moto=moto.id and date_debut between "'.$this->fromDate.'" and "'.$this->toDate.'"  and t.datprev<"'. Carbon::now().'" ORDER BY c.id DESC LIMIT 1) as nombre_impayes')
 //->selectRaw('( SELECT count(t.id) nb_impaye FROM tableau_armortissement t, contrat c WHERE t.contrat=c.id and t.etat="PAYE" and c.moto=moto.id  and t.datprev<"'. Carbon::now().'" ORDER BY c.id DESC LIMIT 1) as nombre_impayes')
 ;
             }else{
