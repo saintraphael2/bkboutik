@@ -6,7 +6,7 @@
     </a>
 </li>
 
-<li class="nav-item" style="display:{{ visible ( 'type_piece',$listeUrl ) }}">
+<li class="nav-item" style="display:{{ visible ( 'typepieces',$listeUrl ) }}">
     <a href="{{ route('typepieces.index') }}" class="nav-link {{ Request::is('typepieces*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-address-card"></i>
         <p>Type de pièces</p>
@@ -68,7 +68,12 @@
         <p>Motos</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('partenaires.index') }}" class="nav-link {{ Request::is('partenaires*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Partenaires</p>
+    </a>
+</li>
 <li class="nav-item" style="display:{{ visible ( 'typeContrats',$listeUrl ) }}">
     <a href="{{ route('typeContrats.index') }}" class="nav-link {{ Request::is('typeContrats*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-copy"></i>
@@ -140,5 +145,13 @@
                 <p>Règlements</p>
             </a>
         </li>
+        <li class="nav-item">
+            <a href="{{ route('etats.partenaires') }}" style="display:{{ visible ( 'etat_partenaire',$listeUrl ) }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Partenaires</p>
+            </a>
+        </li>
     </ul>
 </li>
+
+

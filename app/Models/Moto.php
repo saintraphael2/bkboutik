@@ -11,8 +11,9 @@ class Moto extends Model
     public $fillable = [
         'immatriculation',
         'chassis',
+        'partenaire',
         'mise_circulation',
-        'disponible',
+        'disponible', 
         'prochaine_vidange',
         'date_enregistrement'
     ];
@@ -44,7 +45,11 @@ class Moto extends Model
     {
         return $this->hasMany(\App\Models\Contrat::class, 'moto')->where('actif', 1);
     }
-
+   
+    public function partenaires(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Partenaires::class, 'partenaire');
+    }
     public function contrats(): \Illuminate\Database\Eloquent\Relations\HasMany
     {
         return $this->hasMany(\App\Models\Contrat::class, 'moto');

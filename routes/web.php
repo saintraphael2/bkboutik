@@ -54,9 +54,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('etats/arrieres', ['as' => 'etats.arrieres' , 'uses' => 'EtatController@arrieres']);
     Route::get('etats/encaissements', ['as' => 'etats.encaissements' , 'uses' => 'EtatController@encaissements']);
     Route::get('etats/reglements', ['as' => 'etats.reglements' , 'uses' => 'EtatController@reglements']);
+    Route::get('etats/partenaires', ['as' => 'etats.partenaires' , 'uses' => 'EtatController@partenaires']);
     Route::post('edittam/{IdContrat}',['as' => 'edittam' , 'uses' => 'ContratController@edittam'] );
     Route::post('editmotif/{IdContrat}',['as' => 'editmotif' , 'uses' => 'ContratController@editmotif'] );
+    Route::post('majPartenaire',['as' => 'majPartenaire' , 'uses' => 'MotoController@majPartenaire'] );
    // Route::post('password.update', App\Http\Controllers\Auth\ResetPasswordController::class)->name('password.update');
 
 });
 Route::resource('motif_arrieres', App\Http\Controllers\Motif_arriereController::class);
+Route::resource('partenaires', App\Http\Controllers\PartenairesController::class);

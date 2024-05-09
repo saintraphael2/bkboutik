@@ -9,7 +9,11 @@
     <i class="fas fa-toggle-on"></i>
     </a>
     @endif
-   
+    @if ( Auth::user()->comptable==1  )
+                        <a href="javascript:void(0);"  onclick="visualiser_partenaire('{{$id}}','{{$immatriculation}}')" class='btn btn-default btn-xs' title="Partenaire">
+                             <i class="fas fa-arrow-circle-right"></i>
+                        </a>
+                    @endif
     <a href="{{ route('contratsAssurance',['IdMoto'=>$id])  }}" class='btn btn-default btn-xs' title="Assurance">
     <i class="fa-solid fa-file-contract"></i>
     </a>

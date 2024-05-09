@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Auth;
 use App\Models\Contrat;
+use App\Models\Partenaires;
 
 class MotoController extends AppBaseController
 {
@@ -31,7 +32,8 @@ class MotoController extends AppBaseController
     {
         $comptable=Auth::user()->comptable;
         $motoDataTable->comptable=Auth::user()->comptable;
-    return $motoDataTable->render('motos.index',compact('comptable'));
+        $partenaires=Partenaires::all();
+    return $motoDataTable->render('motos.index',compact('comptable','partenaires'));
     }
 
     public function disponibleMotor(Request $request){
@@ -58,12 +60,22 @@ class MotoController extends AppBaseController
         return redirect(route('motos.index'));
     }
 
+
+    public function majPartenaire(Request $request){
+        $moto = $this->motoRepository->find($request->id);
+        $moto->partenaire=$request->partenaire;
+        
+        $moto->save();
+        
+        return 'motos.index';
+    }
     /**
      * Show the form for creating a new Moto.
      */
     public function create()
     {
-        return view('motos.create')->with('disabled','');
+        $partenaires=Partenaires::all();
+        return view('motos.create')->with('disabled','')->with('partenaires', $partenaires);
     }
 
     /**
@@ -132,14 +144,14 @@ class MotoController extends AppBaseController
     public function edit($id)
     {
         $moto = $this->motoRepository->find($id);
-
+        $partenaires=Partenaires::all();
         if (empty($moto)) {
             Flash::error('Moto not found');
 
             return redirect(route('motos.index'));
         }
 
-        return view('motos.edit')->with('moto', $moto)->with('disabled','readonly');
+        return view('motos.edit')->with('partenaires', $partenaires)->with('moto', $moto)->with('disabled','readonly');
     }
 
     /**
@@ -162,7 +174,7 @@ class MotoController extends AppBaseController
         return redirect(route('motos.index'));
     }
 
-    /**
+    /**majPartenaire
      * Remove the specified Moto from storage.
      *
      * @throws \Exception

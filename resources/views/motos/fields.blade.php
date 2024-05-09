@@ -1,5 +1,5 @@
 <!-- Immatriculation Field -->
-<div class="form-group col-sm-6">
+<div class="form-group col-sm-3">
     {!! Form::label('immatriculation', 'Immatriculation (TG-1234-AB):') !!}
     {!! Form::text('immatriculation', null, ['class' => 'form-control', 'required', 'maxlength' => 100, 'maxlength' => 100]) !!}
 </div>

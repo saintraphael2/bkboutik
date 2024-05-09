@@ -27,5 +27,82 @@
             @include('motos.table')
         </div>
     </div>
+    <div id="dialog_partenaire" style="display: none;">
+        <div>
+           
 
+           
+            <table class="table">
+            <tr>
+                    <td>Moto</td>
+                    <td id='p_moto' style='font-weight:bold'>
+                    
+                        
+                    </td>
+                </tr>
+                <tr>
+                    <td width="200px">Partenaire</td>
+                    <td id='p_commercial' style='font-weight:bold'> 
+                    
+                    <select name="partenaire" id="partenaire" class="select2 form-control">
+                       
+                        @foreach($partenaires as $partenaire)
+                            <option value="{{$partenaire->id}}">{{$partenaire->nom}} {{$partenaire->prenom}}</option>
+                        @endforeach
+                    </select>
+
+                    
+                    </td>
+                </tr>
+                
+                
+            </table>
+                
+            
+        </div>
+    </div> 
+    <script>
+        function visualiser_partenaire(idMoto,moto){
+            $("#p_moto").text(moto);
+        $("#dialog_partenaire").dialog({
+            height: 400,
+            width: 1000,
+            modal: true,
+            title:'Attribution de partenaire',
+            position: { my: 'top', at: 'top+150' },
+            buttons: [{ 
+                text: "Enregistrer", 
+                click: function() { 
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        }
+                    });
+                    
+                    $.ajax({
+                        type:'POST',
+                        url:"{{ route('majPartenaire') }}",
+                        data:{id:idMoto,partenaire:$("#partenaire").val(),
+                        success:function(data){
+                            url="{{URL::to('motos')}}";
+                            //url=url.replace("data", data);
+                            console.log(data)
+                            window.location.href = url;
+                        }
+                        }
+                    });
+
+                }
+            },{ 
+                text: "Fermer", 
+                click: function() { 
+                 $( this ).dialog( "close" ); 
+                }
+            }
+            
+        ]
+        });
+       
+    } 
+    </script>      
 @endsection

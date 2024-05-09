@@ -16,6 +16,7 @@ use Flash;
 
 use App\DataTables\ContratDataTable;
 use App\DataTables\EtatEncaissementDataTable;
+use App\DataTables\EtatPartenairesDataTable;
 use App\Http\Requests\CreateContratRequest;
 use App\Http\Requests\UpdateContratRequest;
 use App\Repositories\ConducteurRepository;
@@ -29,6 +30,7 @@ use App\Models\Contrat;
 use App\Models\Tableau_armortissement;
 use App\Models\User;
 use App\Models\Versement;
+use App\Models\Partenaires;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Auth;
@@ -150,6 +152,32 @@ class EtatController extends AppBaseController
         $caisse = $query->sum('montant');
 
         return $etatReglementDataTable->render('etats.reglements');
+    }
+    public function partenaires(EtatPartenairesDataTable $etatPartenairesDataTable, Request $request) 
+    {
+        $caissiers = User::get();
+        //var_dump(Auth::user()->comptable);exit;
+        $query = Partenaires::orderby('nom','asc');
+        $etatPartenairesDataTable->comptable=Auth::user()->comptable;
+        
+
+        if($request->fromDate && $request->toDate){
+
+            $fromDate = Carbon::parse($request->fromDate);
+            $toDate = Carbon::parse($request->toDate);
+
+            $etatPartenairesDataTable->fromDate = $fromDate;
+            $etatPartenairesDataTable->toDate = $toDate;
+
+            $query->whereBetween('date', [$fromDate, $toDate]);
+        }else{
+			$query->where('date',Carbon::today());
+		}
+       
+
+      
+
+        return $etatPartenairesDataTable->render('etats.partenaires');
     }
 
     public function contratDesactives(ContratDataTable $contratDataTable)
