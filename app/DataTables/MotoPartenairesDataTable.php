@@ -59,7 +59,7 @@ class MotoPartenairesDataTable extends DataTable
         {
             $debut_contrat1 = Carbon::parse($row->debut_contrat1);
             $aujourdhui = (!isset($this->toDate))?Carbon::now():$this->toDate;
-            return  number_format(($debut_contrat1->diffInMonths($aujourdhui)+1)*2200, 0," ", " ");;
+            return  ($debut_contrat1->diffInMonths($aujourdhui)+1)*2200;;
         })
         ->addColumn('date_enregistrement', function($row)
         {
