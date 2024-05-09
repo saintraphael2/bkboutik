@@ -51,13 +51,13 @@ class MotoPartenairesDataTable extends DataTable
         {
             $debut_contrat1 = Carbon::parse($row->debut_contrat1);
             $aujourdhui = Carbon::now();
-            return  $debut_contrat1->diffInMonths($aujourdhui);;
+            return  $debut_contrat1->diffInMonths($aujourdhui)+1;;
         })
         ->addColumn('commission', function($row)
         {
             $debut_contrat1 = Carbon::parse($row->debut_contrat1);
             $aujourdhui = Carbon::now();
-            return  number_format($debut_contrat1->diffInMonths($aujourdhui)*2200, 0," ", " ");;
+            return  number_format(($debut_contrat1->diffInMonths($aujourdhui)+1)*2200, 0," ", " ");;
         })
         ->addColumn('date_enregistrement', function($row)
         {
