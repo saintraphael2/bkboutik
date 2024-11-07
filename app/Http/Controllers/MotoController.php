@@ -35,7 +35,32 @@ class MotoController extends AppBaseController
         $partenaires=Partenaires::all();
     return $motoDataTable->render('motos.index',compact('comptable','partenaires'));
     }
-
+    
+    public function stockMotor(Request $request){
+       
+        $moto = $this->motoRepository->find($request->id);
+        $contrats=$moto->contrats;
+        $hors_stock=$moto->hors_stock;
+        $sous_contrat_actif=false;
+        if(count($contrats)>0){
+            foreach($contrats as $contrat){
+                if($contrat->actif==1){
+                    $sous_contrat_actif=true;
+                    break;
+                }
+            }
+        }
+       // dd($sous_contrat_actif);
+       // if(!$sous_contrat_actif){
+           
+            $moto->hors_stock=($hors_stock==0)?1:0;
+            $moto->save();
+            Flash::success("L'état du stock est mise à jour avec succès.");
+       /* }else{
+            Flash::error('La moto est liée à un contrat actif');
+        }*/
+        return redirect(route('motos.index'));
+    }
     public function disponibleMotor(Request $request){
         $moto = $this->motoRepository->find($request->id);
         $contrats=$moto->contrats;
@@ -50,13 +75,13 @@ class MotoController extends AppBaseController
             }
         }
 
-        if(!$sous_contrat_actif){
+     //   if(!$sous_contrat_actif){
             $moto->disponible=($disponible==0)?1:0;
             $moto->save();
             Flash::success('La disponibilité est mise à jour avec succès.');
-        }else{
+       /* }else{
             Flash::error('La moto est liée à un contrat actif');
-        }
+        }*/
         return redirect(route('motos.index'));
     }
 

@@ -14,6 +14,7 @@ class Moto extends Model
         'partenaire',
         'mise_circulation',
         'disponible', 
+        'hors_stock',
         'prochaine_vidange',
         'date_enregistrement'
     ];

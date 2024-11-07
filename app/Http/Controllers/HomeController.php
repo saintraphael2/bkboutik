@@ -32,9 +32,9 @@ class HomeController extends Controller
         $nbConducteurs = Conducteur::join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
         ->where('contrat.actif', 1)->count();
 		if(Auth::user()->comptable==1){
-			$nbMotos = Moto::count();
+			$nbMotos = Moto::wherenull("hors_stock")->orwhere("hors_stock",false)->count();
 		}else{
-			$nbMotos = Moto::where("disponible",1)->count();
+			$nbMotos = Moto::wherenull("hors_stock")->orwhere("hors_stock",false)->where("disponible",1)->count();
 		}
         $nbContrats = Contrat::where([
             ['contrat.actif', 1]

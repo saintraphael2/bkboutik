@@ -9,6 +9,14 @@
     <i class="fas fa-toggle-on"></i>
     </a>
     @endif
+    <a href="javascript:void(0);"  onclick="stock('{{$id}}')" class='btn btn-default btn-xs' title="Entrée /Sortie Stock">
+        @if($hors_stock)
+    <i class="fas fa-toggle-off"></i>
+    </a>
+    @else
+    <i class="fas fa-toggle-on"></i>
+    </a>
+    @endif
     @if ( Auth::user()->comptable==1  )
                         <a href="javascript:void(0);"  onclick="visualiser_partenaire('{{$id}}','{{$immatriculation}}')" class='btn btn-default btn-xs' title="Partenaire">
                              <i class="fas fa-arrow-circle-right"></i>
@@ -41,6 +49,23 @@
     $.ajax({
            type:'GET',
            url:"{{ route('disponibleMotor') }}",
+           data:{id:idMoto},
+           success:function(data){
+            window.location.href = "{{ route('motos.index')}}";
+           }
+        });
+     }
+
+     function stock(idMoto){
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+           type:'GET',
+           url:"{{ route('stockMotor') }}",
            data:{id:idMoto},
            success:function(data){
             window.location.href = "{{ route('motos.index')}}";

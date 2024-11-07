@@ -43,6 +43,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('users', App\Http\Controllers\UsersController::class);
     Route::get('addVidande/{IdMoto}',['as' => 'addVidande' , 'uses' => 'VidangeController@create'] );
     Route::get('disponibleMotor',['as' => 'disponibleMotor' , 'uses' => 'MotoController@disponibleMotor'] );
+    Route::get('stockMotor',['as' => 'stockMotor' , 'uses' => 'MotoController@stockMotor'] );
     Route::resource('liens', App\Http\Controllers\LiensController::class);
     Route::resource('user_liens', App\Http\Controllers\User_liensController::class);
     Route::get('addAssurance/{IdMoto}',['as' => 'addAssurance' , 'uses' => 'ContratAssuranceController@create'] );

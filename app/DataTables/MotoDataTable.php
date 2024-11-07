@@ -24,6 +24,10 @@ class MotoDataTable extends DataTable
            $disponible = ($row->disponible==true)?'OUI':'NON';
            return $disponible;
         })
+        ->addColumn('hors_stock', function($row)  {
+            $hors_stock = ($row->hors_stock==true)?'OUI':'NON';
+            return $hors_stock;
+         })
         ->addColumn('partenaire', function($row)  {
             
             return ($row->partenaire)?$row->partenaires['nom']." ".$row->partenaires['prenom']:'';
@@ -106,6 +110,7 @@ FROM contrat WHERE contrat.moto=moto.id  ORDER BY contrat.id DESC LIMIT 1) as co
             'mise_circulation',
             'date_enregistrement',
             'disponible',
+            'hors_stock',
             'contrat'
         ];
     }
