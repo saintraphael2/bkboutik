@@ -30,7 +30,7 @@ class HomeController extends Controller
     public function index()
     {
         $nbConducteurs = Conducteur::join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
-        ->where('contrat.actif', 1)->count();
+        ->where('contrat.actif', 1)->where('conducteur.actif', 0)->count();
 		if(Auth::user()->comptable==1){
 			$nbMotos = Moto::wherenull("hors_stock")->orwhere("hors_stock",false)->count();
 		}else{
