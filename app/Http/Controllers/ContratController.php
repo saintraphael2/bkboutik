@@ -335,7 +335,7 @@ class ContratController extends AppBaseController
             return redirect(route('contrats.index'));
         }
         $moto = $this->motoRepository->find($contrat->moto);
-
+       $conducteur=$this->conducteurRepository->find($contrat->conducteur);
         /*if(!$contrat->actif) {
             Flash::error("Contrat déjà désactivé");
 
@@ -345,7 +345,8 @@ class ContratController extends AppBaseController
         if($contrat->actif) {
             $etat = 0;
             $message = 'Contrat désactivé avec succès.';
-            $moto->update(['disponible' => 1]);
+            $moto->update(['disponible' => 1,'hors_stock' => 1]);
+            $conducteur->update(['actif' => 1]);
         } else {
             if(!$moto->disponible) {
                 Flash::error("La moto (".$moto->immatriculation.") n'est plus disponible.");

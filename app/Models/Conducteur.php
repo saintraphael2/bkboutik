@@ -16,6 +16,7 @@ class Conducteur extends Model
         'date_naissance',
         'photo',
         'caution',
+        'actif',
         'type_piece',
         'numero_piece'
     ];
