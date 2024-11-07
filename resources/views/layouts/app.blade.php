@@ -19,7 +19,8 @@
 
        
     <!-- Font Awesome -->
-   
+    <link rel="stylesheet" href="{{asset('/vendor/Font-Awesome-master/css/all.min.css') }}"
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet"
         href="{{asset('/vendor/bootstrap4-toggle-master/css/bootstrap4-toggle.min.css') }}"
