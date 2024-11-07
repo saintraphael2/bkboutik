@@ -19,7 +19,7 @@
 
        
     <!-- Font Awesome -->
-    <link rel="stylesheet" href="{{asset('/vendor/Font-Awesome-master/css/all.min.css') }}"
+    <link rel="stylesheet" href="/vendor/Font-Awesome-master/css/all.min.css"
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
     <link rel="stylesheet"
