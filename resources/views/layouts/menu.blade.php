@@ -87,7 +87,11 @@
         <p>Motif Arrieres</p>
     </a>
 </li>
-
+<li class="nav-item">
+    <a href="{{ route('offres.index') }}" class="nav-link {{ Request::is('offres*') ? 'active' : '' }}" style="display:{{ visible ( 'offres',$listeUrl ) }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Offres</p>
+    </a>
 
 <!-- <li class="nav-item">
     <a href="{{ route('tableau_armortissements.index') }}" class="nav-link {{ Request::is('tableau_armortissements*') ? 'active' : '' }}">
@@ -151,7 +155,11 @@
                 <p>Partenaires</p>
             </a>
         </li>
+      
+</li>
     </ul>
 </li>
+
+
 
 

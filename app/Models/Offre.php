@@ -2,18 +2,31 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Offre extends Model
 {
-    use HasFactory;
+    public $table = 'offres';
 
-    /**
-     * The attributes that aren't mass assignable.
-     *
-     * @var array
-     */
-    protected $guarded = [];
+    public $fillable = [
+        'nom',
+        'tarif_journalier',
+        'tarif_hebdomadaire',
+        'tarif_mensuel'
+    ];
+
+    protected $casts = [
+        'nom' => 'string'
+    ];
+
+    public static array $rules = [
+        'nom' => 'nullable|string|max:191',
+        'tarif_journalier' => 'nullable',
+        'tarif_hebdomadaire' => 'nullable',
+        'tarif_mensuel' => 'nullable',
+        'created_at' => 'nullable',
+        'updated_at' => 'nullable'
+    ];
+
     
 }

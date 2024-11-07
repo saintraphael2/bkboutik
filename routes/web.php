@@ -63,3 +63,5 @@ Route::middleware(['auth'])->group(function () {
    Route::resource('partenaires', App\Http\Controllers\PartenairesController::class);
    Route::get('partenaires/{partenaire}', ['as' => 'partenaires.show' , 'uses' => 'PartenairesController@show']);
 });
+
+Route::resource('offres', App\Http\Controllers\OffreController::class);
