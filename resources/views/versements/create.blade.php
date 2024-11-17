@@ -208,7 +208,7 @@
 
 
 @push('page_scripts')
-<script src="https://cdn.jsdelivr.net/gh/xcash/bootstrap-autocomplete@v2.3.7/dist/latest/bootstrap-autocomplete.min.js"></script>
+<script src="{{asset('/vendor/bootstrap-4.5.3/js/bootstrap-autocomplete.min.js') }}"></script>
 <script>
     document.addEventListener('DOMContentLoaded', e => {
         //$('#immatriculation').autocomplete()
@@ -244,7 +244,7 @@
     setEcheanceArray(@json($listeecheance))
     setProgression(currentStep-1)
     showStep(currentStep)
-    console.log("amortissement_"+echeanceArray[0].id);                
+    //console.log("amortissement_"+echeanceArray[0].id);                
     /* function setImmatriculationAutocompletion(){
         console.log("setImmatriculationAutocompletion", @json($motos))
         let availableValues = @json($motos);
@@ -375,6 +375,7 @@
 
             //if(Number.isInteger(contratID)){
             if(Number.isInteger(contratId)){
+                console.log(contratId)
                 part = ""
                 //contratId = parseInt($('#immatriculation').val())
                 /*parameters['moto'] = {
