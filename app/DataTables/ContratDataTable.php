@@ -43,6 +43,9 @@ class ContratDataTable extends DataTable
         ->editColumn('date_fin', function ($request) {
             return $request->date_fin->format('d-m-Y');
         })
+        ->editColumn('conducteur', function ($request) {
+            return $request->conducteurs->nom;
+        })
         ->editColumn('journalier', function ($request) {
             return ($request->journalier)?"JOURNALIER":"HEBDOMADAIRE";
         })->filterColumn('moto', function($query, $keyword) {
@@ -121,13 +124,13 @@ class ContratDataTable extends DataTable
                 'data' => 'motos.immatriculation', //chassis
                 'name' => 'moto'
             ]),
-            //'conducteur',
-            'conducteur' => new \Yajra\DataTables\Html\Column([
+            'conducteur',
+           /* 'conducteur' => new \Yajra\DataTables\Html\Column([
                 'title' => 'Conducteur', 
                 'data' => 'conducteurs.nom',
                 //'data' => 'conducteur.get_full_name',
                 'name' => 'conducteur'
-            ]),
+            ]),*/
             //'bdeposit',
             //'deposit',
             //'montant',
