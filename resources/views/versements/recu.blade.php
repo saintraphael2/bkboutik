@@ -11,7 +11,7 @@
 <link href="css/factures.css" rel="stylesheet">
 <script src="vendor/jquery/jquery.min.js " crossorigin="anonymous"></script>
 <script src="js/app.js"></script>
-<script type="text/javascript" src="./vendor/UIjs/jquery-ui.min.js"></script>
+<script type="text/javascript" src="vendor/UIjs/jquery-ui.min.js"></script>
 <script src="js/numbers/jquerySpellingNumber.js"></script>
 
 </head>
@@ -26,7 +26,7 @@
                             </h4>
                         </td>
                         <td colspan="2" style="text-align:right">
-                            <img src="images/logo_bk_zed.png" width="100px" heigth="50px">
+                            <img src="{{ asset('images/logo_bk_zed.png') }}" width="100px" heigth="50px">
                         </td>
                     </tr>
                     <tr>
