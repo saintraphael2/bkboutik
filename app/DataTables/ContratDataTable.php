@@ -44,7 +44,7 @@ class ContratDataTable extends DataTable
             return $request->date_fin->format('d-m-Y');
         })
         ->editColumn('conducteur', function ($request) {
-            return $request->conducteurs->nom;
+            return ($request->conducteur)?$request->conducteurs->nom:'-';
         })
         ->editColumn('journalier', function ($request) {
             return ($request->journalier)?"JOURNALIER":"HEBDOMADAIRE";
