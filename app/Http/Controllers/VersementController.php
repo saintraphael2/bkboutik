@@ -74,7 +74,7 @@ class VersementController extends AppBaseController
         $currentStep = ($request->currentStep) ? $request->currentStep : 1;
         $contrat = ($request->contrat) ? $request->contrat : 1;
         
-        $motos = $this->motoRepository->all(['disponible'=>0]);
+        //$motos = $this->motoRepository->all(['disponible'=>0]);
         $contrat = $this->contratRepository->find($contrat);
         $parametre = $this->parametreRepository->find(1);
         //dd($contrat);
@@ -103,8 +103,7 @@ class VersementController extends AppBaseController
             'currentStep' => $currentStep,
             'contrat' => $contrat,
             'arrieres' => $arrieres,
-            'listeecheance' => $listeecheance,
-            'motos' => $motos->load('mycontrat')
+            'listeecheance' => $listeecheance
         ];
 
         //dd($tableauArmortissementDataTable->render('versements.create', $viewParameters),$viewParameters);

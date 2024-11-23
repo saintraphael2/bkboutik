@@ -13,7 +13,9 @@ use Illuminate\Http\Request;
 use Flash;
 use Auth;
 use App\Models\Contrat;
+use App\Models\Moto;
 use App\Models\Partenaires;
+use Illuminate\Http\JsonResponse;
 
 class MotoController extends AppBaseController
 {
@@ -85,7 +87,16 @@ class MotoController extends AppBaseController
         return redirect(route('motos.index'));
     }
 
+    public function listeImmatriculation(Request $request): JsonResponse{
+        $motos=Moto::select("immatriculation as value", "contrat.id as id")
+        ->join('contrat', 'contrat.moto', '=', 'moto.id')
+        ->where('contrat.actif',1)
+        
+        ->where('immatriculation','LIKE','%'. $request->get('search'). '%')->take(10)
 
+                    ->get();
+        return response()->json($motos);
+    } 
     public function majPartenaire(Request $request){
         $moto = $this->motoRepository->find($request->id);
         $moto->partenaire=$request->partenaire;

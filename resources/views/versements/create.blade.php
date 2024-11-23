@@ -9,6 +9,9 @@
 @endpush
 
 @section('content')
+<script>
+  
+  </script>
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
@@ -50,18 +53,9 @@
                             <!-- Immatriculation Field -->
                             <div class="form-group col-sm-3">
                                 {!! Form::label('immatriculation', 'Immatriculation (TG-1234-AB):') !!}
-                                {!! Form::text('immatriculation', null, ['class' => 'form-control basicAutoSelect', 'required', 'maxlength' => 100, 'maxlength' => 100, 'list' => "list-immatriculation"]) !!}
-                                <datalist id="list-immatriculation">
-                                @foreach ($motos as $moto)
-                                        <option>{{ $moto->immatriculation }}</option>
-                                        <!-- <option value="{{ $moto->contrats->first()->id ?? 0 }}">{{ $moto->immatriculation }}</option> -->
-                                    @endforeach
-                                </datalist>
-                                <!-- <select class="form-control basicAutoSelect" name="immatriculation" id="immatriculation" required=required placeholder="type to search..." autocomplete="off">
-                                    @foreach ($motos as $moto)
-                                        <option value="{{ $moto->contrats->first()->id ?? 0 }}">{{ $moto->immatriculation }}</option>
-                                    @endforeach
-                                </select> -->
+                                {!! Form::hidden('immatriculation', null, ['class' => 'form-control', 'required','id' =>'immatriculation', 'maxlength' => 100, 'maxlength' => 100]) !!}
+                                {!! Form::text('immatriculation_lib', null, ['class' => 'form-control', 'required','id' =>'immatriculation_lib', 'maxlength' => 100, 'maxlength' => 100]) !!}
+                               
                                 <span class="text-danger font-size-xsmall error_type_piece_conducteur"></span>
                             </div>
                         </div>
@@ -210,13 +204,44 @@
 @push('page_scripts')
 <script src="{{asset('/vendor/bootstrap-4.5.3/js/bootstrap-autocomplete.min.js') }}"></script>
 <script>
-    document.addEventListener('DOMContentLoaded', e => {
-        //$('#immatriculation').autocomplete()
-        //$('form.arrieres').parent().css( "background-color", "red" )
-    console.log("arrieres",$('form.arrieres'))
-    }, false)
-
     
+
+    $( function() {
+    var path = "{{ route('listeImmatriculation') }}";
+    $( "#immatriculation_lib" ).autocomplete({
+        source: function( request, response ) {
+
+        $.ajax({
+
+        url: path,
+
+        type: 'GET',
+
+        dataType: "json",
+
+        data: {
+
+            search: request.term
+
+        },
+
+        success: function( data ) {
+
+            response( data );
+
+        }
+
+        });
+
+},
+      minLength: 2,
+      select: function( event, ui ) {
+        $( "#immatriculation_lib" ).val(ui.item.value);
+        $( "#immatriculation" ).val(ui.item.id);
+        setContratId(ui.item.id)
+      }
+    } );
+  } );
 
 </script>
 <script>
@@ -245,37 +270,13 @@
     setProgression(currentStep-1)
     showStep(currentStep)
     //console.log("amortissement_"+echeanceArray[0].id);                
-    /* function setImmatriculationAutocompletion(){
-        console.log("setImmatriculationAutocompletion", @json($motos))
-        let availableValues = @json($motos);
-        console.log(availableValues)
-         $('#immatriculation').autocomplete({
-            source: availableValues,
-            autoFocus: true
-        })
-    } */
+    /* 
 
-    $('#immatriculation').change(function(){
-        console.log("on change immatriculation 1:")
-		console.log(@json($motos))
-        let availableValues = @json($motos);
-        let index = availableValues.findIndex(x => x.immatriculation == $('#immatriculation').val())
-        //console.log(immatriculation, availableValues, index, availableValues[index])
-        if(availableValues[index]){
-            setContratId(availableValues[index].mycontrat[0].id)
-        }
+   
         
     })
-    
-    /* function getContratByImmatriculation(){
-        console.log("getContratByImmatriculation")
-        let immatriculation = $('#immatriculation').val()
-        let availableValues = @json($motos);
-        let index = availableValues.findIndex(x => x.immatriculation == $('#immatriculation').val())
-        console.log(immatriculation, availableValues, index, availableValues[index].mycontrat[0].id)
-        if(availableValues[index]){
-            setContratId(availableValues[index].mycontrat[0].id)
-        }
+    */
+    /* 
     } */
 
     function setArrieres(value) {

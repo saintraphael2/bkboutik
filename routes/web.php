@@ -63,6 +63,7 @@ Route::middleware(['auth'])->group(function () {
    Route::resource('motif_arrieres', App\Http\Controllers\Motif_arriereController::class);
    Route::resource('partenaires', App\Http\Controllers\PartenairesController::class);
    Route::get('partenaires/{partenaire}', ['as' => 'partenaires.show' , 'uses' => 'PartenairesController@show']);
+   Route::get('listeImmatriculation',['as' => 'listeImmatriculation' , 'uses' => 'MotoController@listeImmatriculation'] ); 
 });
 
 Route::resource('offres', App\Http\Controllers\OffreController::class);
