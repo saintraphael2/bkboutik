@@ -11,7 +11,8 @@ class MotoRepository extends BaseRepository
         'immatriculation',
         'chassis',
         'mise_circulation',
-        'disponible'
+        'disponible',
+        'partenaire'
     ];
 
     public function getFieldsSearchable(): array
