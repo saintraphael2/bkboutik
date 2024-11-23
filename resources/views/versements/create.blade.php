@@ -55,7 +55,6 @@
                                 {!! Form::label('immatriculation', 'Immatriculation (TG-1234-AB):') !!}
                                 {!! Form::hidden('immatriculation', null, ['class' => 'form-control', 'required','id' =>'immatriculation', 'maxlength' => 100, 'maxlength' => 100]) !!}
                                 {!! Form::text('immatriculation_lib', null, ['class' => 'form-control', 'required','id' =>'immatriculation_lib', 'maxlength' => 100, 'maxlength' => 100]) !!}
-                               
                                 <span class="text-danger font-size-xsmall error_type_piece_conducteur"></span>
                             </div>
                         </div>
