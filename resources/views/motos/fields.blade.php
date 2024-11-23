@@ -22,8 +22,16 @@
     {!! Form::label('date_enregistrement', 'Date Enregistrement:') !!}
     {!! Form::text('date_enregistrement', null, ['class' => 'form-control','id'=>'date_enregistrement']) !!}
 </div>
-
-
+<div class="form-group col-sm-2">
+    {!! Form::label('partenaires', 'Partenaire:') !!}
+    <select name="partenaires" id="partenaires" class="form-control" required='required'>
+        <option value=""></option>
+        @foreach($partenaires as $partenaire)
+        <option value="{{$partenaire->id}}">{{$partenaire->nom}} {{$partenaire->prenom}} </option>
+        @endforeach
+    </select>
+</div>
+ 
 <!-- Disponible Field -->
 
 
