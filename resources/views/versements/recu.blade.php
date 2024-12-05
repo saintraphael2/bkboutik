@@ -26,7 +26,7 @@
                             </h4>
                         </td>
                         <td colspan="2" style="text-align:right">
-                            <img src="{{ asset('images/logo_bk_zed.png') }}" width="100px" heigth="50px">
+                            <img src="./logo_bk_zed.png" width="100px" heigth="50px">
                         </td>
                     </tr>
                     <tr>
