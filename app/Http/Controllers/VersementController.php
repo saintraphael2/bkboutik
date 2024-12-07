@@ -71,9 +71,11 @@ class VersementController extends AppBaseController
     public function create(Request $request)
     {
         $configStepsLimit = 3;
+        $constrats=Contrat::all();
+        $default=$constrats[0];
         $currentStep = ($request->currentStep) ? $request->currentStep : 1;
-        $contrat = ($request->contrat) ? $request->contrat : 1;
-        
+        $contrat = ($request->contrat) ? $request->contrat : $default->id;
+       // dd($contrat);
         //$motos = $this->motoRepository->all(['disponible'=>0]);
         $contrat = $this->contratRepository->find($contrat);
         $parametre = $this->parametreRepository->find(1);
