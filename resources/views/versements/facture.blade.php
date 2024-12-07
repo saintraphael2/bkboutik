@@ -68,7 +68,7 @@
                         Arrêter le présent versement à la somme de <span class="montant_total_lettre">xxxx</span> francs CFA.
                     </i>
                     <br><br>
-                    Fait à Lomé, le {{ date("j-m-Y") }}
+                    Fait à {{$parametre->lieu}}, le {{ date("j-m-Y") }}
                     <br><br><br>
                     {{ Auth::user()->name }}<br>
                     Le caissier
