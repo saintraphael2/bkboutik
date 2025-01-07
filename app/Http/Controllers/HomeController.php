@@ -50,15 +50,36 @@ class HomeController extends Controller
             ['tableau_armortissement.datprev','<', Carbon::now()]
         ])
         ->select(
-            'contrat.*',
+            'contrat.id', 
+'contrat.conducteur', 
+ 'contrat.moto',
+ 'contrat.journalier',
+ 'contrat.created_at',
             DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
             DB::raw('COUNT(etat) as retard')
         )
         ->groupBy('contrat.id');
+
+        $query_arrieres = Contrat::join('tableau_armortissement', 'contrat.id', '=', 'tableau_armortissement.contrat')
+        ->where([
+            ['contrat.actif', 1],
+            ['tableau_armortissement.etat', 'NON PAYE'],
+            ['tableau_armortissement.datprev','<', Carbon::now()]
+        ])
+        ->select(
+            'contrat.*',
+            DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
+            DB::raw('COUNT(etat) as retard')
+        )
+        ->groupBy('contrat.id', 
+'contrat.conducteur', 
+ 'contrat.moto',
+ 'contrat.journalier',
+ 'contrat.created_at');
         //->get();
         
         
-        $nbArrieres = count($query->get()->toArray());
+        $nbArrieres = count($query_arrieres->get()->toArray());
         $arrieres = $query->latest()->take(5)->get();
 
         return view('home')->with([
