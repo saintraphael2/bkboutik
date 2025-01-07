@@ -67,7 +67,11 @@ class HomeController extends Controller
             ['tableau_armortissement.datprev','<', Carbon::now()]
         ])
         ->select(
-            'contrat.*',
+            'contrat.id', 
+'contrat.conducteur', 
+ 'contrat.moto',
+ 'contrat.journalier',
+ 'contrat.created_at',
             DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
             DB::raw('COUNT(etat) as retard')
         )
