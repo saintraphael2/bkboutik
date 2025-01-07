@@ -53,7 +53,7 @@
            success:function(data){
                 if($.isEmptyObject(data.error)){
                   
-                   url="{{asset('storage/recus/$chemin')}}";
+                   url="{{asset('uploads/recus/$chemin')}}";
                    url=url.replace("$chemin", data.chemin);
                   
                     $("#dialog").dialog({
@@ -77,7 +77,7 @@
 <script>
     function visualiser(title,contrat,versement){
         //chemin="/documents/Recus/"+contrat+'/'+versement+'.pdf'
-        chemin="{{route('home')}}/storage/recus/"+contrat+'/'+versement+'.pdf'
+        chemin="{{route('home')}}/uploads/recus/"+contrat+'/'+versement+'.pdf'
         //chemin="{{ public_path() }}/storage/recus/"+contrat+'/'+versement+'.pdf'
         console.log(chemin);
        

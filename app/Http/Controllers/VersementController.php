@@ -300,7 +300,8 @@ class VersementController extends AppBaseController
         
         $root="storage/recus/".$contrat->numero."/";
         $filename=$versement->numero_recu.'.pdf';
-        Storage::put('public/recus/'.$contrat->numero.'/'.$filename, $pdfRecu->output());
+        //Storage::put('public/recus/'.$contrat->numero.'/'.$filename, $pdfRecu->output());
+        Storage::disk('uploads')->put('recus/'.$contrat->numero.'/'.$filename, $pdfRecu->output());
 
     }
     
