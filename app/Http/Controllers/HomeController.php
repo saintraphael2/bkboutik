@@ -58,7 +58,11 @@ class HomeController extends Controller
             DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
             DB::raw('COUNT(etat) as retard')
         )
-        ->groupBy('contrat.id');
+        ->groupBy('contrat.id', 
+'contrat.conducteur', 
+ 'contrat.moto',
+ 'contrat.journalier',
+ 'contrat.created_at');
 
         $query_arrieres = Contrat::join('tableau_armortissement', 'contrat.id', '=', 'tableau_armortissement.contrat')
         ->where([
