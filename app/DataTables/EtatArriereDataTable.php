@@ -85,13 +85,13 @@ class EtatArriereDataTable extends DataTable
         ->select(
             'contrat.id',  
             'contrat.conducteur',
-            'contrat.moto',
+            'contrat.moto','contrat.numero',
             DB::raw($this->comptable.' as comptable'),
             DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
             DB::raw('DATE_FORMAT(MIN(tableau_armortissement.datprev) , "%d/%m/%Y") as datprev'),
             DB::raw('COUNT(etat) as retard')
         )
-        ->groupBy('contrat.id','contrat.conducteur', 'contrat.moto');
+        ->groupBy('contrat.id','contrat.conducteur', 'contrat.moto','contrat.numero');
 
         return $query;
     }
