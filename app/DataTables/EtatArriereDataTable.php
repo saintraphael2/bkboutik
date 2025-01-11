@@ -83,7 +83,7 @@ class EtatArriereDataTable extends DataTable
             ['tableau_armortissement.datprev','<', Carbon::now()]
         ])
         ->select(
-            'contrat.*', 
+            'contrat.id',  
            
             DB::raw($this->comptable.' as comptable'),
             DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
