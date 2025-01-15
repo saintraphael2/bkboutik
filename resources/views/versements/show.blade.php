@@ -75,6 +75,37 @@
     @endif
 @endsection
 <script>
+    function regenerer(versement){
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+           type:'GET',
+           url:"{{ route('regenererfacture') }}",
+           data:{versement:versement},
+           success:function(data){
+                if($.isEmptyObject(data.error)){
+                  
+                   url="{{asset('uploads/recus/$chemin')}}";
+                   url=url.replace("$chemin", data.chemin);
+                  
+                    $("#dialog").dialog({
+            height: 800,
+         width: 800,
+         modal: true,
+         title:"RECU",
+       }
+          
+       );
+     
+         $("#framerecu").attr("src",url);   
+                }
+           }
+        });
+    }
     function visualiser(title,contrat,versement){
         //chemin="/documents/Recus/"+contrat+'/'+versement+'.pdf'
         chemin="{{route('home')}}/uploads/recus/"+contrat+'/'+versement+'.pdf'

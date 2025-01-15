@@ -183,6 +183,14 @@ class VersementController extends AppBaseController
   
         return response()->json(['chemin' => $contrat.$versement->numero_recu.'.pdf']);
     }
+    public function regenererfacture(Request $request)
+    {
+        $versement=Versement::find($request->versement);
+        $this->printPDF($versement->id);
+        $contrat=$versement->contrats['numero'].'/';
+  
+        return response()->json(['chemin' => $contrat.$versement->numero_recu.'.pdf']);
+    }
     /**
      * Display the specified Versement.
      */

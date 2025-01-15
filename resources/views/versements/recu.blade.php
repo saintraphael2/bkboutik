@@ -83,9 +83,9 @@
                         Arrêter le présent versement à la somme de <span class="montant_total_lettre" id="montant_total_lettre">{{ $montant_total_lettre ?? "---" }}</span> francs CFA.
                     </i>
                     <br><br>
-                    Fait à {{$parametre->lieu}}, le {{ date("j-m-Y H:i") }}
+                    Fait à {{$parametre->lieu}}, le {{ $versement->created_at->format("j-m-Y H:i")   }}
                     <br><br><br>
-                    {{ Auth::user()->name }}<br>
+                    {{ $versement->caissiers->name }}<br>
                     Le caissier
                 </p>
             </div>

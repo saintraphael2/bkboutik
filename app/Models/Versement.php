@@ -82,4 +82,8 @@ class Versement extends Model
     {
         return $this->hasMany(\App\Models\VersementDetail::class, 'versement');
     }
+    public function caissiers(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Users::class, 'caissier');
+    }
 }

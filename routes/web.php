@@ -54,6 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('contratsAssurance/{IdMoto}',['as' => 'contratsAssurance' , 'uses' => 'MotoController@listeAssurance'] );
     Route::get('listeVersement/{IdContrat}/{IdVersement}',['as' => 'listeVersement' , 'uses' => 'VersementController@listeVersement'] );
     Route::get('cheminVersement',['as' => 'cheminVersement' , 'uses' => 'VersementController@cheminVersement'] );
+    Route::get('regenererfacture',['as' => 'regenererfacture' , 'uses' => 'VersementController@regenererfacture'] );
     Route::get('majtam/{IdContrat}',['as' => 'majtam' , 'uses' => 'ContratController@majtam'] );
     Route::get('motar/{IdContrat}',['as' => 'motar' , 'uses' => 'ContratController@motar'] );
     Route::get('etats/arrieres', ['as' => 'etats.arrieres' , 'uses' => 'EtatController@arrieres']);
