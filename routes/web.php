@@ -20,6 +20,10 @@ Auth::routes();
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+    Route::get('wel', function () {
+        return view('wel');
+    });
+    
     Route::get('/home', [App\Http\Controllers\HomeController::class, 'index']);
     Route::get('password/update', [App\Http\Controllers\Auth\UpdatePasswordController::class, 'showUpdateForm'])->name('password.my_edit');
     Route::post('password/update', [App\Http\Controllers\Auth\UpdatePasswordController::class, 'update'])->name('password.my_update');

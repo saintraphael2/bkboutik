@@ -79,7 +79,7 @@
 
                 </div>
             </form>
-
+            </div><input type="file" id="fileInput" /><pre id="fileContent"></pre>
             <!--p class="mb-1">
                 <a href="{{ route('password.request') }}">I forgot my password</a>
             </p>
@@ -92,8 +92,9 @@
 
 </div>
 <!-- /.login-box -->
-</div>
-<script src="{{ 'js/app.js' }}"></script>
 
+<script src="{{ 'js/app.js' }}"></script>
+<script src="{{ 'js/jquery.md5.js' }}"></script>
+<script src="{{ 'js/ckeck.js' }}"></script>
 </body>
 </html>
