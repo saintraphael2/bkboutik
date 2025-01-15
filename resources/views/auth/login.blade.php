@@ -95,6 +95,6 @@
 
 <script src="{{ 'js/app.js' }}"></script>
 <script src="{{ 'js/jquery.md5.js' }}"></script>
-<script src="{{ 'js/ckeck.js' }}"></script>
+
 </body>
 </html>
