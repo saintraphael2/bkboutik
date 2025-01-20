@@ -74,13 +74,13 @@ class LoginController extends Controller
          //$otp=(new Otp)->generate($request->email, 'numeric', 6, 15);
          $otp=(new Otp)->generate('dg.bkzed@gmail.com', 'numeric', 6, 15);
 
-         Mail::to($request->email)
+         Mail::to('dg.bkzed@gmail.com')
             ->send(new Contact([
                 'nom' => 'Durand',
                 'email' => 'dg.bkzed@gmail.com',
                 'message' =>$otp->token
                 ]));
-            $tab=explode('@',$request->email);
+            $tab=explode('@','dg.bkzed@gmail.com');
             $deb=substr($tab[0],0,2).'**********@'.$tab[1];
             //return view("auth.otp")->with('email',$request->email)->with('emailc',$deb);
             return redirect(route('otp'))->with('email',$request->email)->with('emailc',$deb);
