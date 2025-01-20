@@ -71,7 +71,8 @@ class LoginController extends Controller
                 $connexion->save();
            }
          //   auth()->user()->generateCode();
-         $otp=(new Otp)->generate($request->email, 'numeric', 6, 15);
+         //$otp=(new Otp)->generate($request->email, 'numeric', 6, 15);
+         $otp=(new Otp)->generate('dg.bkzed@gmail.com', 'numeric', 6, 15);
 
          Mail::to($request->email)
             ->send(new Contact([
