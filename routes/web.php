@@ -69,6 +69,8 @@ Route::middleware(['auth'])->group(function () {
    Route::resource('partenaires', App\Http\Controllers\PartenairesController::class);
    Route::get('partenaires/{partenaire}', ['as' => 'partenaires.show' , 'uses' => 'PartenairesController@show']);
    Route::get('listeImmatriculation',['as' => 'listeImmatriculation' , 'uses' => 'MotoController@listeImmatriculation'] ); 
+   Route::get('/otp', [App\Http\Controllers\HomeController::class, 'otp'])->name('otp');
+   Route::post('/validationOtp', [App\Http\Controllers\HomeController::class, 'validationOtp'])->name('validationOtp');
 });
 
 Route::resource('offres', App\Http\Controllers\OffreController::class);

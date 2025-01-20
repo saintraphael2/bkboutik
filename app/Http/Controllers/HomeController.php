@@ -10,6 +10,14 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Auth;
 
+use Ichtrojan\Otp\Otp;
+
+
+use Session;
+
+use App\Models\Connexion;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 class HomeController extends Controller
 {
     /**
@@ -29,6 +37,11 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $connexion = Connexion::where(['identifier'=>Auth::user()->email])->first();
+
+        if($connexion!=null && $connexion->validity==1){
+            
+
         $nbConducteurs = Conducteur::join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
         ->where('contrat.actif', 1)->where('conducteur.actif', 0)->count();
 		if(Auth::user()->comptable==1){
@@ -98,6 +111,40 @@ class HomeController extends Controller
 
             'contrats' => $contrats,
             'arrieres' => $arrieres
-        ]);;
+        ]);
+
+
+       
+           
+        }else{
+            Auth::logout();
+            return redirect('/login');
+        }
     }
+
+    public function otp()
+    {
+        
+        return view('auth.otp')->with('email',Session::get('email'))->with('emailc',Session::get('emailc'));
+    }
+
+    public function validationOtp(Request $request){
+        // dd($request->otp);
+         $result=(new Otp)->validate($request->email, $request->otp);
+        
+         if($result->status==true){
+             $connexion = Connexion::where(['identifier'=>Auth::user()->email])->first();
+             $connexion->validity=1;
+                 $connexion->save();
+              return redirect("/");
+         }
+            
+         elseif(trim($result->status)==false)  {
+            // $errors = new MessageBag; 
+             //$errors = new MessageBag(['password' => ['Code Invalide ou expiré.']]);
+             Auth::logout();
+             return redirect('/login')->withErrors(['email' => 'Code Invalide ou expiré. Veuillez vous reconnecter!'])->with( ['message' => 'test code'] );
+         }
+       
+     }
 }

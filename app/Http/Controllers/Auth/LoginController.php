@@ -6,6 +6,14 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
+
+use Illuminate\Http\Request;
+use Auth;
+use Ichtrojan\Otp\Otp;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\Contact;
+use App\Models\Connexion;
+
 class LoginController extends Controller
 {
     /*
@@ -36,5 +44,48 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
+    }
+    public function passwordUpdate(){
+        dd('dd');
+    }
+    public function login(Request $request)
+    {
+        $request->validate([
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+     //if (Auth::attempt(['email' => $email, 'password' => $password, 'active' => 1])) {    if (Auth::attempt($credentials)) {
+        $credentials = $request->only('email', 'password');
+        if (Auth::attempt(['email' => $request->email, 'password' => $request->password])) {
+            $connexions = Connexion::where('identifier',$request->email)->get();
+           
+           // dd(count($connexion));
+           if(count($connexions)==0){
+                $connexion= new Connexion();
+                $connexion->identifier=$request->email;
+                $connexion->validity=0;
+                $connexion->save();
+           }else{
+                $connexion=$connexions[0];
+                $connexion->validity=0;
+                $connexion->save();
+           }
+         //   auth()->user()->generateCode();
+         $otp=(new Otp)->generate($request->email, 'numeric', 6, 15);
+
+         Mail::to($request->email)
+            ->send(new Contact([
+                'nom' => 'Durand',
+                'email' => $request->email,
+                'message' =>$otp->token
+                ]));
+            $tab=explode('@',$request->email);
+            $deb=substr($tab[0],0,2).'**********@'.$tab[1];
+            //return view("auth.otp")->with('email',$request->email)->with('emailc',$deb);
+            return redirect(route('otp'))->with('email',$request->email)->with('emailc',$deb);
+            
+        }
+    
+        return redirect("/login")->withErrors(['password' => 'email ou mot de passe erronné. veuillez ressayer!']);
     }
 }

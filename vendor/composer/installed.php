@@ -3,7 +3,7 @@
         'name' => 'laravel/laravel',
         'pretty_version' => 'dev-main',
         'version' => 'dev-main',
-        'reference' => 'f5ecc50c6311003805e98017e90e0ddc26799e90',
+        'reference' => '7578f98ad90c21739836ca665759cd91f880254e',
         'type' => 'project',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -264,6 +264,15 @@
             'install_path' => __DIR__ . '/../hamcrest/hamcrest-php',
             'aliases' => array(),
             'dev_requirement' => true,
+        ),
+        'ichtrojan/laravel-otp' => array(
+            'pretty_version' => 'v2.0.0',
+            'version' => '2.0.0.0',
+            'reference' => '0c12316ccf6f051cac81d6be418ad6f68689d4b9',
+            'type' => 'library',
+            'install_path' => __DIR__ . '/../ichtrojan/laravel-otp',
+            'aliases' => array(),
+            'dev_requirement' => false,
         ),
         'illuminate/auth' => array(
             'dev_requirement' => false,
@@ -529,7 +538,7 @@
         'laravel/laravel' => array(
             'pretty_version' => 'dev-main',
             'version' => 'dev-main',
-            'reference' => 'f5ecc50c6311003805e98017e90e0ddc26799e90',
+            'reference' => '7578f98ad90c21739836ca665759cd91f880254e',
             'type' => 'project',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

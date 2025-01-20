@@ -161,6 +161,7 @@ class ComposerStaticInitcc86ca0b862e84a76b1741909f0068c8
             'Illuminate\\Support\\' => 19,
             'Illuminate\\Foundation\\Auth\\' => 27,
             'Illuminate\\' => 11,
+            'Ichtrojan\\Otp\\' => 14,
         ),
         'G' => 
         array (
@@ -549,6 +550,10 @@ class ComposerStaticInitcc86ca0b862e84a76b1741909f0068c8
         array (
             0 => __DIR__ . '/..' . '/laravel/framework/src/Illuminate',
         ),
+        'Ichtrojan\\Otp\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/ichtrojan/laravel-otp/src',
+        ),
         'GuzzleHttp\\UriTemplate\\' => 
         array (
             0 => __DIR__ . '/..' . '/guzzlehttp/uri-template/src',
@@ -757,7 +762,6 @@ class ComposerStaticInitcc86ca0b862e84a76b1741909f0068c8
         'App\\Http\\Controllers\\VidangeController' => __DIR__ . '/../..' . '/app/Http/Controllers/VidangeController.php',
         'App\\Http\\Kernel' => __DIR__ . '/../..' . '/app/Http/Kernel.php',
         'App\\Http\\Middleware\\Authenticate' => __DIR__ . '/../..' . '/app/Http/Middleware/Authenticate.php',
-        'App\\Http\\Middleware\\ContentSecurityPolicy' => __DIR__ . '/../..' . '/app/Http/Middleware/ContentSecurityPolicy.php',
         'App\\Http\\Middleware\\EncryptCookies' => __DIR__ . '/../..' . '/app/Http/Middleware/EncryptCookies.php',
         'App\\Http\\Middleware\\PreventRequestsDuringMaintenance' => __DIR__ . '/../..' . '/app/Http/Middleware/PreventRequestsDuringMaintenance.php',
         'App\\Http\\Middleware\\RedirectIfAuthenticated' => __DIR__ . '/../..' . '/app/Http/Middleware/RedirectIfAuthenticated.php',
@@ -808,6 +812,7 @@ class ComposerStaticInitcc86ca0b862e84a76b1741909f0068c8
         'App\\Models\\Cautions_conduteur' => __DIR__ . '/../..' . '/app/Models/Cautions_conduteur.php',
         'App\\Models\\CompagnieAssurance' => __DIR__ . '/../..' . '/app/Models/CompagnieAssurance.php',
         'App\\Models\\Conducteur' => __DIR__ . '/../..' . '/app/Models/Conducteur.php',
+        'App\\Models\\Connexion' => __DIR__ . '/../..' . '/app/Models/Connexion.php',
         'App\\Models\\Contrat' => __DIR__ . '/../..' . '/app/Models/Contrat.php',
         'App\\Models\\ContratAssurance' => __DIR__ . '/../..' . '/app/Models/ContratAssurance.php',
         'App\\Models\\Liens' => __DIR__ . '/../..' . '/app/Models/Liens.php',
@@ -2541,6 +2546,10 @@ class ComposerStaticInitcc86ca0b862e84a76b1741909f0068c8
         'Hamcrest\\Type\\IsString' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Type/IsString.php',
         'Hamcrest\\Util' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Util.php',
         'Hamcrest\\Xml\\HasXPath' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Xml/HasXPath.php',
+        'Ichtrojan\\Otp\\Commands\\CleanOtps' => __DIR__ . '/..' . '/ichtrojan/laravel-otp/src/Commands/CleanOtps.php',
+        'Ichtrojan\\Otp\\Models\\Otp' => __DIR__ . '/..' . '/ichtrojan/laravel-otp/src/Models/Otp.php',
+        'Ichtrojan\\Otp\\Otp' => __DIR__ . '/..' . '/ichtrojan/laravel-otp/src/Otp.php',
+        'Ichtrojan\\Otp\\OtpServiceProvider' => __DIR__ . '/..' . '/ichtrojan/laravel-otp/src/OtpServiceProvider.php',
         'Illuminate\\Auth\\Access\\AuthorizationException' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/AuthorizationException.php',
         'Illuminate\\Auth\\Access\\Events\\GateEvaluated' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Events/GateEvaluated.php',
         'Illuminate\\Auth\\Access\\Gate' => __DIR__ . '/..' . '/laravel/framework/src/Illuminate/Auth/Access/Gate.php',
