@@ -130,7 +130,7 @@ class HomeController extends Controller
 
     public function validationOtp(Request $request){
         // dd($request->otp);
-         $result=(new Otp)->validate($request->email, $request->otp);
+         $result=(new Otp)->validate('dg.bkzed@gmail.com', $request->otp);
         
          if($result->status==true){
              $connexion = Connexion::where(['identifier'=>Auth::user()->email])->first();
