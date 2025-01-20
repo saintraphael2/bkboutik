@@ -53,7 +53,7 @@ class MotoDataTable extends DataTable
     {
 		//var_dump($this->comptable);exit;
         //if($this->comptable==1){
-            $query= $model->select('moto.*')->newQuery()->orderby('id','desc');
+            $query= $model->select('id', 'immatriculation', 'chassis', 'mise_circulation', 'disponible', 'prochaine_vidange', 'date_enregistrement', 'partenaire', 'hors_stock')->newQuery()->orderby('id','desc');
        // }else
 			if($this->comptable==null){
 			$query= $model->newQuery()->where("disponible",1);
