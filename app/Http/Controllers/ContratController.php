@@ -378,10 +378,13 @@ class ContratController extends AppBaseController
         $montant = 0;
         $cummul = 0;
         //$jrs =  ($contrat->deposit) ? (20000 - $contrat->deposit)/500 : 0;
-        if($frequence_paiement->nb_jours==30)
-        $jrs =   ceil(((20000 - $contrat->deposit)/500)/$frequence_paiement->nb_jours) ;
-    else
-    $jrs =   (20000 - $contrat->deposit)/500;
+        if($frequence_paiement->nb_jours==30){
+            $jrs =   ceil(((20000 - $contrat->deposit)/500)/$frequence_paiement->nb_jours) ;
+        }     
+    else{
+        $jrs =   (20000 - $contrat->deposit)/500;
+    }
+    
         $datePrelevement = ($contrat->datprm) ? $contrat->datprm : $contrat->date_debut;
         $solde = $contrat->montant_total+(20000 - $contrat->deposit);
         $offre = $contrat->offres;
@@ -394,7 +397,11 @@ class ContratController extends AppBaseController
             if($occurence == 0){
                 $datePrelevement = $this->calculDatePrelevement($datePrelevement);
             } else {
-                $datePrelevement = $this->calculDatePrelevement($datePrelevement->addDay($frequence_paiement->nb_jours));
+                if($frequence_paiement->nb_jours==30){
+                    $datePrelevement = $this->calculDatePrelevement($datePrelevement->addDay($frequence_paiement->nb_jours));
+                }else                {
+                    $datePrelevement = $this->calculDatePrelevement($datePrelevement->addDay());
+                }
             }
             
             //$montant = $this->calculMontant($solde, $occurence, $contrat->bdeposit, $jrs);
