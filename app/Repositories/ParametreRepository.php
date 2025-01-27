@@ -13,7 +13,8 @@ class ParametreRepository extends BaseRepository
         'contact_societe',
         'prefixe_contrat',
         'index_contrat',
-        'index_recu'
+        'index_recu',
+        'mailotp'
     ];
 
     public function getFieldsSearchable(): array

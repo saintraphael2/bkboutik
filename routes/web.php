@@ -74,3 +74,4 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::resource('offres', App\Http\Controllers\OffreController::class);
+Route::resource('frequencePaiements', App\Http\Controllers\FrequencePaiementController::class);

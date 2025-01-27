@@ -105,6 +105,11 @@ class Contrat extends Model
         return $this->belongsTo(\App\Models\Conducteur::class, 'conducteur');
     }
 
+    public function frequences(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\FrequencePaiement::class, 'frequence_paiement');
+    }
+
     public function motos(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Moto::class, 'moto');

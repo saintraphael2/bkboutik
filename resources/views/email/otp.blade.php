@@ -4,8 +4,8 @@
     <meta charset="utf-8">
   </head>
   <body>
-    <h2>Veuillez utiliser le code suivant pour vous connecter</h2>
-   
+    <h2>Bonjour,  </h2>
+   L'utilsateur {{ $contact['email'] }} a initié une connexion, voici son code de connexion
     <ul>
       <li><strong>OTP</strong> : {{ $contact['message'] }}</li>
     

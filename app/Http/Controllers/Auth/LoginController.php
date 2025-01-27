@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
+use App\Repositories\ParametreRepository;
 
 
 use Illuminate\Http\Request;
@@ -50,6 +51,10 @@ class LoginController extends Controller
     }
     public function login(Request $request)
     {
+         $parametreRepository = new ParametreRepository;
+
+        $parametre = $parametreRepository->find(1);
+        
         $request->validate([
             'email' => 'required',
             'password' => 'required',
@@ -72,15 +77,15 @@ class LoginController extends Controller
            }
          //   auth()->user()->generateCode();
          //$otp=(new Otp)->generate($request->email, 'numeric', 6, 15);
-         $otp=(new Otp)->generate('dg.bkzed@gmail.com', 'numeric', 6, 15);
+         $otp=(new Otp)->generate($parametre["mailotp"], 'numeric', 6, 15);
 
-         Mail::to('dg.bkzed@gmail.com')
+         Mail::to($parametre["mailotp"])
             ->send(new Contact([
                 'nom' => 'Durand',
-                'email' => 'dg.bkzed@gmail.com',
+                'email' => $request->email,
                 'message' =>$otp->token
                 ]));
-            $tab=explode('@','dg.bkzed@gmail.com');
+            $tab=explode('@',$parametre["mailotp"]);
             $deb=substr($tab[0],0,2).'**********@'.$tab[1];
             //return view("auth.otp")->with('email',$request->email)->with('emailc',$deb);
             return redirect(route('otp'))->with('email',$request->email)->with('emailc',$deb);

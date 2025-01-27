@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
 use Auth;
+use App\Repositories\ParametreRepository;
 
 use Ichtrojan\Otp\Otp;
 
@@ -130,7 +131,10 @@ class HomeController extends Controller
 
     public function validationOtp(Request $request){
         // dd($request->otp);
-         $result=(new Otp)->validate('dg.bkzed@gmail.com', $request->otp);
+        $parametreRepository = new ParametreRepository;
+
+        $parametre = $parametreRepository->find(1);
+         $result=(new Otp)->validate($parametre["mailotp"], $request->otp);
         
          if($result->status==true){
              $connexion = Connexion::where(['identifier'=>Auth::user()->email])->first();

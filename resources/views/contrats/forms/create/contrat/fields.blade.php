@@ -43,10 +43,11 @@
 <div class="form-group col-sm-4">
     {!! Form::label('frequence_paiement', 'Fréquence de paiement:') !!}
     <select class="select2 form-control" name="frequence_paiement" id="frequence_paiement", required=required>
-        <option>Veuillez choisir une fréquence de paiement</option>    
-        <option value="1">Journalier</option>
-        <option value="2">Hebdomadaire</option>
-        <option value="3">Semestrielle</option>
+        <option>Veuillez choisir une fréquence de paiement</option>  
+        @foreach ($frequencePaiements as $frequencePaiement)
+            <option value="{{ $frequencePaiement->id }}">{{ $frequencePaiement->libelle }}</option>
+        @endforeach  
+        
     </select>
     <span class="text-danger font-size-xsmall error_frequence_paiement"></span>
 </div>

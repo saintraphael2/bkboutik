@@ -20,6 +20,7 @@ use App\Models\Contrat;
 use App\Models\Conducteur;
 use App\Models\Tableau_armortissement;
 use App\Models\Motif_arriere;
+use App\Models\FrequencePaiement;
 use Illuminate\Http\Request;
 use Flash;
 use DB;
@@ -160,7 +161,7 @@ class ContratController extends AppBaseController
         $typepieces = $this->typepieceRepository->all();
         $typecontrats = $this->typeContratRepository->all();
         $offres = $this->offreRepository->all();
-
+        $frequencePaiement=FrequencePaiement::all();
         $motos = Moto::where([
             'disponible' => 1
         ])->orderby('immatriculation')->get();
@@ -173,6 +174,7 @@ class ContratController extends AppBaseController
             'typepieces' => $typepieces,
             'typecontrats' => $typecontrats,
             'offres' => $offres,
+            'frequencePaiements'=>$frequencePaiement,
             'motos' => $motos
         ]);
     }
@@ -370,12 +372,13 @@ class ContratController extends AppBaseController
     public function createTableauArmortissement($id)
     {
         $contrat = $this->contratRepository->find($id);
-
+        $frequence=$contrat->frequence_paiement;
+        $frequence_paiement=FrequencePaiement::find($frequence);
         $occurence = 0;
         $montant = 0;
         $cummul = 0;
         //$jrs =  ($contrat->deposit) ? (20000 - $contrat->deposit)/500 : 0;
-        $jrs =   (20000 - $contrat->deposit)/500 ;
+        $jrs =   ceil(((20000 - $contrat->deposit)/500)/$frequence_paiement->nb_jours) ;
         $datePrelevement = ($contrat->datprm) ? $contrat->datprm : $contrat->date_debut;
         $solde = $contrat->montant_total+(20000 - $contrat->deposit);
         $offre = $contrat->offres;
@@ -388,7 +391,7 @@ class ContratController extends AppBaseController
             if($occurence == 0){
                 $datePrelevement = $this->calculDatePrelevement($datePrelevement);
             } else {
-                $datePrelevement = $this->calculDatePrelevement($datePrelevement->addDay());
+                $datePrelevement = $this->calculDatePrelevement($datePrelevement->addDay($frequence_paiement->nb_jours));
             }
             
             //$montant = $this->calculMontant($solde, $occurence, $contrat->bdeposit, $jrs);

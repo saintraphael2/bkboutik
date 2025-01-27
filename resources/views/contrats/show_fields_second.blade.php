@@ -65,7 +65,7 @@
         </div> -->
         <div class="col-sm-6">
             {!! Form::label('frequence_paiement', 'Fréquence de Paiement:') !!}
-            <p>{{ ($contrat->frequence_paiement == 1 ) ? "Journalier" : (($contrat->frequence_paiement == 2 ) ? "Hebdomadaire" : (($contrat->frequence_paiement == 3 ) ? "Semestrielle" : "---")) }}</p>
+            <p>{{ ($contrat->frequences->libelle )  }}</p>
         </div>
         <!-- Date Signature Field -->
         <div class="col-sm-2">
