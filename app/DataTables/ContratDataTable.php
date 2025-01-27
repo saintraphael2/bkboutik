@@ -29,7 +29,7 @@ class ContratDataTable extends DataTable
             }
         })
         ->editColumn('frequence_paiement', function ($request) {
-            return ($request->frequence_paiement == 1) ? "JOURNALIER" : (($request->frequence_paiement == 2) ? "HEBDOMADAIRE" : (($request->frequence_paiement == 3) ? "SEMESTRIEL" : ""));
+            return $request->frequences->libelle;
         })
         ->editColumn('montant_total', function ($request) {
             return number_format($request->montant_total, 0," ", " ");
