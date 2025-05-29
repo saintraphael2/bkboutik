@@ -164,4 +164,41 @@
 
 
 
+<li class="nav-item" style="display:{{ visible ( 'autresProduits',$listeUrl ) }}">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-chart-pie"></i>
+        <p>
+           Autres Produits
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+<li class="nav-item" style="display:{{ visible ( 'souscriptions',$listeUrl ) }}">
+    <a href="{{ route('souscriptions.index') }}" class="nav-link {{ Request::is('souscriptions*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Souscriptions</p>
+    </a>
+</li>
 
+<li class="nav-item" style="display:{{ visible ( 'produits',$listeUrl ) }}">
+    <a href="{{ route('produits.index') }}" class="nav-link {{ Request::is('produits*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Produits</p>
+    </a>
+</li>
+
+<li class="nav-item" style="display:{{ visible ( 'typeProduits',$listeUrl ) }}">
+    <a href="{{ route('typeProduits.index') }}" class="nav-link {{ Request::is('typeProduits*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Type Produits</p>
+    </a>
+</li>
+
+<li class="nav-item" style="display:{{ visible ( 'facturationProduits',$listeUrl ) }}">
+    <a href="{{ route('facturationProduits.index') }}" class="nav-link {{ Request::is('facturationProduits*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Facturation Produits</p>
+    </a>
+</li>
+</ul>
+</li>

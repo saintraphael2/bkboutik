@@ -50,7 +50,6 @@
         {!! Form::text('date_fin', null, ['class' => 'form-control','id'=>'date_fin']) !!}
         <span class="text-danger font-size-xsmall error_date_fin"></span>
     </div>
-
     <div class="form-group col-sm-3" style="margin-top: 2rem;">
         <button type="button" name="filter" id="filter" class="btn btn-primary">Filtrer</button>
        

@@ -71,7 +71,17 @@ Route::middleware(['auth'])->group(function () {
    Route::get('listeImmatriculation',['as' => 'listeImmatriculation' , 'uses' => 'MotoController@listeImmatriculation'] ); 
    Route::get('/otp', [App\Http\Controllers\HomeController::class, 'otp'])->name('otp');
    Route::post('/validationOtp', [App\Http\Controllers\HomeController::class, 'validationOtp'])->name('validationOtp');
+   Route::get('autocompContrat',['as' => 'autocompContrat' , 'uses' => 'SouscriptionController@autocompContrat'] );
+   Route::get('modeleProduit',['as' => 'modeleProduit' , 'uses' => 'SouscriptionController@modeleProduit'] ); 
+   Route::get('autoSouscription',['as' => 'autoSouscription' , 'uses' => 'FacturationProduitController@autoSouscription'] );
+   Route::resource('offres', App\Http\Controllers\OffreController::class);
+Route::resource('frequencePaiements', App\Http\Controllers\FrequencePaiementController::class);
+Route::resource('souscriptions', App\Http\Controllers\SouscriptionController::class);
+Route::resource('produits', App\Http\Controllers\ProduitController::class);
+Route::resource('typeProduits', App\Http\Controllers\TypeProduitController::class);
+Route::resource('facturationProduits', App\Http\Controllers\FacturationProduitController::class);
+Route::get('facturation/{idFacture}',['as' => 'facturation' , 'uses' => 'FacturationProduitController@index'] ); 
+Route::get('cheminFacturesProduit',['as' => 'cheminFacturesProduit' , 'uses' => 'FacturationProduitController@cheminVersement'] );
+Route::get('regenererFacturesProduit',['as' => 'regenererFacturesProduit' , 'uses' => 'FacturationProduitController@regenererfacture'] );
 });
 
-Route::resource('offres', App\Http\Controllers\OffreController::class);
-Route::resource('frequencePaiements', App\Http\Controllers\FrequencePaiementController::class);
