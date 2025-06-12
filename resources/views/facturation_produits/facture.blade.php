@@ -66,7 +66,7 @@
                     <i style="font-size: small;">
                         Arrêter le présent versement à la somme de <span class="montant_total_lettre">{{ $lettrage }}</span> francs CFA.
                     </i>
-                    <br><br>
+                    
                     <br><br>
                     Fait à {{$parametre->lieu}}, le {{ $facture->created_at->format("j-m-Y H:i")   }}
                     <br><br><br>
