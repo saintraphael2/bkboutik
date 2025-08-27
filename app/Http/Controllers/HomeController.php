@@ -43,76 +43,8 @@ class HomeController extends Controller
         if($connexion!=null && $connexion->validity==1){
             
 
-        $nbConducteurs = Conducteur::join('contrat', 'contrat.conducteur', '=', 'conducteur.id')
-        ->where('contrat.actif', 1)->where('conducteur.actif', 0)->count();
-		if(Auth::user()->comptable==1){
-			$nbMotos = Moto::wherenull("hors_stock")->orwhere("hors_stock",false)->count();
-		}else{
-			$nbMotos = Moto::wherenull("hors_stock")->orwhere("hors_stock",false)->where("disponible",1)->count();
-		}
-        $nbContrats = Contrat::where([
-            ['contrat.actif', 1]
-        ])->count();
-        $contrats = Contrat::where([
-            ['contrat.actif', 1]
-        ])->latest()->take(5)->get();
 
-        $query = Contrat::join('tableau_armortissement', 'contrat.id', '=', 'tableau_armortissement.contrat')
-        ->where([
-            ['contrat.actif', 1],
-            ['tableau_armortissement.etat', 'NON PAYE'],
-            ['tableau_armortissement.datprev','<', Carbon::now()]
-        ])
-        ->select(
-            'contrat.id', 
-'contrat.conducteur', 
- 'contrat.moto',
- 'contrat.journalier',
- 'contrat.created_at',
-            DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
-            DB::raw('COUNT(etat) as retard')
-        )
-        ->groupBy('contrat.id', 
-'contrat.conducteur', 
- 'contrat.moto',
- 'contrat.journalier',
- 'contrat.created_at');
-
-        $query_arrieres = Contrat::join('tableau_armortissement', 'contrat.id', '=', 'tableau_armortissement.contrat')
-        ->where([
-            ['contrat.actif', 1],
-            ['tableau_armortissement.etat', 'NON PAYE'],
-            ['tableau_armortissement.datprev','<', Carbon::now()]
-        ])
-        ->select(
-            'contrat.id', 
-'contrat.conducteur', 
- 'contrat.moto',
- 'contrat.journalier',
- 'contrat.created_at',
-            DB::raw('SUM(tableau_armortissement.montant) as arrieres'),
-            DB::raw('COUNT(etat) as retard')
-        )
-        ->groupBy('contrat.id', 
-'contrat.conducteur', 
- 'contrat.moto',
- 'contrat.journalier',
- 'contrat.created_at');
-        //->get();
-        
-        
-        $nbArrieres = count($query_arrieres->get()->toArray());
-        $arrieres = $query->latest()->take(5)->get();
-
-        return view('home')->with([
-            'nbContrats' => $nbContrats,
-            'nbConducteurs' => $nbConducteurs,
-            'nbMotos' => $nbMotos,
-            'nbArrieres' => $nbArrieres,
-
-            'contrats' => $contrats,
-            'arrieres' => $arrieres
-        ]);
+        return view('home');
 
 
        

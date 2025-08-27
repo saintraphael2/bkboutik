@@ -15,11 +15,11 @@
     <link href="{{ 'css/app.css' }}" rel="stylesheet">
 
 </head>
-<body style="background-color:#387C93;">
+<body style="background-color:#3CB371;">
 <div style=" width:50%; background-color:white;height:100%;float: left; position:fixed;">
      <div style="margin: auto;  text-align:center; margin-top:300px"><img src="{{asset('images/logo_bk_zed.png')}}"  width="300"             ></div>
     </div>
-    <div style="float: right; width:50%; background-color:#387C93;vertical-align: middle;display: inline-block;margin-top:230px">
+    <div style="float: right; width:50%; background-color:#3CB371;vertical-align: middle;display: inline-block;margin-top:230px">
 
 <div class="login-box">
     <div class="login-logo">

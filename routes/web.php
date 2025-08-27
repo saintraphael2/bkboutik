@@ -71,7 +71,8 @@ Route::middleware(['auth'])->group(function () {
    Route::get('listeImmatriculation',['as' => 'listeImmatriculation' , 'uses' => 'MotoController@listeImmatriculation'] ); 
    Route::get('/otp', [App\Http\Controllers\HomeController::class, 'otp'])->name('otp');
    Route::post('/validationOtp', [App\Http\Controllers\HomeController::class, 'validationOtp'])->name('validationOtp');
-   Route::get('autocompContrat',['as' => 'autocompContrat' , 'uses' => 'SouscriptionController@autocompContrat'] );
+   Route::get('autoProduitBoutique',['as' => 'autoProduitBoutique' , 'uses' => 'StockController@autoProduitBoutique'] );
+   Route::get('autoStock',['as' => 'autoStock' , 'uses' => 'StockController@autoStock'] );
    Route::get('modeleProduit',['as' => 'modeleProduit' , 'uses' => 'SouscriptionController@modeleProduit'] ); 
    Route::get('autoSouscription',['as' => 'autoSouscription' , 'uses' => 'FacturationProduitController@autoSouscription'] );
    Route::resource('offres', App\Http\Controllers\OffreController::class);
@@ -80,8 +81,17 @@ Route::resource('souscriptions', App\Http\Controllers\SouscriptionController::cl
 Route::resource('produits', App\Http\Controllers\ProduitController::class);
 Route::resource('typeProduits', App\Http\Controllers\TypeProduitController::class);
 Route::resource('facturationProduits', App\Http\Controllers\FacturationProduitController::class);
-Route::get('facturation/{idFacture}',['as' => 'facturation' , 'uses' => 'FacturationProduitController@index'] ); 
-Route::get('cheminFacturesProduit',['as' => 'cheminFacturesProduit' , 'uses' => 'FacturationProduitController@cheminVersement'] );
+Route::get('boutique/{idBoutique}',['as' => 'boutique' , 'uses' => 'BoutiqueController@index'] ); 
+Route::get('cheminFactures',['as' => 'cheminFactures' , 'uses' => 'BoutiqueController@cheminFactures'] );
 Route::get('regenererFacturesProduit',['as' => 'regenererFacturesProduit' , 'uses' => 'FacturationProduitController@regenererfacture'] );
+Route::get('listeProduit',['as' => 'listeProduit' , 'uses' => 'ProduitBoutiqueController@liste'] );
+Route::resource('produitBoutiques', App\Http\Controllers\ProduitBoutiqueController::class);
+Route::resource('boutiques', App\Http\Controllers\BoutiqueController::class);
+Route::resource('stocks', App\Http\Controllers\StockController::class);
+Route::resource('detailBoutiques', App\Http\Controllers\DetailBoutiqueController::class);
+Route::resource('livraisons', App\Http\Controllers\LivraisonController::class);
+Route::resource('detail_livraisons', App\Http\Controllers\DetailLivraisonController::class);
+Route::resource('sortieMagasin', App\Http\Controllers\SortieMagasinController::class);
 });
+
 

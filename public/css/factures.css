@@ -6,8 +6,8 @@
  *   License: Open source - MIT <https://opensource.org/licenses/MIT>
  */
 
- .facture {
-	width: 900px;
+ .facture { 
+	width: 700px;
 	margin: 0 auto;
 	border: 1px solid #ccc;
 	padding: 20px;

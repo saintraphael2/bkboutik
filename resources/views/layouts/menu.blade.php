@@ -6,199 +6,63 @@
     </a>
 </li>
 
-<li class="nav-item" style="display:{{ visible ( 'typepieces',$listeUrl ) }}">
-    <a href="{{ route('typepieces.index') }}" class="nav-link {{ Request::is('typepieces*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-address-card"></i>
-        <p>Type de pièces</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'versement',$listeUrl ) }}">
-    <a href="{{ route('versements.index') }}" class="nav-link {{ Request::is('versements*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-invoice-dollar"></i>
-        <p>Facturation</p>
-    </a>
-</li>
-
-<!-- <li class="nav-item">
-    <a href="{{ route('vidanges.index') }}" class="nav-link {{ Request::is('vidanges*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Vidanges</p>
-    </a>
-</li> -->
-
-<!--li class="nav-item">
-    <a href="{{ route('cautions.index') }}" class="nav-link {{ Request::is('cautions*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Cautions</p>
-    </a>
-</li-->
-
-<li class="nav-item" style="display:{{ visible ( 'compagnieassurances',$listeUrl ) }}">
-    <a href="{{ route('compagnieassurances.index') }}" class="nav-link {{ Request::is('compagnieassurances*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-building"></i>
-        <p>Compagnie d'assurances</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'conducteurs',$listeUrl ) }}">
-    <a href="{{ route('conducteurs.index') }}" class="nav-link {{ Request::is('conducteurs*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-person-biking"></i>
-        <p>Conducteurs</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'contrat',$listeUrl ) }}">
-    <a href="{{ route('contrats.index') }}" class="nav-link {{ Request::is('contrats*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-file-signature"></i>
-        <p>Contrats</p>
-    </a>
-</li>
-
-<!--li class="nav-item">
-    <a href="{{ route('contratAssurances.index') }}" class="nav-link {{ Request::is('contratAssurances*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Contrat Assurances</p>
-    </a>
-</li-->
-
-<li class="nav-item" style="display:{{ visible ( 'motos',$listeUrl ) }}">
-    <a href="{{ route('motos.index') }}" class="nav-link {{ Request::is('motos*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-motorcycle"></i>
-        <p>Motos</p>
-    </a>
-</li>
-<li class="nav-item" style="display:{{ visible ( 'partenaires',$listeUrl ) }}">
-    <a href="{{ route('partenaires.index') }}" class="nav-link {{ Request::is('partenaires*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Partenaires</p>
-    </a>
-</li>
-<li class="nav-item" style="display:{{ visible ( 'typeContrats',$listeUrl ) }}">
-    <a href="{{ route('typeContrats.index') }}" class="nav-link {{ Request::is('typeContrats*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-copy"></i>
-        <p>Type de contrats</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'motif_arrieres',$listeUrl ) }}">
-    <a href="{{ route('motif_arrieres.index') }}" class="nav-link {{ Request::is('motif_arrieres*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Motif Arrieres</p>
-    </a>
-</li>
 <li class="nav-item">
-    <a href="{{ route('offres.index') }}" class="nav-link {{ Request::is('offres*') ? 'active' : '' }}" style="display:{{ visible ( 'offres',$listeUrl ) }}">
+    <a href="{{ route('produitBoutiques.index') }}" class="nav-link {{ Request::is('produitBoutiques*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Offres</p>
-    </a>
-
-<!-- <li class="nav-item">
-    <a href="{{ route('tableau_armortissements.index') }}" class="nav-link {{ Request::is('tableau_armortissements*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Tableau Armortissements</p>
-    </a>
-</li> -->
-
-<li class="nav-item" style="display:{{ visible ( 'users',$listeUrl ) }}">
-    <a href="{{ route('users.index') }}" class="nav-link {{ Request::is('users*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-users"></i>
-        <p>Utilisateurs</p>
+        <p>Produit Boutiques</p>
     </a>
 </li>
 
-<li class="nav-item" style="display:{{ visible ( 'liens',$listeUrl ) }}">
-    <a href="{{ route('liens.index') }}" class="nav-link {{ Request::is('liens*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-link"></i>
-        <p>Liens</p>
+<li class="nav-item">
+    <a href="{{ route('listeProduit') }}" class="nav-link {{ Request::is('listeProduit*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Liste des Produits</p>
     </a>
 </li>
 
-<!--li class="nav-item">
-    <a href="{{ route('user_liens.index') }}" class="nav-link {{ Request::is('userLiens*') ? 'active' : '' }}">
+<li class="nav-item">
+    <a href="{{ route('boutiques.index') }}" class="nav-link {{ Request::is('boutiques*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Utilisateurs</p>
+        <p>Caisse</p>
     </a>
-</li-->
+</li>
 
-<li class="nav-item" style="display:{{ visible ( 'etats',$listeUrl ) }}">
+<li class="nav-item">
+    <a href="{{ route('stocks.index') }}" class="nav-link {{ Request::is('stocks*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Stocks</p>
+    </a>
+</li>
+
+
+
+
+
+<li class="nav-item">
     <a href="#" class="nav-link">
         <i class="nav-icon fas fa-chart-pie"></i>
         <p>
-            Etats
+            Magasin
             <i class="right fas fa-angle-left"></i>
         </p>
     </a>
     <ul class="nav nav-treeview">
-        <li class="nav-item">
-            <a href="{{ route('etats.arrieres') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Arriérés</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('etats.encaissements') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Encaissements</p>
-            </a>
-        </li>
+    <li class="nav-item">
+    <a href="{{ route('sortieMagasin.index') }}" class="nav-link {{ Request::is('sortieMagasin*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Sortie d'articles</p>
+    </a>
+</li>
+<li class="nav-item">
+    <a href="{{ route('livraisons.index') }}" class="nav-link {{ Request::is('livraison*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Etat des livraisons</p>
+    </a>
+</li>
 
-        <li class="nav-item">
-            <a href="{{ route('etats.reglements') }}" style="display:{{ visible ( 'etat_reglement',$listeUrl ) }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Règlements</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{ route('etats.partenaires') }}" style="display:{{ visible ( 'etat_partenaire',$listeUrl ) }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Partenaires</p>
-            </a>
-        </li>
+      
       
 </li>
     </ul>
 </li>
 
-
-
-
-
-<li class="nav-item" style="display:{{ visible ( 'autresProduits',$listeUrl ) }}">
-    <a href="#" class="nav-link">
-        <i class="nav-icon fas fa-chart-pie"></i>
-        <p>
-           Autres Produits
-            <i class="right fas fa-angle-left"></i>
-        </p>
-    </a>
-    <ul class="nav nav-treeview">
-<li class="nav-item" style="display:{{ visible ( 'souscriptions',$listeUrl ) }}">
-    <a href="{{ route('souscriptions.index') }}" class="nav-link {{ Request::is('souscriptions*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Souscriptions</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'produits',$listeUrl ) }}">
-    <a href="{{ route('produits.index') }}" class="nav-link {{ Request::is('produits*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Produits</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'typeProduits',$listeUrl ) }}">
-    <a href="{{ route('typeProduits.index') }}" class="nav-link {{ Request::is('typeProduits*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Type Produits</p>
-    </a>
-</li>
-
-<li class="nav-item" style="display:{{ visible ( 'facturationProduits',$listeUrl ) }}">
-    <a href="{{ route('facturationProduits.index') }}" class="nav-link {{ Request::is('facturationProduits*') ? 'active' : '' }}">
-        <i class="nav-icon fas fa-home"></i>
-        <p>Facturation Produits</p>
-    </a>
-</li>
-</ul>
-</li>
