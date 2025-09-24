@@ -25,7 +25,7 @@
                     @else
                     <h3>--</h3>
                     @endif
-                        <p>Conducteurs</p>
+                        <p>Produits</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-user-plus"></i>
@@ -49,7 +49,7 @@
                     @else
                     <h3>--</h3>
                     @endif
-                        <p>Motos</p>
+                        <p>Stock</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-motorcycle"></i>
@@ -77,7 +77,7 @@
                     @endif
                         
                         
-                        <p>Contrats</p>
+                        <p>Caisse</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-file-signature"></i>
@@ -97,7 +97,7 @@
                 <div class="small-box bg-gradient-danger">
                     <div class="inner">
                     <h3> "---" </h3>
-                        <p>Nombre d'arriérés</p>
+                        <p>Livraison</p>
                     </div>
                     <div class="icon">
                         <i class="fas fa-list-check"></i>
@@ -115,17 +115,16 @@
             <div class="col-sm-6">
                 <div class="card">
                     <div class="card-header">
-                        <h5>Liste des 5 derniers contrats signés :</h5>
+                        <h5>Produits à faible quantité :</h5>
                     </div>
                     <div class="card-body px-4">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Contrat</th>
-                                    <th>Moto</th>
-                                    <th>Montant</th>
-                                    <th>Date</th>
+                                    <th>Code</th>
+                                    <th>libelle</th>
+                                    <th>quantites</th>  
                                 </tr>
                             </thead>
                             <tbody  style="font-size:small">
@@ -138,18 +137,16 @@
             <div class="col-sm-6">
             <div class="card">
                     <div class="card-header">
-                        <h5>Liste des 5 derniers arriérés :</h5>
+                        <h5>Top des produits vendus :</h5>
                     </div>
                     <div class="card-body">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th style="width: 10px">#</th>
-                                    <th>Conducteur</th>
-                                    <th>Moto</th>
-                                    <th>Mode</th>
-                                    <th>Arriérés</th>
-                                    <th>Retards</th>
+                                    <th>Code</th>
+                                    <th>libelle</th>
+                                    <th>quantites</th>  
                                 </tr>
                             </thead>
                             <tbody style="font-size:small">
