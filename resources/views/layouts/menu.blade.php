@@ -75,3 +75,21 @@
         <p>Liens</p>
     </a>
 </li>
+<li class="nav-item" >
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-chart-pie"></i>
+        <p>
+            Etats
+            <i class="right fas fa-angle-left"></i>
+        </p>
+    </a>
+    <ul class="nav nav-treeview">
+        <li class="nav-item" style="display:{{ visible ( 'etatBoutique',$listeUrl ) }}">
+        <a href="{{ route('etatBoutique.index') }}" class="nav-link {{ Request::is('etatBoutique*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Caisse</p>
+        </a>
+        </li>
+        
+    </ul>
+</li>

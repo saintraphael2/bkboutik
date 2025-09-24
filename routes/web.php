@@ -87,6 +87,7 @@ Route::get('regenererFacturesProduit',['as' => 'regenererFacturesProduit' , 'use
 Route::get('listeProduit',['as' => 'listeProduit' , 'uses' => 'ProduitBoutiqueController@liste'] );
 Route::resource('produitBoutiques', App\Http\Controllers\ProduitBoutiqueController::class);
 Route::resource('boutiques', App\Http\Controllers\BoutiqueController::class);
+Route::resource('etatBoutique', App\Http\Controllers\EtatBoutiqueController::class);
 Route::resource('stocks', App\Http\Controllers\StockController::class);
 Route::resource('detailBoutiques', App\Http\Controllers\DetailBoutiqueController::class);
 Route::resource('livraisons', App\Http\Controllers\LivraisonController::class);
