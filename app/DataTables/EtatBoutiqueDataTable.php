@@ -5,6 +5,8 @@ namespace App\DataTables;
 use App\Models\Boutique;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class EtatBoutiqueDataTable extends DataTable
 {
