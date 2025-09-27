@@ -36,7 +36,7 @@ class EtatBoutiqueDataTable extends DataTable
             return $request->created_at->format('d-m-Y');
         })
         ->editColumn('montant_verse', function ($request) {
-            return number_format($request->montant, 0," ", " ");
+            return number_format($request->montant_verse, 0," ", " ");
         })
         ->withQuery('total', function($filteredQuery) {
             return $filteredQuery->sum('ttc');
