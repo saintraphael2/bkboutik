@@ -55,7 +55,7 @@ class EtatBoutiqueDataTable extends DataTable
         $query=$model->newQuery();
 
         if($this->comptable==null){
-            $query->where('created_at',Carbon::today());
+            $query->whereDate('created_at',Carbon::today());
         }
         if($this->caissier){
             $query->where('caissier', $this->caissier);
