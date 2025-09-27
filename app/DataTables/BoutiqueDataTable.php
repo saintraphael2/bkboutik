@@ -5,6 +5,8 @@ namespace App\DataTables;
 use App\Models\Boutique;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class BoutiqueDataTable extends DataTable
 {
@@ -15,7 +17,7 @@ class BoutiqueDataTable extends DataTable
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public $comptable;
-    
+
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
