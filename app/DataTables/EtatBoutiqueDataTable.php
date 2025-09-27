@@ -75,7 +75,7 @@ class EtatBoutiqueDataTable extends DataTable
 			}
         }else{
 			if($this->comptable==null){
-				$query->where('created_at',Carbon::today());
+				$query->whereDate('created_at',Carbon::today());
 			}
 		}
         return $query;
