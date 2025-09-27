@@ -58,7 +58,7 @@ class EtatBoutiqueController extends AppBaseController
 
             $query->whereBetween('created_at', [$fromDate, $toDate]);
         }else{
-			$query->where('created_at',Carbon::today());
+			$query->whereDate('created_at',Carbon::today());
 		}
 
         $caisse = $query->sum('montant_verse');
