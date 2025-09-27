@@ -39,7 +39,7 @@ class EtatBoutiqueDataTable extends DataTable
             return number_format($request->montant, 0," ", " ");
         })
         ->withQuery('total', function($filteredQuery) {
-            return $filteredQuery->sum('montant_verse');
+            return $filteredQuery->sum('ttc');
         })
         ;
     }

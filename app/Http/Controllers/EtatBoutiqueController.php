@@ -61,7 +61,7 @@ class EtatBoutiqueController extends AppBaseController
 			$query->whereDate('created_at',Carbon::today());
 		}
 
-        $caisse = $query->sum('montant_verse');
+        $caisse = $query->sum('ttc');
 
         $etatBoutiqueDataTable->comptable=Auth::user()->comptable;
     return $etatBoutiqueDataTable->render('etatBoutiques.index',[
