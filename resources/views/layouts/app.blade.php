@@ -59,7 +59,7 @@
         }
         
         .nav-link p{
-            color:yellow !important;
+            color:navy !important;
         }
         </style>
 
