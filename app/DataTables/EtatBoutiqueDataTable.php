@@ -55,10 +55,10 @@ class EtatBoutiqueDataTable extends DataTable
         $query=$model->newQuery();
 
         if($this->comptable==null){
-            $query->whereDate('created_at',Carbon::today());
+            $query=$query->whereDate('created_at',Carbon::today());
         }
         if($this->caissier){
-            $query->where('caissier', $this->caissier);
+            $query=$query->where('caissier', $this->caissier);
         }
        
 
@@ -68,14 +68,14 @@ class EtatBoutiqueDataTable extends DataTable
             } else {
                 $query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
             }*/
-            $query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
+            $query=$query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
 			
 			if($this->comptable==null){
-				$query->where('created_at','>=',Carbon::now()->addDays(-15));
+				$query=$query->where('created_at','>=',Carbon::now()->addDays(-15));
 			}
         }else{
 			if($this->comptable==null){
-				$query->whereDate('created_at',Carbon::today());
+				$query=$query->whereDate('created_at',Carbon::today());
 			}
 		}
         return $query;
