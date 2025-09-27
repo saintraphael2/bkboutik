@@ -43,7 +43,7 @@ class BoutiqueDataTable extends DataTable
         $query=$model->newQuery();
 
         if($this->comptable==null){
-            $query->where('date',Carbon::today());
+            $query->where('created_at',Carbon::today());
         }
         return $query;
     }
