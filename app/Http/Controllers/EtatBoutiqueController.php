@@ -40,7 +40,9 @@ class EtatBoutiqueController extends AppBaseController
     public function index(EtatBoutiqueDataTable $etatBoutiqueDataTable, Request $request)
     {
         $caissiers = User::get();
-
+        if(Auth::user()->comptable!=1){
+            $caissiers = User::where('id',Auth::user()->id)->get();
+        }
         $query = Boutique::orderby('id','desc');
         $etatBoutiqueDataTable->comptable=Auth::user()->comptable;
         if($request->caissier){
@@ -50,8 +52,8 @@ class EtatBoutiqueController extends AppBaseController
 
         if($request->fromDate && $request->toDate){
 
-            $fromDate = Carbon::parse($request->fromDate);
-            $toDate = Carbon::parse($request->toDate);
+            $fromDate = Carbon::parse($request->fromDate)->startOfDay();
+            $toDate = Carbon::parse($request->toDate)->endOfDay();
 
             $etatBoutiqueDataTable->fromDate = $fromDate;
             $etatBoutiqueDataTable->toDate = $toDate;
