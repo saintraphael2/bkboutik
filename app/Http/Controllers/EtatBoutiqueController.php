@@ -40,14 +40,17 @@ class EtatBoutiqueController extends AppBaseController
     public function index(EtatBoutiqueDataTable $etatBoutiqueDataTable, Request $request)
     {
         $caissiers = User::get();
+        $query = Boutique::orderby('id','desc');
         if(Auth::user()->comptable!=1){
             $caissiers = User::where('id',Auth::user()->id)->get();
+            $etatBoutiqueDataTable->caissier = Auth::user()->id;
+            $query = $query->where('caissier', Auth::user()->id);
         }
-        $query = Boutique::orderby('id','desc');
+        
         $etatBoutiqueDataTable->comptable=Auth::user()->comptable;
         if($request->caissier){
             $etatBoutiqueDataTable->caissier = $request->caissier;
-            $query->where('caissier', $request->caissier);
+            $query =$query->where('caissier', $request->caissier);
         }
 
         if($request->fromDate && $request->toDate){
@@ -58,15 +61,15 @@ class EtatBoutiqueController extends AppBaseController
             $etatBoutiqueDataTable->fromDate = $fromDate;
             $etatBoutiqueDataTable->toDate = $toDate;
 
-            $query->whereBetween('created_at', [$fromDate, $toDate]);
+            $query =$query->whereBetween('created_at', [$fromDate, $toDate]);
         }else{
-			$query->whereDate('created_at',Carbon::today());
+			$query =$query->whereDate('created_at',Carbon::today());
 		}
 
         $caisse = $query->sum('ttc');
 
         $etatBoutiqueDataTable->comptable=Auth::user()->comptable;
-    return $etatBoutiqueDataTable->render('etatBoutiques.index',[
+        return $etatBoutiqueDataTable->render('etatBoutiques.index',[
             'caisse' => number_format($caisse, 0," ", " "),
             'caissiers' => $caissiers,
         ]);
