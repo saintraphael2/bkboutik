@@ -54,9 +54,9 @@ class EtatBoutiqueDataTable extends DataTable
     {
         $query=$model->newQuery();
 
-        if($this->comptable==null){
+      /*  if($this->comptable==null){
             $query=$query->whereDate('created_at',Carbon::today());
-        }
+        }*/
         if($this->caissier){
             $query=$query->where('caissier', $this->caissier);
         }
@@ -74,9 +74,9 @@ class EtatBoutiqueDataTable extends DataTable
 				$query=$query->where('created_at','>=',Carbon::now()->addDays(-15));
 			}
         }else{
-			if($this->comptable==null){
+			//if($this->comptable==null){
 				$query=$query->whereDate('created_at',Carbon::today());
-			}
+			//}
 		}
         return $query;
     }
