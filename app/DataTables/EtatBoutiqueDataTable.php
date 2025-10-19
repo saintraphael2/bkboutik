@@ -63,11 +63,7 @@ class EtatBoutiqueDataTable extends DataTable
        
 
         if($this->fromDate && $this->toDate){
-            /*if(Carbon::parse($this->fromDate).equalTo(Carbon::parse($this->toDate))){
-                $query->where('created_at', $this->fromDate);
-            } else {
-                $query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
-            }*/
+            
             $query=$query->whereBetween('created_at', [$this->fromDate, $this->toDate]);
 			
 			if($this->comptable==null){
