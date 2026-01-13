@@ -32,10 +32,10 @@ class StockController extends AppBaseController
      */
     public function index(StockDataTable $stockDataTable)
     {
-        $produits=$this->produitBoutiqueRepository->all();
+       // $produits=$this->produitBoutiqueRepository->all();
         //dd(count($produits));
 
-        foreach($produits as $produit){
+        /*foreach($produits as $produit){
             $disponibles=Stock::where('produit_boutique',$produit->id)->sum('quantite');
             if($produit->stock==null)
                 continue;
@@ -43,7 +43,7 @@ class StockController extends AppBaseController
             $stock->existant= $disponibles;
             $stock->save();
            // dd($disponibles);
-        }
+        }*/
     return $stockDataTable->render('stocks.index');
     }
 
