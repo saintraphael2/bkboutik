@@ -26,19 +26,19 @@
 @endpush
 
 <!-- Quantite Field -->
-<div class="form-group col-sm-3">
+<div class="form-group col-sm-2">
     {!! Form::label('quantite', 'Quantite:') !!}
     {!! Form::number('quantite', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
 <!-- Prix Field -->
-<div class="form-group col-sm-3">
+<div class="form-group col-sm-2">
     {!! Form::label('prix', 'Prix:') !!}
     {!! Form::number('prix', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<!-- Magasinier Field 
-<div class="form-group col-sm-3">
-    {!! Form::label('magasinier', 'Magasinier:') !!}
-    {!! Form::number('magasinier', null, ['class' => 'form-control']) !!}
+<!-- Magasinier Field -->
+<div class="form-group col-sm-2">
+    {!! Form::label('prix_entreprise', 'Prix Entreprise:') !!}
+    {!! Form::number('prix_entreprise', null, ['class' => 'form-control']) !!}
 </div>-->

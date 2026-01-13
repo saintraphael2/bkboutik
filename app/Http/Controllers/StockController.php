@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Flash;
 use Auth;
 use App\Models\ProduitBoutique;
+use App\Models\Stock;
 use Illuminate\Support\Facades\DB;
 
 class StockController extends AppBaseController
@@ -31,6 +32,18 @@ class StockController extends AppBaseController
      */
     public function index(StockDataTable $stockDataTable)
     {
+        $produits=$this->produitBoutiqueRepository->all();
+        //dd(count($produits));
+
+        foreach($produits as $produit){
+            $disponibles=Stock::where('produit_boutique',$produit->id)->sum('quantite');
+            if($produit->stock==null)
+                continue;
+            $stock=$this->stockRepository->find($produit->stock);
+            $stock->existant= $disponibles;
+            $stock->save();
+           // dd($disponibles);
+        }
     return $stockDataTable->render('stocks.index');
     }
 
@@ -74,7 +87,19 @@ where s.quantite>0 and (p.code like '%".$produit."%'  or p.libelle like '%".$pro
      */
     public function store(CreateStockRequest $request)
     {
-        $request->request->add(['qte_init' => $request->input('quantite')]);
+        $produit=$request->input('produit_boutique');
+        $produitBoutique = $this->produitBoutiqueRepository->find($produit);
+
+        //dd($produitBoutique->stock);
+        $stock_prev=$this->stockRepository->find($produitBoutique->stock);
+        $existant=$stock_prev->quantite;
+
+        $quantite_total=$request->input('quantite')+$existant;
+
+        $request->request->add(['quantite_ajoute' =>$request->input('quantite')]);
+        $request->request->add(['existant' => $existant]);
+        $request->request->add(['qte_init' =>$quantite_total]);
+        $request->request->add(['quantite' =>$quantite_total]);
         $request->request->add(['magasinier' => Auth::user()->id]);
         $input = $request->all();
 
@@ -82,7 +107,7 @@ where s.quantite>0 and (p.code like '%".$produit."%'  or p.libelle like '%".$pro
 
         
         
-        $produitBoutique = $this->produitBoutiqueRepository->find($stock->produit_boutique);
+        
         $produitBoutique->stock=$stock->id;
         $produitBoutique->save();
 

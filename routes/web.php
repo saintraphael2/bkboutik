@@ -96,3 +96,5 @@ Route::resource('sortieMagasin', App\Http\Controllers\SortieMagasinController::c
 });
 
 
+
+Route::resource('clients', App\Http\Controllers\ClientController::class);

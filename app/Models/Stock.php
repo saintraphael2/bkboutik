@@ -16,7 +16,10 @@ class Stock extends Model
         'magasinier',
         'qte_init',
         'qte_livree',
-        'qte_payee'
+        'qte_payee',
+        'prix_entreprise',
+        'existant',
+        'quantite_ajoute'
     ];
 
     protected $casts = [
@@ -34,8 +37,16 @@ class Stock extends Model
         'qte_payee' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
-        'deleted_at' => 'nullable'
+        'deleted_at' => 'nullable',
+        'prix_entreprise' => 'nullable',
+        'existant' => 'nullable',
+        'quantite_ajoute' => 'nullable'
     ];
+
+    public function magasinier(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\User::class, 'magasinier');
+    }
 
     public function produitBoutique(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {

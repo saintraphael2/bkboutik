@@ -2,50 +2,34 @@
 
 namespace App\DataTables;
 
-use App\Models\Stock;
+use App\Models\Client;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class StockDataTable extends DataTable
+class ClientDataTable extends DataTable
 {
     /**
      * Build DataTable class.
      *
-     * @param mixed $query Results from query() method.produitBoutique
+     * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable
-        ->editColumn('produit_boutique', function ($request) {
-            return $request->produitBoutique->code." - ".$request->produitBoutique->libelle;
-        })
-        ->editColumn('date_stock', function ($request) {
-            return ($request->date_stock!=null)?$request->date_stock->format('d-m-Y'):'-';
-        })
-        ->filterColumn('produit_boutique', function($query, $keyword) {
-            $sql = "produit_boutique in (select id from produit_boutique where libelle   like ?)
-           
-            ";
-           
-            $query=$query->whereRaw($sql, ["%{$keyword}%"]);
-        })
-        ->addColumn('action', 'stocks.datatables_actions');
+        return $dataTable->addColumn('action', 'clients.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Stock $model
+     * @param \App\Models\Client $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Stock $model)
+    public function query(Client $model)
     {
-        $query= $model->newQuery()->select('stock.*','produit_boutique.stock')
-        ->join('produit_boutique','produit_boutique.id','=','stock.produit_boutique');
-        return $query;
+        return $model->newQuery();
     }
 
     /**
@@ -85,14 +69,10 @@ class StockDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'produit_boutique',
-            'date_stock',
-            'existant'=>['title'=>'Quantité Initiale'],
-            'quantite_ajoute'=>['title'=>'Quantité mise En Stock'],
-            'quantite'=>['title'=>'Quantité disponible'],
-            'prix',
-            'prix_entreprise',
-            'magasinier'
+            'raison_sociale',
+            'responsable',
+            'contact',
+            'adresse'
         ];
     }
 
@@ -103,6 +83,6 @@ class StockDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'stocks_datatable_' . time();
+        return 'clients_datatable_' . time();
     }
 }
