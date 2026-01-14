@@ -85,7 +85,7 @@ class ProduitBoutiqueDataTable extends DataTable
             'code',
             'libelle',
             'quantites_init'=>['title'=>'Quantité initiale','name'=>'stock'],
-            'quantites'=>['title'=>'Quantité','name'=>'stock'],
+            'quantites'=>['title'=>'Quantité Disponible','name'=>'stock'],
             'prixs'=>['title'=>'Prix','name'=>'stock'],
             'stock'
         ];
