@@ -67,8 +67,8 @@ class ProduitBoutiqueController extends AppBaseController
     public function produitBoutiqueSituation(Request $request)
     {
         $id = $request->id;
-        $from = Carbon::parse($request->from)->format('Y-m-d');
-        $to = Carbon::parse($request->to)->format('Y-m-d');
+        $from = Carbon::parse($request->fromDate)->format('Y-m-d');
+        $to = Carbon::parse($request->toDate)->format('Y-m-d');
         $produitBoutique = $this->produitBoutiqueRepository->find($id);
 
         // $entres=Stock::select("DATE(created_at) as date,qte_init as entre, 0 as sortie")->where('produit_boutique',$id);
