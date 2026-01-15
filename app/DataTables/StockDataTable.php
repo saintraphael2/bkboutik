@@ -87,7 +87,7 @@ class StockDataTable extends DataTable
         return [
             'produit_boutique',
             'date_stock',
-            'existant'=>['title'=>'Quantité Initiale'],
+            'qte_init'=>['title'=>'Quantité Initiale'],
             'quantite_ajoute'=>['title'=>'Quantité mise En Stock'],
             'quantite'=>['title'=>'Quantité disponible'],
             'prix',
