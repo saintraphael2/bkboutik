@@ -42,6 +42,7 @@ class ClientController extends AppBaseController
      */
     public function store(CreateClientRequest $request)
     {
+        $request->request->add(['solde' =>0]);
         $input = $request->all();
 
         $client = $this->clientRepository->create($input);

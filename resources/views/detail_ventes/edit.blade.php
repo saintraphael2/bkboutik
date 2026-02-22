@@ -6,7 +6,7 @@
             <div class="row mb-2">
                 <div class="col-sm-12">
                     <h1>
-                    Ajout Client
+                        Edit Detail Vente
                     </h1>
                 </div>
             </div>
@@ -19,19 +19,17 @@
 
         <div class="card">
 
-            {!! Form::open(['route' => 'clients.store']) !!}
+            {!! Form::model($detailVente, ['route' => ['detailVentes.update', $detailVente->id], 'method' => 'patch']) !!}
 
             <div class="card-body">
-
                 <div class="row">
-                    @include('clients.fields')
+                    @include('detail_ventes.fields')
                 </div>
-
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
-                <a href="{{ route('clients.index') }}" class="btn btn-default"> Annuler </a>
+                {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                <a href="{{ route('detailVentes.index') }}" class="btn btn-default"> Cancel </a>
             </div>
 
             {!! Form::close() !!}

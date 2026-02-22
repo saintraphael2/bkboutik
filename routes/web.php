@@ -73,6 +73,7 @@ Route::middleware(['auth'])->group(function () {
    Route::post('/validationOtp', [App\Http\Controllers\HomeController::class, 'validationOtp'])->name('validationOtp');
    Route::get('autoProduitBoutique',['as' => 'autoProduitBoutique' , 'uses' => 'StockController@autoProduitBoutique'] );
    Route::get('autoStock',['as' => 'autoStock' , 'uses' => 'StockController@autoStock'] );
+    Route::get('autoStockEnt',['as' => 'autoStockEnt' , 'uses' => 'StockController@autoStockEnt'] );
    Route::get('modeleProduit',['as' => 'modeleProduit' , 'uses' => 'SouscriptionController@modeleProduit'] ); 
    Route::get('autoSouscription',['as' => 'autoSouscription' , 'uses' => 'FacturationProduitController@autoSouscription'] );
    Route::resource('offres', App\Http\Controllers\OffreController::class);
@@ -94,8 +95,10 @@ Route::resource('detailBoutiques', App\Http\Controllers\DetailBoutiqueController
 Route::resource('livraisons', App\Http\Controllers\LivraisonController::class);
 Route::resource('detail_livraisons', App\Http\Controllers\DetailLivraisonController::class);
 Route::resource('sortieMagasin', App\Http\Controllers\SortieMagasinController::class);
+Route::resource('clients', App\Http\Controllers\ClientController::class);
+Route::resource('ventes', App\Http\Controllers\VenteController::class);
+Route::resource('detailVentes', App\Http\Controllers\DetailVenteController::class);
 });
 
 
 
-Route::resource('clients', App\Http\Controllers\ClientController::class);

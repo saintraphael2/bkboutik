@@ -1,23 +1,12 @@
-<!-- Raison Sociale Field -->
+<!-- Nom Client Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('raison_sociale', 'Raison Sociale:') !!}
-    {!! Form::text('raison_sociale', null, ['class' => 'form-control', 'required', 'maxlength' => 100, 'maxlength' => 100]) !!}
+    {!! Form::label('nom_client', 'Nom Client:') !!}
+    {!! Form::text('nom_client', null, ['class' => 'form-control', 'required']) !!}
 </div>
 
-<!-- Responsable Field -->
+<!-- Telephone Field -->
 <div class="form-group col-sm-6">
-    {!! Form::label('responsable', 'Responsable:') !!}
-    {!! Form::text('responsable', null, ['class' => 'form-control', 'required', 'maxlength' => 100, 'maxlength' => 100]) !!}
+    {!! Form::label('telephone', 'Telephone:') !!}
+    {!! Form::text('telephone', null, ['class' => 'form-control', 'maxlength' => 45, 'maxlength' => 45]) !!}
 </div>
 
-<!-- Contact Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('contact', 'Contact:') !!}
-    {!! Form::text('contact', null, ['class' => 'form-control', 'required', 'maxlength' => 100, 'maxlength' => 100]) !!}
-</div>
-
-<!-- Adresse Field -->
-<div class="form-group col-sm-6">
-    {!! Form::label('adresse', 'Adresse:') !!}
-    {!! Form::text('adresse', null, ['class' => 'form-control', 'required', 'maxlength' => 100, 'maxlength' => 100]) !!}
-</div>

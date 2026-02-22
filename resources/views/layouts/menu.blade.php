@@ -94,9 +94,23 @@
     </ul>
 </li>
 
-<li class="nav-item">
+<!--li class="nav-item">
     <a href="{{ route('clients.index') }}" class="nav-link {{ Request::is('clients*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Clients</p>
     </a>
 </li>
+
+<li class="nav-item">
+    <a href="{{ route('ventes.index') }}" class="nav-link {{ Request::is('ventes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Ventes</p>
+    </a>
+</li>
+
+<li class="nav-item">
+    <a href="{{ route('detailVentes.index') }}" class="nav-link {{ Request::is('detailVentes*') ? 'active' : '' }}">
+        <i class="nav-icon fas fa-home"></i>
+        <p>Detail Ventes</p>
+    </a>
+</li-->

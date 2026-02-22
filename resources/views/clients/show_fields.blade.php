@@ -1,24 +1,18 @@
-<!-- Raison Sociale Field -->
+<!-- Nom Client Field -->
 <div class="col-sm-12">
-    {!! Form::label('raison_sociale', 'Raison Sociale:') !!}
-    <p>{{ $client->raison_sociale }}</p>
+    {!! Form::label('nom_client', 'Nom Client:') !!}
+    <p>{{ $client->nom_client }}</p>
 </div>
 
-<!-- Responsable Field -->
+<!-- Telephone Field -->
 <div class="col-sm-12">
-    {!! Form::label('responsable', 'Responsable:') !!}
-    <p>{{ $client->responsable }}</p>
+    {!! Form::label('telephone', 'Telephone:') !!}
+    <p>{{ $client->telephone }}</p>
 </div>
 
-<!-- Contact Field -->
+<!-- Solde Field -->
 <div class="col-sm-12">
-    {!! Form::label('contact', 'Contact:') !!}
-    <p>{{ $client->contact }}</p>
-</div>
-
-<!-- Adresse Field -->
-<div class="col-sm-12">
-    {!! Form::label('adresse', 'Adresse:') !!}
-    <p>{{ $client->adresse }}</p>
+    {!! Form::label('solde', 'Solde:') !!}
+    <p>{{ $client->solde }}</p>
 </div>
 

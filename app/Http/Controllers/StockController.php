@@ -68,11 +68,13 @@ where code like '%".$produit."%'  or libelle like '%".$produit."%'";
 
         return response()->json($produits);
     }
-    public function autoStock(Request $request)
+
+
+    public function autoStockEnt(Request $request)
     {
         $produit = $request->input('produit');
     
-        $sql=" SELECT s.id,p.code,p.libelle,ifnull(s.prix,0) prix FROM produit_boutique p 
+        $sql=" SELECT s.id,p.code,p.libelle,ifnull(s.prix_entreprise,0) prix FROM produit_boutique p 
         inner join stock s on s.id=p.stock
         
 where s.quantite>0 and (p.code like '%".$produit."%'  or p.libelle like '%".$produit."%') ";
@@ -91,9 +93,13 @@ where s.quantite>0 and (p.code like '%".$produit."%'  or p.libelle like '%".$pro
         $produitBoutique = $this->produitBoutiqueRepository->find($produit);
 
         //dd($produitBoutique->stock);
-        $stock_prev=$this->stockRepository->find($produitBoutique->stock);
+        if($produitBoutique->stock!=null){
+           $stock_prev=$this->stockRepository->find($produitBoutique->stock);
         $existant=$stock_prev->quantite;
 
+        }else
+        $existant=0;
+        
         $quantite_total=$request->input('quantite')+$existant;
 
         $request->request->add(['quantite_ajoute' =>$request->input('quantite')]);

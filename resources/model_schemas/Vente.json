@@ -12,19 +12,7 @@
         "inView": false
     },
     {
-        "name": "nom_client",
-        "dbType": "integer,false",
-        "htmlType": "number",
-        "validations": "required",
-        "searchable": true,
-        "fillable": true,
-        "primary": false,
-        "inForm": true,
-        "inIndex": true,
-        "inView": true
-    },
-    {
-        "name": "telephone",
+        "name": "code",
         "dbType": "string",
         "htmlType": "text",
         "validations": "nullable|string|max:45|nullable|string|max:45",
@@ -36,7 +24,31 @@
         "inView": true
     },
     {
-        "name": "solde",
+        "name": "ttc",
+        "dbType": "integer,false",
+        "htmlType": "number",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "caissier",
+        "dbType": "bigInteger,false,true",
+        "htmlType": "number",
+        "validations": "required",
+        "searchable": true,
+        "fillable": true,
+        "primary": false,
+        "inForm": true,
+        "inIndex": true,
+        "inView": true
+    },
+    {
+        "name": "client",
         "dbType": "integer,false",
         "htmlType": "number",
         "validations": "nullable|nullable",
@@ -82,5 +94,17 @@
         "inForm": false,
         "inIndex": false,
         "inView": false
+    },
+    {
+        "type": "relation",
+        "relation": "mt1,User,caissier"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,DetailVente,vente"
+    },
+    {
+        "type": "relation",
+        "relation": "1tm,Livraison,vente"
     }
 ]

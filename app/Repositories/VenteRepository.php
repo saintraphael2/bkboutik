@@ -2,15 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Models\Client;
+use App\Models\Vente;
 use App\Repositories\BaseRepository;
 
-class ClientRepository extends BaseRepository
+class VenteRepository extends BaseRepository
 {
     protected $fieldSearchable = [
-        'nom_client',
-        'telephone',
-        'solde'
+        'code',
+        'ttc',
+        'caissier',
+        'client'
     ];
 
     public function getFieldsSearchable(): array
@@ -20,6 +21,6 @@ class ClientRepository extends BaseRepository
 
     public function model(): string
     {
-        return Client::class;
+        return Vente::class;
     }
 }

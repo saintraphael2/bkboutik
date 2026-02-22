@@ -2,11 +2,11 @@
 
 namespace App\DataTables;
 
-use App\Models\Client;
+use App\Models\Vente;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
 
-class ClientDataTable extends DataTable
+class VenteDataTable extends DataTable
 {
     /**
      * Build DataTable class.
@@ -18,16 +18,16 @@ class ClientDataTable extends DataTable
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'clients.datatables_actions');
+        return $dataTable->addColumn('action', 'ventes.datatables_actions');
     }
 
     /**
      * Get query source of dataTable.
      *
-     * @param \App\Models\Client $model
+     * @param \App\Models\Vente $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
-    public function query(Client $model)
+    public function query(Vente $model)
     {
         return $model->newQuery();
     }
@@ -47,7 +47,7 @@ class ClientDataTable extends DataTable
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
-                 'language' => [
+                'language' => [
                     'url' => url('vendor/datatables/French.json')
                 ],
                 'buttons'   => [
@@ -69,9 +69,11 @@ class ClientDataTable extends DataTable
     protected function getColumns()
     {
         return [
-            'nom_client',
-            'telephone',
-            'solde'
+            'code',
+            
+            'client',
+            'ttc',
+            'caissier'
         ];
     }
 
@@ -82,6 +84,6 @@ class ClientDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'clients_datatable_' . time();
+        return 'ventes_datatable_' . time();
     }
 }
