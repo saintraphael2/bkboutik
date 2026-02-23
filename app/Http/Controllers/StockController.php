@@ -84,6 +84,21 @@ where s.quantite>0 and (p.code like '%".$produit."%'  or p.libelle like '%".$pro
 
         return response()->json($produits);
     }
+
+     public function autoStock(Request $request)
+    {
+        $produit = $request->input('produit');
+    
+        $sql=" SELECT s.id,p.code,p.libelle,ifnull(s.prix,0) prix FROM produit_boutique p 
+        inner join stock s on s.id=p.stock
+        
+where s.quantite>0 and (p.code like '%".$produit."%'  or p.libelle like '%".$produit."%') ";
+             
+
+        $produits = DB::connection()->select($sql) ;
+
+        return response()->json($produits);
+    }
     /**
      * Store a newly created Stock in storage.   
      */
