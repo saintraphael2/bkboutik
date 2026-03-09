@@ -14,22 +14,29 @@ class DetailVenteDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
+    public $vente;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'detail_ventes.datatables_actions');
+        return $dataTable
+         ->editColumn('produit_boutique', function ($request) {
+            return $request->produitBoutique->libelle;
+        })
+        ;
     }
 
     /**
-     * Get query source of dataTable.
+     * Get query source of dataTable.  produitBoutique
      *
      * @param \App\Models\DetailVente $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(DetailVente $model)
     {
-        return $model->newQuery();
+        $query=$model->newQuery();
+        $query=$query->where('vente',$this->vente);
+        return $query;
     }
 
     /**
@@ -47,6 +54,9 @@ class DetailVenteDataTable extends DataTable
                 'dom'       => 'Bfrtip',
                 'stateSave' => true,
                 'order'     => [[0, 'desc']],
+                'language' => [
+                    'url' => url('vendor/datatables/French.json')
+                ],
                 'buttons'   => [
                     // Enable Buttons as per your need
 //                    ['extend' => 'create', 'className' => 'btn btn-default btn-sm no-corner',],
@@ -67,11 +77,11 @@ class DetailVenteDataTable extends DataTable
     {
         return [
             'produit_boutique',
-            'stock',
+           
             'quantite',
             'prix',
             'ttc',
-            'vente'
+            
         ];
     }
 

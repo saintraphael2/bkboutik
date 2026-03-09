@@ -7,7 +7,7 @@
 <!-- Ttc Field -->
 <div class="form-group col-sm-6">
     {!! Form::label('ttc', 'Ttc:') !!}
-    {!! Form::number('ttc', null, ['class' => 'form-control', 'disabled'=>'true']) !!}
+    {!! Form::number('ttc', null, ['class' => 'form-control','id'=>'ttc','required','readonly']) !!}
 </div>
 
  
@@ -100,6 +100,7 @@ $("#produit_boutique").change(function(){
 $("#adProduit").click(function(){
     if($("#prix").val()=="0"){
         alert("Veuillez paramétrer le prix du produit, le prix doit être supérieur à 0!");
+        return false;
     } 
     ajouteLigne();
 });

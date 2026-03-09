@@ -94,7 +94,7 @@
     </ul>
 </li>
 
-<!--li class="nav-item">
+<li class="nav-item">
     <a href="{{ route('clients.index') }}" class="nav-link {{ Request::is('clients*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Clients</p>
@@ -113,4 +113,4 @@
         <i class="nav-icon fas fa-home"></i>
         <p>Detail Ventes</p>
     </a>
-</li-->
+</li>

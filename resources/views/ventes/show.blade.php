@@ -6,13 +6,13 @@
             <div class="row mb-2">
                 <div class="col-sm-6">
                     <h1>
-                    @lang('models/ventes.singular') @lang('crud.detail')
+                   Détail de la vente
                     </h1>
                 </div>
                 <div class="col-sm-6">
                     <a class="btn btn-default float-right"
                        href="{{ route('ventes.index') }}">
-                                                    @lang('crud.back')
+                                                    Liste des ventes
                                             </a>
                 </div>
             </div>
@@ -26,6 +26,12 @@
                     @include('ventes.show_fields')
                 </div>
             </div>
+        </div>
+    </div>
+      <div class="clearfix"></div>
+    <div class="content px-3">
+        <div class="card">
+            @include('detail_ventes.table')
         </div>
     </div>
 @endsection

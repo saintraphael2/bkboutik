@@ -83,6 +83,7 @@ Route::resource('produits', App\Http\Controllers\ProduitController::class);
 Route::resource('typeProduits', App\Http\Controllers\TypeProduitController::class);
 Route::resource('facturationProduits', App\Http\Controllers\FacturationProduitController::class);
 Route::get('boutique/{idBoutique}',['as' => 'boutique' , 'uses' => 'BoutiqueController@index'] ); 
+Route::get('vente/{idvente}',['as' => 'vente' , 'uses' => 'VenteController@index'] ); 
 Route::get('cheminFactures',['as' => 'cheminFactures' , 'uses' => 'BoutiqueController@cheminFactures'] );
 Route::get('produitBoutiqueSituation',['as' => 'produitBoutiqueSituation' , 'uses' => 'ProduitBoutiqueController@produitBoutiqueSituation'] );
 Route::get('regenererFacturesProduit',['as' => 'regenererFacturesProduit' , 'uses' => 'FacturationProduitController@regenererfacture'] );

@@ -27,5 +27,99 @@
             @include('ventes.table')
         </div>
     </div>
+<div id="dialog" style="display: none;">
+        <div>
+            <iframe id="framerecu" width="800" height="800"></iframe>
+        </div>
+    </div>
+    @if(Request::segment(2)!=0) 
+    
+    <script>
+       
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
+    $.ajax({
+           type:'GET',
+           url:"{{ route('cheminFactures') }}",
+           data:{versement:{{Request::segment(2)}}},
+           success:function(data){
+                if($.isEmptyObject(data.error)){
+                  
+                   url="{{asset('uploads/vente/$chemin')}}";
+                   url=url.replace("$chemin", data.chemin);
+                  
+                    $("#dialog").dialog({
+            height: 800,
+         width: 800,
+         modal: true,
+         title:"RECU",
+       }
+          
+       );
+     
+         $("#framerecu").attr("src",url);   
+                }
+           }
+        });
+    </script>
+  
+
+    @endif
 @endsection
+<script>
+    function regenerer(versement){
+        $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $.ajax({
+           type:'GET',
+           url:"{{ route('regenererFacturesProduit') }}",
+           data:{versement:versement},
+           success:function(data){
+                if($.isEmptyObject(data.error)){
+                  
+                   url="{{asset('uploads/facturesProduit/$chemin')}}";
+                   url=url.replace("$chemin", data.chemin);
+                  
+                    $("#dialog").dialog({
+            height: 800,
+         width: 800,
+         modal: true,
+         title:"RECU",
+       }
+          
+       );
+     
+         $("#framerecu").attr("src",url);   
+                }
+           }
+        });
+    }
+    function visualiser(title,code){
+        //chemin="/documents/Recus/"+contrat+'/'+versement+'.pdf'
+        chemin="{{route('home')}}/uploads/caisse/"+code+'.pdf'
+        //chemin="{{ public_path() }}/storage/recus/"+contrat+'/'+versement+'.pdf'
+        console.log(chemin);
+       
+       $("#dialog").dialog({
+            height: 800,
+         width: 800,
+         modal: true,
+         title:title,
+       }
+          
+       );
+     
+         $("#framerecu").attr("src",chemin);   
+     
+           
+  }
+</script>
+

@@ -5,7 +5,8 @@ namespace App\DataTables;
 use App\Models\Vente;
 use Yajra\DataTables\Services\DataTable;
 use Yajra\DataTables\EloquentDataTable;
-
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
 class VenteDataTable extends DataTable
 {
     /**
@@ -14,22 +15,38 @@ class VenteDataTable extends DataTable
      * @param mixed $query Results from query() method.
      * @return \Yajra\DataTables\DataTableAbstract
      */
+    public $comptable;
     public function dataTable($query)
     {
         $dataTable = new EloquentDataTable($query);
 
-        return $dataTable->addColumn('action', 'ventes.datatables_actions');
+        return $dataTable
+        ->editColumn('caissier', function ($request) {
+            return $request->caissiers->name;
+        })
+         ->editColumn('client', function ($request) {
+            return $request->clients->nom_client;
+        })
+         ->editColumn('created_at', function ($request) {
+            return $request->created_at->format('d-m-Y');
+        })
+        ->addColumn('action', 'ventes.datatables_actions');
     }
 
     /**
-     * Get query source of dataTable.
+     * Get query source of dataTable. created_at
      *
      * @param \App\Models\Vente $model
      * @return \Illuminate\Database\Eloquent\Builder
      */
     public function query(Vente $model)
     {
-        return $model->newQuery();
+       $query=$model->newQuery();
+
+        if($this->comptable==null){
+            $query->whereDate('created_at',Carbon::today());
+        }
+        return $query;
     }
 
     /**
@@ -69,11 +86,13 @@ class VenteDataTable extends DataTable
     protected function getColumns()
     {
         return [
+              'created_at'=>['title'=>'Date Achat'],
             'code',
             
             'client',
             'ttc',
-            'caissier'
+            'caissier',
+          
         ];
     }
 

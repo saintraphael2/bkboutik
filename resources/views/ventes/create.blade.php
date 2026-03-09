@@ -30,7 +30,10 @@
             </div>
 
             <div class="card-footer">
-                {!! Form::submit('Enregistrer', ['class' => 'btn btn-primary']) !!}
+                {!! Form::submit('Enregistrer', [
+                    'class' => 'btn btn-primary',
+                    'onclick' => 'return confirm("Merci de confimer les chiffres avant de valider!")'
+                    ]) !!}
                 <a href="{{ route('ventes.index') }}" class="btn btn-default"> Annuler </a>
             </div>
 

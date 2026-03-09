@@ -22,7 +22,7 @@ class BoutiqueController extends AppBaseController
     private $boutiqueRepository;
     private $stockRepository;
     private $parametreRepository;
-    public function __construct(StockRepository $stockRepo,BoutiqueRepository $boutiqueRepo, ParametreRepository $parametreRepo)
+    public function __construct(StockRepository $stockRepo, BoutiqueRepository $boutiqueRepo, ParametreRepository $parametreRepo)
     {
         $this->boutiqueRepository = $boutiqueRepo;
         $this->stockRepository = $stockRepo;
@@ -34,8 +34,8 @@ class BoutiqueController extends AppBaseController
      */
     public function index(BoutiqueDataTable $boutiqueDataTable)
     {
-        $boutiqueDataTable->comptable=Auth::user()->comptable;
-    return $boutiqueDataTable->render('boutiques.index');
+        $boutiqueDataTable->comptable = Auth::user()->comptable;
+        return $boutiqueDataTable->render('boutiques.index');
     }
 
 
@@ -44,75 +44,75 @@ class BoutiqueController extends AppBaseController
      */
     public function create()
     {
-        return view('boutiques.create')->with(['readonly'=>'']);
+        return view('boutiques.create')->with(['readonly' => '']);
     }
     public function cheminFactures(Request $request)
     {
         $boutique = $this->boutiqueRepository->find($request->versement);
-        
-  
-        return response()->json(['chemin' => $boutique->code.'.pdf']);
+
+
+        return response()->json(['chemin' => $boutique->code . '.pdf']);
     }
     /**
      * Store a newly created Boutique in storage.
      */
     public function store(CreateBoutiqueRequest $request)
     {
-       // dd($request->input('produits'));
+        // dd($request->input('produits'));
         $request->request->add(['caissier' => Auth::user()->id]);
         $input = $request->all();
 
         $boutique = $this->boutiqueRepository->create($input);
 
-        if(count($request->input('produits'))>0){
-            for($i=0;$i<count($request->input('produits')); $i++){
+        if (count($request->input('produits')) > 0) {
+            for ($i = 0; $i < count($request->input('produits')); $i++) {
                 $detailBoutique = new DetailBoutique();
-                
+
                 $stock = $this->stockRepository->find($request->input('produits')[$i]);
-                $stock->quantite=$stock->quantite-$request->input('quantite')[$i];
-                $stock->qte_payee=$stock->qte_payee+$request->input('quantite')[$i];
+                $stock->quantite = $stock->quantite - $request->input('quantite')[$i];
+                $stock->qte_payee = $stock->qte_payee + $request->input('quantite')[$i];
                 $stock->save();
 
-                $detailBoutique->boutique =$boutique->id;
-                $detailBoutique->stock =$request->input('produits')[$i];
-                $detailBoutique->quantite =$request->input('quantite')[$i];
-                $detailBoutique->prix =$request->input('prix')[$i];
-                $detailBoutique->ttc =$request->input('quantite')[$i]*$request->input('prix')[$i];
-                $detailBoutique->produit_boutique=$stock->produit_boutique;
+                $detailBoutique->boutique = $boutique->id;
+                $detailBoutique->stock = $request->input('produits')[$i];
+                $detailBoutique->quantite = $request->input('quantite')[$i];
+                $detailBoutique->prix = $request->input('prix')[$i];
+                $detailBoutique->ttc = $request->input('quantite')[$i] * $request->input('prix')[$i];
+                $detailBoutique->produit_boutique = $stock->produit_boutique;
                 $detailBoutique->save();
             }
-            
+
         }
 
         Flash::success('Boutique enregistré(e) avec succès.');
 
         $this::print($boutique->id);
-        return redirect(route('boutique',$boutique->id));
+        return redirect(route('boutique', $boutique->id));
         //return redirect(route('boutiques.index',$boutique->id));
     }
     public function print($id)
     {
         //dd($id);
-       // $demande = $this->demandeRepository->find($id);
-       $parametre=$this->parametreRepository->find(1);
-      $produits=DetailBoutique::where('boutique',$id)->get();
-      $boutique=$this->boutiqueRepository->find($id);
-      
-       $data = [
-        'facture' => $boutique,
-        'parametre' => $parametre,
-        'produits' => $produits 
-    ];
+        // $demande = $this->demandeRepository->find($id);
+        $parametre = $this->parametreRepository->find(1);
+        $produits = DetailBoutique::where('boutique', $id)->get();
+        $boutique = $this->boutiqueRepository->find($id);
 
-    //$pdf = Pdf::loadView('boutiques.caisse', $data);
+        $data = [
+            'facture' => $boutique,
+            'parametre' => $parametre,
+            'produits' => $produits
+        ];
 
-   // return $pdf->stream('recu.pdf');
-   $pdfRecu = PDF::loadView('boutiques.caisse', $data)->setPaper('a4', 'portrait')->setWarnings(false);  
-        
-  
-   $filename=$boutique->code.'.pdf';
-   //Storage::put('public/recus/'.$contrat->numero.'/'.$filename, $pdfRecu->output());
-   Storage::disk('uploads')->put('caisse/'.$filename, $pdfRecu->output());
+        //$pdf = Pdf::loadView('boutiques.caisse', $data);
+
+        // return $pdf->stream('recu.pdf');
+        $pdfRecu = PDF::loadView('boutiques.caisse', $data)->setPaper('a4', 'portrait')->setWarnings(false);
+
+
+        $filename = $boutique->code . '.pdf';
+        //Storage::put('public/recus/'.$contrat->numero.'/'.$filename, $pdfRecu->output());
+        Storage::disk('uploads')->put('caisse/' . $filename, $pdfRecu->output());
     }
 
     /**
