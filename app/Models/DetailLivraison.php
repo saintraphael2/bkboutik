@@ -12,6 +12,7 @@ class DetailLivraison extends Model
         'livraison',
         'produit_boutique',
         'detail_boutique',
+         'detail_vente',
         'quantite'
     ];
 
@@ -22,7 +23,7 @@ class DetailLivraison extends Model
     public static array $rules = [
         'livraison' => 'nullable',
         'produit_boutique' => 'nullable',
-        'detail_boutique' => 'required',
+        'detail_boutique' => 'nullable',
         'quantite' => 'required',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',

@@ -38,7 +38,7 @@ class SortieMagasinDataTable extends DataTable
     {
         $query=$model->newQuery()->whereNotIn('id', function ($query) {
             $query->select('boutique')
-                  ->from('livraison');
+                  ->from('livraison')->whereNotNull('boutique');
         });
         return $query;
     }

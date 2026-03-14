@@ -14,6 +14,7 @@ use App\Models\DetailBoutique;
 use App\Models\DetailLivraison;
 use App\Repositories\DetailBoutiqueRepository;
 use App\Repositories\StockRepository;
+use App\Models\DetailVente;
 class LivraisonController extends AppBaseController
 {
     /** @var LivraisonRepository $livraisonRepository*/
@@ -52,33 +53,53 @@ class LivraisonController extends AppBaseController
     {
         $request->request->add(['magasinier' => Auth::user()->id]);
         $input = $request->all();
-        //dd($request->input('livraison'));
+
+        //dd($request->input('boutique'));
         
         $livraison = $this->livraisonRepository->create($input);
-        $detailBoutiques=DetailBoutique::where('boutique',$livraison->boutique)->get();
-        foreach($detailBoutiques as $detailBoutique){ 
-                //$detailBoutique=$this->detailBoutiqueRepository->find($request->input('livraison')[$i]);
-                
+        if($request->input('boutique')!=null) {
+            $detailBoutiques=DetailBoutique::where('boutique',$livraison->boutique)->get();
+            foreach($detailBoutiques as $detailBoutique){ 
                 $detailLivraison=new DetailLivraison();
                 $detailLivraison->livraison=$livraison->id;
                 $detailLivraison->produit_boutique=$detailBoutique->produit_boutique;
                 $detailLivraison->detail_boutique=$detailBoutique->id;
                 $detailLivraison->quantite=$detailBoutique->quantite;
                 $detailLivraison->save();
-
                 $stock=$this->stockRepository->find($detailBoutique->stock);
                 $stock->qte_livree+=$detailBoutique->quantite;
                 $stock->save();
+            }
 
-            
-        }
-
-       
-       
-
-        Flash::success('Livraison enregistré(e) avec succès.');
+             Flash::success('Livraison enregistré(e) avec succès.');
 
         return redirect(route('livraisons.index'));
+
+        }else{
+            $detailVentes=DetailVente::where('vente',$livraison->vente)->get();
+            foreach($detailVentes as $detailVente){ 
+                $detailLivraison=new DetailLivraison();
+                $detailLivraison->livraison=$livraison->id;
+                $detailLivraison->produit_boutique=$detailVente->produit_boutique;
+                $detailLivraison->detail_vente=$detailVente->id;
+                $detailLivraison->quantite=$detailVente->quantite;
+                $detailLivraison->save();
+
+                $stock=$this->stockRepository->find($detailVente->stock);
+                $stock->qte_livree+=$detailVente->quantite;
+                $stock->save();
+            }
+
+             Flash::success('Livraison enregistré(e) avec succès.');
+
+        return redirect(route('livraisonsEnt.index'));
+        }
+        
+
+       
+       
+
+       
     }
 
     /**
@@ -93,7 +114,12 @@ class LivraisonController extends AppBaseController
 
             return redirect(route('livraisons.index'));
         }
-        $detailBoutiques=DetailBoutique::where('boutique',$livraison->boutique)->get();
+        if($livraison->boutique!=null){
+             $detailBoutiques=DetailBoutique::where('boutique',$livraison->boutique)->get();
+        }else{
+            $detailBoutiques=DetailVente::where('vente',$livraison->vente)->get();
+        }
+       
         $detailLivraisons=DetailLivraison::where('livraison',$livraison->id)->get();
         return view('livraisons.show')->with(['livraison'=> $livraison,'detailBoutiques'=>$detailBoutiques,'detailLivraisons'=>$detailLivraisons]);
     }

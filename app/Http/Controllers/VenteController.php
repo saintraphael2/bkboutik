@@ -38,6 +38,7 @@ class VenteController extends AppBaseController
      */
     public function index(VenteDataTable $venteDataTable)
     {
+         $venteDataTable->comptable = Auth::user()->comptable;
         return $venteDataTable->render('ventes.index');
     }
 
@@ -50,7 +51,13 @@ class VenteController extends AppBaseController
         $clients = Client::pluck('nom_client', 'id');
         return view('ventes.create')->with(['clients' => $clients]);
     }
+ public function cheminVentes(Request $request)
+    {
+        $vente = $this->venteRepository->find($request->vente);
 
+
+        return response()->json(['chemin' => $vente->code . '.pdf']);
+    }
     /**
      * Store a newly created Vente in storage.
      */
@@ -62,7 +69,7 @@ class VenteController extends AppBaseController
         $vente = $this->venteRepository->create($input);
 
         $client = $this->clientRepository->find($vente->client);
-        $client->solde += $vente->ttc;
+        $client->solde -= $vente->ttc;
         $client->save();
 
         if (count($request->input('produits')) > 0) {
@@ -94,6 +101,7 @@ class VenteController extends AppBaseController
     }
     public function print($id)
     {
+        ini_set('max_execution_time', 120);
         //dd($id);
         // $demande = $this->demandeRepository->find($id);
         $parametre = $this->parametreRepository->find(1);
@@ -101,7 +109,7 @@ class VenteController extends AppBaseController
         $vente = $this->venteRepository->find($id);
 
         $data = [
-            'facture' => $vente,
+            'vente' => $vente,
             'parametre' => $parametre,
             'produits' => $produits
         ];

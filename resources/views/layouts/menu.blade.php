@@ -53,10 +53,22 @@
             <p>Sortie d'articles</p>
         </a>
         </li>
+        <li class="nav-item" style="display:{{ visible ( 'sortieMagasinEnt',$listeUrl ) }}">
+        <a href="{{ route('sortieMagasinEnt.index') }}" class="nav-link {{ Request::is('sortieMagasinEnt*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Sortie d'articles Ent.</p>
+        </a>
+        </li>
         <li class="nav-item" style="display:{{ visible ( 'livraisons',$listeUrl ) }}">
             <a href="{{ route('livraisons.index') }}" class="nav-link {{ Request::is('livraison*') ? 'active' : '' }}">
                 <i class="nav-icon fas fa-home"></i>
                 <p>Etat des livraisons</p>
+            </a>
+        </li>
+        <li class="nav-item" style="display:{{ visible ( 'livraisonsEnt',$listeUrl ) }}">
+            <a href="{{ route('livraisonsEnt.index') }}" class="nav-link {{ Request::is('livraisonEnt*') ? 'active' : '' }}">
+                <i class="nav-icon fas fa-home"></i>
+                <p>Etat des livraisons Ent.</p>
             </a>
         </li>
     </ul>
@@ -91,26 +103,33 @@
         </a>
         </li>
         
+        <li class="nav-item" style="display:{{ visible ( 'etatBDepots',$listeUrl ) }}">
+        <a href="{{ route('etatDepots.index') }}" class="nav-link {{ Request::is('etatBDepots*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-home"></i>
+            <p>Dépôts</p>
+        </a>
+        </li>
     </ul>
 </li>
 
-<li class="nav-item">
+<li class="nav-item" style="display:{{ visible ( 'clients',$listeUrl ) }}">
     <a href="{{ route('clients.index') }}" class="nav-link {{ Request::is('clients*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Clients</p>
     </a>
 </li>
 
-<li class="nav-item">
+<li class="nav-item" style="display:{{ visible ( 'vente',$listeUrl ) }}">
     <a href="{{ route('ventes.index') }}" class="nav-link {{ Request::is('ventes*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
         <p>Ventes</p>
     </a>
 </li>
 
-<li class="nav-item">
-    <a href="{{ route('detailVentes.index') }}" class="nav-link {{ Request::is('detailVentes*') ? 'active' : '' }}">
+
+<li class="nav-item" style="display:{{ visible ( 'depot',$listeUrl ) }}">
+    <a href="{{ route('depots.index') }}" class="nav-link {{ Request::is('depots*') ? 'active' : '' }}">
         <i class="nav-icon fas fa-home"></i>
-        <p>Detail Ventes</p>
+        <p>Depots</p>
     </a>
 </li>

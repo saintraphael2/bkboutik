@@ -10,7 +10,8 @@ class Livraison extends Model
 
     public $fillable = [
         'boutique',
-        'magasinier'
+        'magasinier',
+        'vente'
     ];
 
     protected $casts = [
@@ -19,7 +20,7 @@ class Livraison extends Model
 
     public static array $rules = [
         'boutique' => 'nullable',
-       
+       'vente' => 'nullable',
         'created_at' => 'nullable',
         'updated_at' => 'nullable',
         'deleted_at' => 'nullable'
@@ -28,6 +29,11 @@ class Livraison extends Model
     public function boutiques(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
         return $this->belongsTo(\App\Models\Boutique::class, 'boutique');
+    }
+
+      public function ventes(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(\App\Models\Vente::class, 'vente');
     }
 
     public function magasiniers(): \Illuminate\Database\Eloquent\Relations\BelongsTo

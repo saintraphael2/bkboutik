@@ -44,8 +44,8 @@
 
     $.ajax({
            type:'GET',
-           url:"{{ route('cheminFactures') }}",
-           data:{versement:{{Request::segment(2)}}},
+           url:"{{ route('cheminVentes') }}",
+           data:{vente:{{Request::segment(2)}}},
            success:function(data){
                 if($.isEmptyObject(data.error)){
                   
@@ -104,7 +104,7 @@
     }
     function visualiser(title,code){
         //chemin="/documents/Recus/"+contrat+'/'+versement+'.pdf'
-        chemin="{{route('home')}}/uploads/caisse/"+code+'.pdf'
+        chemin="{{route('home')}}/uploads/vente/"+code+'.pdf'
         //chemin="{{ public_path() }}/storage/recus/"+contrat+'/'+versement+'.pdf'
         console.log(chemin);
        

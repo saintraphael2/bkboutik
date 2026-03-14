@@ -19,9 +19,10 @@ class LivraisonDataTable extends DataTable
         $dataTable = new EloquentDataTable($query);
 
         return $dataTable
-        ->editColumn('boutique', function ($request) {
+       ->editColumn('boutique', function ($request) {
             return $request->boutiques->code;
         })
+         
         ->editColumn('date_facture', function ($request) {
             return $request->boutiques->created_at->format('d-m-Y');
         })
@@ -42,7 +43,7 @@ class LivraisonDataTable extends DataTable
      */
     public function query(Livraison $model)
     {
-        return $model->newQuery();
+        return $model->newQuery()->whereNotNull('boutique');
     }
 
     /**
@@ -83,7 +84,8 @@ class LivraisonDataTable extends DataTable
     {
         return [
             'created_at'=>['title'=>'DATE LIVRAISON'],
-            'boutique'=>['title'=>'FACTURE'],
+            'boutique'=>['title'=>'FACTURE CLIENT'],
+            
             'date_facture'=>['title'=>'DATE ACHAT', 'name'=>'boutique'],
            
             'magasinier'

@@ -84,22 +84,31 @@ Route::resource('typeProduits', App\Http\Controllers\TypeProduitController::clas
 Route::resource('facturationProduits', App\Http\Controllers\FacturationProduitController::class);
 Route::get('boutique/{idBoutique}',['as' => 'boutique' , 'uses' => 'BoutiqueController@index'] ); 
 Route::get('vente/{idvente}',['as' => 'vente' , 'uses' => 'VenteController@index'] ); 
+Route::get('depot/{iddepot}',['as' => 'depot' , 'uses' => 'DepotController@index'] ); 
 Route::get('cheminFactures',['as' => 'cheminFactures' , 'uses' => 'BoutiqueController@cheminFactures'] );
+Route::get('cheminVentes',['as' => 'cheminVentes' , 'uses' => 'VenteController@cheminVentes'] );
+Route::get('cheminDepot',['as' => 'cheminDepot' , 'uses' => 'DepotController@cheminDepot'] );
 Route::get('produitBoutiqueSituation',['as' => 'produitBoutiqueSituation' , 'uses' => 'ProduitBoutiqueController@produitBoutiqueSituation'] );
+Route::get('clientSituation',['as' => 'clientSituation' , 'uses' => 'ClientController@clientSituation'] );
 Route::get('regenererFacturesProduit',['as' => 'regenererFacturesProduit' , 'uses' => 'FacturationProduitController@regenererfacture'] );
 Route::get('listeProduit',['as' => 'listeProduit' , 'uses' => 'ProduitBoutiqueController@liste'] );
 Route::resource('produitBoutiques', App\Http\Controllers\ProduitBoutiqueController::class);
 Route::resource('boutiques', App\Http\Controllers\BoutiqueController::class);
 Route::resource('etatBoutique', App\Http\Controllers\EtatBoutiqueController::class);
+Route::resource('etatDepots', App\Http\Controllers\EtatDepotController::class);
 Route::resource('stocks', App\Http\Controllers\StockController::class);
 Route::resource('detailBoutiques', App\Http\Controllers\DetailBoutiqueController::class);
 Route::resource('livraisons', App\Http\Controllers\LivraisonController::class);
+Route::resource('livraisonsEnt', App\Http\Controllers\LivraisonEntController::class);
 Route::resource('detail_livraisons', App\Http\Controllers\DetailLivraisonController::class);
 Route::resource('sortieMagasin', App\Http\Controllers\SortieMagasinController::class);
+Route::resource('sortieMagasinEnt', App\Http\Controllers\SortieMagasinEntController::class);
 Route::resource('clients', App\Http\Controllers\ClientController::class);
 Route::resource('ventes', App\Http\Controllers\VenteController::class);
 Route::resource('detailVentes', App\Http\Controllers\DetailVenteController::class);
+Route::resource('depots', App\Http\Controllers\DepotController::class);
 });
+
 
 
 

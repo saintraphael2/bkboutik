@@ -1,5 +1,4 @@
-
-<link href="{{asset('css/factures.css')}}" rel="stylesheet">
+<link href="{{ public_path('css/factures.css') }}" rel="stylesheet">
     
 <div class="content px-3">
 
@@ -8,13 +7,13 @@
             <div class="facture">
                 <table>
                     <tr>
-                        <td colspan="2">
+                        <td colspan="2" style="text-align:left">
                             <h4>
-                                FACTURE N° {{ $facture->code}}
+                              FACTURE N° {{ $vente->code}}
                             </h4>
                         </td>
                         <td colspan="2" style="text-align:right">
-                            <img src="{{ asset('images/logo_bk_zed.png') }}" width="100px" heigth="50px">
+                            <img src="{{ public_path('images/logo_bk_zed.png') }}" width="100">
                         </td>
                     </tr>
                     <tr>
@@ -36,11 +35,13 @@
     <tr  >
         <td style="width:250px;border:none; border-right:none; border-bottom:none; border-bottom:none">Client</td>
         <td style="width:145px;border:none; border-right:none; border-left:none; border-bottom:none">Total à payer</td>
-        <td style="width:145px;border:none; border-right:none; border-left:none; border-bottom:none">Montant Remis</td>
-        <td style="width:100px;border:none; border-right:none; border-left:none; border-bottom:none"> Relicat</td>
-       
+         <td style="width:145px;border:none; border-right:none; border-left:none; border-bottom:none">Solde</td>
     </tr>
-    
+     <tr>
+        <td style="border:1px solid black; border-right:none">{{ $vente->clients->nom_client }} </td>
+        <td style="border:1px solid black; border-right:none">{{ strrev(wordwrap(strrev( $vente->ttc), 3, ' ', true)) }}</td>
+       <td style="border:1px solid black; border-right:none">{{ strrev(wordwrap(strrev( $vente->clients->solde), 3, ' ', true)) }}</td>
+    </tr>
 </table>
 
 
@@ -78,9 +79,9 @@
                     </i>
                     
                     <br><br>
-                    Fait à {{$parametre->lieu}}, le {{ $facture->created_at->format("j-m-Y H:i")   }}
+                    Fait à {{$parametre->lieu}}, le {{ $vente->created_at->format("j-m-Y H:i")   }}
                     <br><br><br>
-                    {{ $facture->caissiers->name }}<br>
+                    {{ $vente->caissiers->name }}<br>
                     Le caissier
                 </p>
             </div>

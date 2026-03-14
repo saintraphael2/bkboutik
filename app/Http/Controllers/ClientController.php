@@ -9,6 +9,10 @@ use App\Http\Controllers\AppBaseController;
 use App\Repositories\ClientRepository;
 use Illuminate\Http\Request;
 use Flash;
+use DB;
+use Carbon\Carbon;
+use App\Models\Depot;
+use App\Models\Vente;
 
 class ClientController extends AppBaseController
 {
@@ -55,9 +59,40 @@ class ClientController extends AppBaseController
     /**
      * Display the specified Client.
      */
-    public function show($id)
+
+    public function clientSituation(Request $request)
     {
-        $client = $this->clientRepository->find($id);
+        $id = $request->id;
+        $from = Carbon::parse($request->fromDate)->format('Y-m-d');
+        $to = Carbon::parse($request->toDate)->format('Y-m-d');
+       $client = $this->clientRepository->find($id);
+
+        $entres = Depot::selectRaw("
+        DATE(created_at) as date,code as reference,
+        montant as depot,
+        0 as achat
+    ")
+            ->where('client', $id)->whereBetween(DB::raw('DATE(created_at)'), [$from, $to])
+            ;
+
+        $sortie = Vente::selectRaw("
+        DATE(created_at) as date, code as reference,
+        0 as depot,
+        ttc as achat
+    ")
+            ->where('client', $id)->whereBetween(DB::raw('DATE(created_at)'), [$from, $to])
+            ;
+
+            
+
+        $movements = $entres
+            ->unionAll($sortie);
+
+        $results = DB::query()
+            ->fromSub($movements, 'm')
+            ->orderBy('date')
+            ->get();
+
 
         if (empty($client)) {
             Flash::error('Client not found');
@@ -65,7 +100,52 @@ class ClientController extends AppBaseController
             return redirect(route('clients.index'));
         }
 
-        return view('clients.show')->with('client', $client);
+        return view('clients.show')->with(['from'=>$from, 'to'=>$to,'results'=>$results])->with('client', $client);
+        
+        }
+
+
+    public function show($id)
+    {
+        $client = $this->clientRepository->find($id);
+
+         $from = Carbon::now()->startOfMonth()->format('Y-m-d');
+        $to = Carbon::now()->format('Y-m-d');
+
+         $entres = Depot::selectRaw("
+        DATE(created_at) as date,code as reference,
+        montant as depot,
+        0 as achat
+    ")
+            ->where('client', $id)->whereBetween(DB::raw('DATE(created_at)'), [$from, $to])
+            ;
+
+        $sortie = Vente::selectRaw("
+        DATE(created_at) as date, code as reference,
+        0 as depot,
+        ttc as achat
+    ")
+            ->where('client', $id)->whereBetween(DB::raw('DATE(created_at)'), [$from, $to])
+            ;
+
+            
+
+        $movements = $entres
+            ->unionAll($sortie);
+
+        $results = DB::query()
+            ->fromSub($movements, 'm')
+            ->orderBy('date')
+            ->get();
+
+
+        if (empty($client)) {
+            Flash::error('Client not found');
+
+            return redirect(route('clients.index'));
+        }
+
+        return view('clients.show')->with(['from'=>$from, 'to'=>$to,'results'=>$results])->with('client', $client);
     }
 
     /**

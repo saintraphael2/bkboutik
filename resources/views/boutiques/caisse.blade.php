@@ -1,5 +1,5 @@
 
-<link href="{{asset('css/factures.css')}}" rel="stylesheet">
+<link href="{{ public_path('css/factures.css') }}" rel="stylesheet">
     
 <div class="content px-3">
 
@@ -14,7 +14,7 @@
                             </h4>
                         </td>
                         <td colspan="2" style="text-align:right">
-                            <img src="{{ asset('images/logo_bk_zed.png') }}" width="100px" heigth="50px">
+                            <img src="{{ public_path('images/logo_bk_zed.png') }}" width="100">
                         </td>
                     </tr>
                     <tr>
