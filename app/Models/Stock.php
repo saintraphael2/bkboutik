@@ -43,9 +43,9 @@ class Stock extends Model
         'quantite_ajoute' => 'nullable'
     ];
 
-    public function magasinier(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    public function magasiniers(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(\App\Models\User::class, 'magasinier');
+        return $this->belongsTo(\App\Models\Users::class, 'magasinier');
     }
 
     public function produitBoutique(): \Illuminate\Database\Eloquent\Relations\BelongsTo

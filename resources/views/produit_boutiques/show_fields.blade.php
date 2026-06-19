@@ -18,7 +18,7 @@
 <!-- Quantite Field -->
 <div class="col-sm-2">
     {!! Form::label('quantite', 'Quantite Vendue:') !!}
-    <p>{{ $vendu }}</p>
+    <p>{{ $vendu }} / {{$venduTotal}}</p>
 </div>
 <!-- Prix Field -->
 <div class="col-sm-2">

@@ -140,6 +140,9 @@ class ProduitBoutiqueController extends AppBaseController
     ->whereBetween(DB::raw('DATE(created_at)'), [$from, $to])
     ->sum('quantite');
 
+    $venduTotal = DetailBoutique::where('produit_boutique', $id)
+    ->sum('quantite');
+
         $movements = $entres
             ->unionAll($sortie);
 
@@ -155,7 +158,7 @@ class ProduitBoutiqueController extends AppBaseController
             return redirect(route('produitBoutiques.index'));
         }
 
-        return view('produit_boutiques.show')->with(['results' => $results, 'produitBoutique' => $produitBoutique,'vendu'=> $vendu,'from'=>$from, 'to'=>$to]);
+        return view('produit_boutiques.show')->with(['results' => $results, 'produitBoutique' => $produitBoutique,'vendu'=> $vendu,'from'=>$from, 'to'=>$to, 'venduTotal'=>$venduTotal]);
     }
 
     /**

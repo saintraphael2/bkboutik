@@ -22,6 +22,9 @@ class StockDataTable extends DataTable
         ->editColumn('produit_boutique', function ($request) {
             return $request->produitBoutique->code." - ".$request->produitBoutique->libelle;
         })
+         ->editColumn('magasinier', function ($request) {
+            return $request->magasiniers->name;
+        })
         ->editColumn('date_stock', function ($request) {
             return ($request->date_stock!=null)?$request->date_stock->format('d-m-Y'):'-';
         })
