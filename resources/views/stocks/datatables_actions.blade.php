@@ -2,7 +2,7 @@
 
 @if($stock==$id)
 <div class='btn-group'>
-    <a href="{{ route('stocks.show', $id) }}" class='btn btn-default btn-xs'>
+    <a href="{{ route('produitBoutiques.show', $produit_boutique) }}" class='btn btn-default btn-xs'>
         <i class="fa fa-eye"></i>
     </a>
     <a href="{{ route('stocks.edit', $id) }}" class='btn btn-default btn-xs'>
@@ -16,4 +16,4 @@
     ]) !!}
 </div>
 @endif
-{!! Form::close() !!}
+{!! Form::close() !!}  
