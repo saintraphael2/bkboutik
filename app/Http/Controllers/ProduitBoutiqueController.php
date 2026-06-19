@@ -108,8 +108,10 @@ class ProduitBoutiqueController extends AppBaseController
 
             return redirect(route('produitBoutiques.index'));
         }
+         $venduTotal = DetailBoutique::where('produit_boutique', $id)
+    ->sum('quantite');
 
-        return view('produit_boutiques.show')->with(['results' => $results, 'produitBoutique' => $produitBoutique,'vendu'=> $vendu,'from'=>$from, 'to'=>$to]);
+        return view('produit_boutiques.show')->with(['results' => $results, 'produitBoutique' => $produitBoutique,'vendu'=> $vendu,'from'=>$from, 'to'=>$to, 'venduTotal'=>$venduTotal]);
     }
 
     public function show($id)
